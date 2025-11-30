@@ -29,7 +29,7 @@ export default function OurFleet() {
         { text: "Comfortable seating", icon: Sparkles },
       ],
       pricing: { oneway: 14, roundtrip: 13 },
-      minKm: { oneway: 150, roundtrip: 250 },
+      minKm: { oneway: 130, roundtrip: 250 },
     },
     {
       name: "Etios",
@@ -44,13 +44,13 @@ export default function OurFleet() {
         { text: "Reliable for tours", icon: CheckCircle },
       ],
       pricing: { oneway: 14, roundtrip: 13 },
-      minKm: { oneway: 150, roundtrip: 250 },
+      minKm: { oneway: 130, roundtrip: 250 },
     },
     {
       name: "SUV",
       icon: Gauge,
       img: "/images/muv.png",
-      passengers: "6 – 7 Passengers",
+      passengers: "7 – 8 Passengers",
       bags: "4 Bags",
       features: [
         { text: "Premium comfort", icon: Sparkles },
@@ -59,7 +59,7 @@ export default function OurFleet() {
         { text: "Luxury family travel", icon: CheckCircle },
       ],
       pricing: { oneway: 19, roundtrip: 18 },
-      minKm: { oneway: 150, roundtrip: 250 },
+      minKm: { oneway: 130, roundtrip: 250 },
     },
     {
       name: "Innova",
@@ -74,7 +74,7 @@ export default function OurFleet() {
         { text: "Ideal for families", icon: UsersRound },
       ],
       pricing: { oneway: 20, roundtrip: 18 },
-      minKm: { oneway: 150, roundtrip: 250 },
+      minKm: { oneway: 130, roundtrip: 250 },
     },
     {
       name: "Innova Crysta",
