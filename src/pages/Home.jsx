@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import BookingForm from "../components/BookingForm";
 import OurFleet from "../components/OurFleet";
 import OurTariff from "../components/OurTariff";
+import { Helmet } from "react-helmet";  
 
 import {
   Car,
@@ -24,6 +25,61 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+
+  <Helmet>
+        
+        <title>Pranav Drop Taxi | Airport & Outstation Taxi Service in Chennai</title>
+        <meta
+          name="description"
+          content="Book safe and affordable airport, local and outstation drop taxi service in Chennai. 24/7 availability, professional drivers, clean cabs, and transparent pricing. Call or WhatsApp to book your ride instantly."
+        />
+        <meta
+          name="keywords"
+          content="drop taxi chennai, pranav drop taxi, one way cab chennai, airport taxi chennai, outstation taxi service, chennai drop taxi, taxi booking chennai, cab service tamil nadu"
+        />
+
+        
+        <link rel="canonical" href="https://pranavdroptaxi.com/" />
+
+        
+        <meta property="og:title" content="Pranav Drop Taxi | Chennai Outstation & Airport Taxi" />
+        <meta
+          property="og:description"
+          content="Affordable one-way drop taxi & airport taxi service in Chennai. 24/7 support, clean vehicles, professional drivers. Book instantly!"
+        />
+        <meta property="og:url" content="https://pranavdroptaxi.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://pranavdroptaxi.com/taxi.jpg" />
+
+      
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Pranav Drop Taxi | Chennai Airport & Outstation Taxi" />
+        <meta
+          name="twitter:description"
+          content="Book safe and affordable outstation/airport taxi service in Chennai. 24/7 availability."
+        />
+        <meta name="twitter:image" content="https://pranavdroptaxi.com/taxi.jpg" />
+
+        
+        <script type="application/ld+json">
+          {`
+          {
+            "@context": "https://schema.org",
+            "@type": "TaxiService",
+            "name": "Pranav Drop Taxi",
+            "url": "https://pranavdroptaxi.com/",
+            "description": "Airport taxi and outstation drop taxi service in Chennai. 24/7 professional cab service across Tamil Nadu.",
+            "telephone": "+919884609789",
+            "areaServed": "Chennai, Tamil Nadu, India",
+            "image": "https://pranavdroptaxi.com/taxi.jpg",
+            "priceRange": "₹₹",
+            "sameAs": [
+              "https://wa.me/919884609789"
+            ]
+          }
+          `}
+        </script>
+      </Helmet>
 
   // Scroll to top button state
   const [showTopButton, setShowTopButton] = useState(false);
