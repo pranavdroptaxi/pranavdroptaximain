@@ -54,8 +54,7 @@ const BookingForm = () => {
       if (rebookState.tripType) setTripType(rebookState.tripType);
       if (rebookState.vehicleType) setVehicleType(rebookState.vehicleType);
       if (rebookState.source) setSourcePlace(rebookState.source);
-      if (rebookState.destination)
-        setDestinationPlace(rebookState.destination);
+      if (rebookState.destination) setDestinationPlace(rebookState.destination);
     }
   }, [rebookState]);
 
@@ -296,23 +295,29 @@ const BookingForm = () => {
       {/* Success Modal */}
       <AnimatePresence>
         {showSuccessModal && (
-          <motion.div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
             <motion.div
-              className="w-full max-w-sm p-6 text-center bg-white shadow-2xl rounded-xl"
-              initial={{ scale: 0.95, opacity: 0 }}
+              className="w-full max-w-sm p-6 text-center border border-gray-700 shadow-2xl bg-black/90 rounded-2xl"
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
             >
-              <CheckCircle2 className="w-10 h-10 mx-auto mb-3 text-green-500" />
-              <h2 className="mb-2 text-xl font-bold text-gray-800">
+              <CheckCircle2 className="w-10 h-10 mx-auto mb-3 text-green-400" />
+              <h2 className="mb-2 text-xl font-bold text-yellow-300">
                 Booking Successful
               </h2>
-              <p className="mb-4 text-gray-600">Your booking ID is:</p>
-              <p className="px-2 py-1 font-mono text-lg text-gray-800 bg-gray-100 rounded">
+              <p className="mb-4 text-sm text-gray-300">Your booking ID is:</p>
+              <p className="px-3 py-2 font-mono text-lg tracking-wide text-yellow-200 border border-gray-700 rounded-lg bg-black/60">
                 {bookingId}
               </p>
               <button
                 onClick={() => setShowSuccessModal(false)}
-                className="px-4 py-2 mt-6 font-semibold text-white bg-green-500 hover:bg-green-600 rounded-xl"
+                className="w-full px-4 py-2 mt-6 text-sm font-semibold text-black transition-colors bg-yellow-300 rounded-xl hover:bg-yellow-400 sm:w-auto"
               >
                 Close
               </button>
@@ -324,23 +329,31 @@ const BookingForm = () => {
       {/* Login Modal */}
       <AnimatePresence>
         {showLoginModal && (
-          <motion.div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
             <motion.div
-              className="w-full max-w-sm p-6 text-center bg-white shadow-xl rounded-xl"
+              className="w-full max-w-sm p-6 text-center border border-gray-700 shadow-2xl bg-black/90 rounded-2xl"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
             >
-              <h3 className="mb-4 text-xl font-bold text-gray-800">
+              <h3 className="mb-4 text-xl font-bold text-yellow-300">
                 Login Successful
               </h3>
-              <p className="mb-6 text-gray-600">Please confirm your booking.</p>
+              <p className="mb-6 text-sm text-gray-300">
+                Please confirm your booking.
+              </p>
 
               <button
                 onClick={() => {
                   setShowLoginModal(false);
                   handleFinalSubmit();
                 }}
-                className="w-full px-4 py-2 font-semibold text-white bg-green-500 hover:bg-green-600 rounded-xl"
+                className="w-full px-4 py-2 text-sm font-semibold text-black transition-colors bg-yellow-300 rounded-xl hover:bg-yellow-400"
               >
                 Confirm Booking
               </button>

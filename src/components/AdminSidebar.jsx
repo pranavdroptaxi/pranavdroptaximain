@@ -27,7 +27,7 @@ const AdminSidebar = () => {
   return (
     <aside className="flex flex-col w-full min-h-screen p-6 text-white bg-black border-r border-yellow-400 sm:w-64">
       <div>
-        <h2 className="mb-6 text-2xl font-extrabold text-yellow-300">Admin Panel</h2>
+        <h2 className="mb-6 text-2xl font-extrabold text-yellow-300">Pranav Drop Taxi</h2>
         <nav className="flex flex-col gap-2">
           <Link to="/admin" className={linkClass('/admin')}>
             <LayoutDashboard size={20} />

@@ -1,17 +1,17 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 import {
   Car,
   Timer,
   RefreshCw,
   UserCheck,
   BadgeIndianRupee,
-} from 'lucide-react';
+} from "lucide-react";
 
 const formatRupees = (value) =>
-  new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'INR',
+  new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
     maximumFractionDigits: 0,
   }).format(value);
 
@@ -28,9 +28,9 @@ const TripSummary = ({
   returnDistance,
 }) => {
   const isValid =
-    typeof distance === 'number' &&
-    typeof duration === 'number' &&
-    typeof cost === 'number' &&
+    typeof distance === "number" &&
+    typeof duration === "number" &&
+    typeof cost === "number" &&
     distance > 0 &&
     duration > 0 &&
     cost >= 0;
@@ -42,80 +42,142 @@ const TripSummary = ({
 
   return (
     <motion.section
-      className="p-4 mt-4 text-black bg-white shadow rounded-xl"
       aria-label="Trip Summary"
       initial="hidden"
       animate="visible"
       variants={fadeInUp}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-3xl p-4 mx-auto mt-6 text-sm text-gray-200 bg-transparent border border-gray-700 shadow-lg rounded-2xl backdrop-blur-sm sm:p-5"
     >
-      <h3 className="mb-4 text-lg font-bold">Trip Summary</h3>
+      {/* Header */}
+      <div className="flex flex-col items-start justify-between gap-2 mb-4 sm:flex-row sm:items-center">
+        <h3 className="text-lg font-bold text-yellow-300 sm:text-xl">
+          Trip Summary
+        </h3>
+        <span className="px-3 py-1 text-xs font-semibold text-black rounded-full bg-yellow-300/90">
+          Instant Estimate
+        </span>
+      </div>
 
-      <ul className="space-y-3 text-sm">
-        <li className="flex items-start gap-2">
-          <RefreshCw className="w-4 h-4 text-black" />
-          <span>
-            <span className="font-medium hover:text-gray-700">Trip Type:</span>{' '}
-            <strong className="capitalize">{tripType}</strong>
-            {tripType === 'round' && (
-              <span className="ml-1 text-xs italic text-gray-600">
-                (distance, time & cost shown for one-way)
-              </span>
+      {/* Main stats grid */}
+      <div className="grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Trip Type */}
+        <div className="flex items-start gap-3 p-3 border border-gray-700 rounded-xl bg-black/30">
+          <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 border border-gray-700 rounded-lg bg-yellow-300/10">
+            <RefreshCw className="w-5 h-5 text-yellow-300" />
+          </div>
+          <div className="space-y-1">
+            <p className="text-xs font-semibold text-gray-400">Trip Type</p>
+            <p className="text-sm font-semibold text-yellow-200 capitalize">
+              {tripType}
+            </p>
+            {tripType === "round" && (
+              <p className="text-[11px] text-gray-500">
+                Distance, time &amp; cost shown for *one-way*
+              </p>
             )}
-          </span>
-        </li>
+          </div>
+        </div>
 
-        <li className="flex items-start gap-2">
-          <Car className="w-4 h-4 text-black" />
-          <span>
-            <span className="font-medium hover:text-gray-700">Distance:</span>{' '}
-            <strong>
-              {distance.toFixed(1)} km
-              {tripType === 'round' && returnDistance
-                ? ` + ${returnDistance.toFixed(1)} km (return)`
-                : ''}
-            </strong>{' '}
-            <span className="text-xs italic text-gray-600">(may vary)</span>
-          </span>
-        </li>
+        {/* Distance */}
+        <div className="flex items-start gap-3 p-3 border border-gray-700 rounded-xl bg-black/30">
+          <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 border border-gray-700 rounded-lg bg-yellow-300/10">
+            <Car className="w-5 h-5 text-yellow-300" />
+          </div>
+          <div className="space-y-1">
+            <p className="text-xs font-semibold text-gray-400">
+              Estimated Distance
+            </p>
+            {/* value + (may vary) inline */}
+            <p className="flex flex-wrap items-baseline gap-1 text-sm font-semibold text-yellow-200">
+              <span>
+                {distance.toFixed(1)} km
+                {tripType === "round" && returnDistance
+                  ? ` + ${returnDistance.toFixed(1)} km (return)`
+                  : ""}
+              </span>
+              <span className="text-[11px] font-normal text-gray-400">
+                (may vary)
+              </span>
+            </p>
+          </div>
+        </div>
 
-        <li className="flex items-start gap-2">
-          <Timer className="w-4 h-4 text-black" />
-          <span>
-            <span className="font-medium hover:text-gray-700">Duration:</span>{' '}
-            <strong>
-              {hours > 0 ? `${hours}h ` : ''}
-              {minutes}m
-            </strong>{' '}
-            <span className="text-xs italic text-gray-600">(may vary)</span>
-          </span>
-        </li>
+        {/* Duration */}
+        <div className="flex items-start gap-3 p-3 border border-gray-700 rounded-xl bg-black/30">
+          <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 border border-gray-700 rounded-lg bg-yellow-300/10">
+            <Timer className="w-5 h-5 text-yellow-300" />
+          </div>
+          <div className="space-y-1">
+            <p className="text-xs font-semibold text-gray-400">
+              Estimated Duration
+            </p>
+            {/* value + (may vary) inline */}
+            <p className="flex flex-wrap items-baseline gap-1 text-sm font-semibold text-yellow-200">
+              <span>
+                {hours > 0 ? `${hours}h ` : ""}
+                {minutes}m
+              </span>
+              <span className="text-[11px] font-normal text-gray-400">
+                (may vary)
+              </span>
+            </p>
+          </div>
+        </div>
 
-        <li className="flex items-start gap-2">
-          <BadgeIndianRupee className="w-4 h-4 text-black" />
-          <span>
-            <span className="font-medium hover:text-gray-700">Cost:</span>{' '}
-            <strong>{formatRupees(cost)}</strong>{' '}
-            <span className="text-xs italic text-gray-600">(may vary)</span>
-          </span>
-        </li>
+        {/* Cost */}
+        <div className="flex items-start gap-3 p-3 border border-gray-700 rounded-xl bg-black/30">
+          <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 border border-gray-700 rounded-lg bg-yellow-300/10">
+            <BadgeIndianRupee className="w-5 h-5 text-yellow-300" />
+          </div>
+          <div className="space-y-1">
+            <p className="text-xs font-semibold text-gray-400">
+              Estimated Cost
+            </p>
+            {/* value + (may vary) inline */}
+            <p className="flex flex-wrap items-baseline gap-1 text-sm font-semibold text-yellow-200">
+              <span>{formatRupees(cost)}</span>
+              <span className="text-[11px] font-normal text-gray-400">
+                (may vary)
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
 
-        <li className="flex items-start gap-2">
-          <UserCheck className="w-4 h-4 text-black" />
-          <span>
-            <span className="font-medium hover:text-gray-700">
-              Driver Bata:
-            </span>{' '}
-            <strong>₹400/day</strong>{' '}
-            <span className="text-xs italic text-gray-600">
-              (not included in cost) (extra*)
-            </span>
-          </span>
-        </li>
-      </ul>
+      {/* Extra info row */}
+      <div className="grid grid-cols-1 gap-4 mt-5 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+        {/* Notes */}
+        <div className="p-3 border border-gray-700 rounded-xl bg-black/40">
+          <h4 className="mb-2 text-xs font-semibold tracking-wide text-gray-400 uppercase">
+            Important Information
+          </h4>
+          <ul className="space-y-1 text-[12px] leading-relaxed text-gray-300">
+            <li>• Rates are based on approximate distance &amp; duration.</li>
+            <li>• Final fare may change depending on actual distance.</li>
+            <li>• Night charges, if applicable, will be added separately.</li>
+          </ul>
+        </div>
 
-      <p className="mt-4 text-xs italic font-semibold text-red-700">
-        * Toll, Parking, Permit & Hill Charges are not included.
+        {/* Driver Bata */}
+        <div className="flex items-start gap-3 p-3 border border-gray-700 rounded-xl bg-black/40">
+          <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 border border-gray-700 rounded-lg bg-yellow-300/10">
+            <UserCheck className="w-5 h-5 text-yellow-300" />
+          </div>
+          <div className="space-y-1">
+            <p className="text-xs font-semibold text-gray-400">Driver Bata</p>
+            <p className="text-sm font-semibold text-yellow-200">₹400 / day</p>
+            <p className="text-[11px] text-gray-500">
+              Not included in the above cost (extra).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer note */}
+      <p className="mt-4 text-[11px] text-red-400">
+        * Toll, Parking, Permit &amp; Hill Charges are not included in this
+        estimate.
       </p>
     </motion.section>
   );

@@ -24,7 +24,10 @@ const AdminDashboard = () => {
   });
   const [trend, setTrend] = useState(null);
 
+  // 🔔 store previous total bookings to detect new ones
   const prevBookingCount = useRef(0);
+
+  // 🔊 audio element reference
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -47,12 +50,27 @@ const AdminDashboard = () => {
         setStats(statsData);
         setLoading(false);
 
+        // ✅ NEW BOOKING NOTIFICATION LOGIC
         if (prevBookingCount.current > 0) {
           const diff = bookings.length - prevBookingCount.current;
+
           if (diff > 0) {
             setTrend('up');
-            toast.success('New booking received');
-            if (audioRef.current) audioRef.current.play();
+
+            // Toast for new booking
+            toast.success(
+              diff === 1
+                ? 'New booking received 🎉'
+                : `${diff} new bookings received 🎉`
+            );
+
+            // Play notification sound
+            if (audioRef.current) {
+              // handle autoplay promise
+              audioRef.current.play().catch((err) => {
+                console.warn('Audio play blocked (likely by browser autoplay policy):', err);
+              });
+            }
           } else if (diff < 0) {
             setTrend('down');
           }
@@ -76,15 +94,22 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen p-6 text-white bg-black">
-      <Toaster />
+      {/* 🔔 Toast container */}
+      <Toaster position="top-right" />
+
+      {/* 🔊 Notification sound (place notification.mp3 in /public) */}
       <audio ref={audioRef} src="/notification.mp3" preload="auto" />
 
-      <h1 className="mb-6 text-3xl font-bold text-yellow-400">Pranav Drop Taxi Dashboard</h1>
+      <h1 className="mb-6 text-3xl font-bold text-yellow-400">
+        Pranav Drop Taxi
+      </h1>
 
       {loading ? (
         <p className="text-gray-300">Loading booking statistics...</p>
       ) : error ? (
-        <div className="p-4 text-red-300 bg-red-900 border border-red-600 rounded">{error}</div>
+        <div className="p-4 text-red-300 bg-red-900 border border-red-600 rounded">
+          {error}
+        </div>
       ) : (
         <>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
