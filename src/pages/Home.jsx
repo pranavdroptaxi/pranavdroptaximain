@@ -71,7 +71,7 @@ function Home() {
             "description": "Airport taxi and outstation drop taxi service in Chennai. 24/7 professional cab service across Tamil Nadu.",
             "telephone": "+919884609789",
             "areaServed": "Chennai, Tamil Nadu, India",
-            "image": "https://pranavdroptaxi.com/taxi.jpg",
+            "image": "https://pranavdroptaxi.com/favicon.ico",
             "priceRange": "₹₹",
             "sameAs": [
               "https://wa.me/919884609789"
