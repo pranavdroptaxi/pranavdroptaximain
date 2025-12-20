@@ -27,134 +27,175 @@ export default function AboutUs() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Animation variants for staggered entrance
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
-    <div className="relative w-full min-h-screen text-white">
+    <div className="relative w-full min-h-screen overflow-hidden text-gray-200 bg-black">
+      
+      {/* --- GLOBAL FIXED BACKGROUND (Full Page & Brighter) --- */}
+      <div className="fixed inset-0 z-0">
+        <div 
+            className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-100"
+            style={{ backgroundImage: "url('/images/taxi.jpg')" }}
+        />
+        {/* Lighter gradient to let the image shine through, darker at top/bottom for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90" />
+      </div>
 
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-center bg-cover blur-sm brightness-75 -z-10"
-        style={{ backgroundImage: "url('/images/taxi.jpg')" }}
-      />
+      {/* 2. Navigation Header */}
+      <div className="relative z-10 flex items-center justify-between px-6 py-6 mx-auto max-w-7xl">
+        <div className="flex items-center gap-3">
+            <img 
+              src="/favicon.ico" 
+              alt="Logo" 
+              className="object-contain w-10 h-10"
+            />
+            <span className="text-xl font-bold tracking-tighter text-white">Pranav Drop Taxi</span>
+        </div>
 
-      {/* Home Button */}
-      <div className="flex justify-end px-4 pt-6 sm:px-6">
         <Link
           to="/"
-          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-black transition bg-yellow-400 rounded-full hover:bg-yellow-300"
+          className="flex items-center gap-2 px-5 py-2 text-sm font-bold text-black transition-all transform rounded-full shadow-lg bg-taxi-yellow hover:bg-white hover:scale-105 active:scale-95"
         >
           <Home className="w-4 h-4" />
-          <span className="hidden sm:inline">Home</span>
+          <span className="hidden sm:inline">Back to Home</span>
         </Link>
       </div>
 
-      {/* Main Content Wrapper */}
-      <div className="px-4 py-12 mx-auto max-w-7xl">
-
-        {/* Glassmorphic About Header Box */}
+      {/* 3. Main Content */}
+      <div className="relative z-10 px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        
+        {/* Header Section */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl p-8 mx-auto mb-12 text-center transition border shadow-lg bg-black/40 backdrop-blur-md rounded-2xl border-white/10 hover:shadow-yellow-500/20"
+          transition={{ duration: 0.7 }}
+          className="mb-16 text-center"
         >
-          <h1 className="mb-4 text-3xl font-bold text-yellow-400 sm:text-4xl drop-shadow">
-            About Pranav Drop Taxi
+          <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-white md:text-6xl drop-shadow-xl">
+            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-taxi-yellow to-yellow-200">Pranav Drop Taxi</span>
           </h1>
-          <p className="max-w-3xl mx-auto text-base leading-relaxed text-gray-200 sm:text-lg">
-            At{" "}
-            <span className="font-semibold text-white">
-              Pranav Drop Taxi
-            </span>, we provide safe, reliable, and affordable taxi services across
-            Tamil Nadu and beyond. Whether you're booking a one-way ride or a
-            round-trip, we make travel seamless with punctual drivers and
-            well-maintained vehicles.
+          <div className="w-24 h-1 mx-auto mb-8 rounded bg-taxi-yellow shadow-[0_0_10px_#FFC107]"></div>
+          <p className="max-w-3xl p-6 mx-auto text-lg leading-relaxed text-gray-200 border shadow-2xl md:text-xl bg-black/40 backdrop-blur-md rounded-2xl border-white/10">
+            At <span className="font-bold text-taxi-yellow">Pranav Drop Taxi</span>, we provide safe, reliable, and affordable taxi services across Tamil Nadu, Kerala, Karnataka, and Andhra Pradesh. Whether you're booking a one-way ride or a round-trip, we make travel seamless with punctual drivers and well-maintained vehicles.
           </p>
         </motion.div>
 
-        {/* Glass Container for Features Grid */}
+        {/* Features Grid */}
         <motion.div
+          variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          transition={{ staggerChildren: 0.2 }}
-          className="grid gap-6 p-6 transition border shadow-lg rounded-2xl bg-black/30 backdrop-blur-md border-white/10 sm:grid-cols-2 md:grid-cols-3 hover:shadow-yellow-500/20"
+          className="grid gap-8 mb-20 sm:grid-cols-2 lg:grid-cols-3"
         >
           {[
             {
-              icon: <Car className="w-8 h-8 text-yellow-400" />,
+              icon: <Car className="w-10 h-10 text-black" />,
               title: "Comfortable Rides",
               desc: "Clean and well-maintained vehicles for a smooth journey.",
             },
             {
-              icon: <ShieldCheck className="w-8 h-8 text-yellow-400" />,
+              icon: <ShieldCheck className="w-10 h-10 text-black" />,
               title: "Safety First",
               desc: "Trusted drivers with verified backgrounds and safe driving.",
             },
             {
-              icon: <Clock className="w-8 h-8 text-yellow-400" />,
+              icon: <Clock className="w-10 h-10 text-black" />,
               title: "On-Time Pickup",
               desc: "Punctual pickups every time. Your time matters.",
             },
             {
-              icon: <PhoneCall className="w-8 h-8 text-yellow-400" />,
+              icon: <PhoneCall className="w-10 h-10 text-black" />,
               title: "24/7 Support",
               desc: "We’re here to assist you anytime, anywhere.",
             },
             {
-              icon: <Globe2 className="w-8 h-8 text-yellow-400" />,
+              icon: <Globe2 className="w-10 h-10 text-black" />,
               title: "Wide Coverage",
               desc: "We cover major cities, towns, and districts across South India.",
             },
             {
-              icon: <UserCheck className="w-8 h-8 text-yellow-400" />,
+              icon: <UserCheck className="w-10 h-10 text-black" />,
               title: "Easy Booking",
               desc: "Book online in minutes — no hassle, no delays.",
             },
           ].map(({ icon, title, desc }, i) => (
             <motion.div
               key={i}
-              className="p-6 transition border shadow-lg bg-black/40 backdrop-blur-md rounded-xl border-white/10 hover:shadow-yellow-500/20"
-              whileHover={{ scale: 1.03 }}
+              variants={itemVariants}
+              whileHover={{ y: -5 }}
+              className="relative p-1 group"
             >
-              <div className="mb-4">{icon}</div>
-              <h3 className="mb-2 text-lg font-semibold text-white sm:text-xl">
-                {title}
-              </h3>
-              <p className="text-sm text-gray-300">{desc}</p>
+              {/* Card Glow Effect */}
+              <div className="absolute inset-0 transition-opacity duration-300 opacity-0 bg-gradient-to-r from-taxi-yellow/20 to-transparent rounded-2xl blur-xl group-hover:opacity-100" />
+              
+              {/* Card Content */}
+              <div className="relative h-full p-8 transition-colors border shadow-2xl bg-black/60 backdrop-blur-md rounded-2xl border-white/10 group-hover:border-taxi-yellow/50">
+                <div className="flex items-center justify-center w-16 h-16 mb-6 transition-transform rounded-full shadow-lg bg-taxi-yellow group-hover:scale-110">
+                  {icon}
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-white group-hover:text-taxi-yellow">
+                  {title}
+                </h3>
+                <p className="leading-relaxed text-gray-300">
+                  {desc}
+                </p>
+              </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Why Choose Us */}
+        {/* Bottom CTA Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="max-w-4xl p-8 mx-auto mt-16 text-center transition border shadow-lg bg-black/40 backdrop-blur-md rounded-2xl border-white/10 hover:shadow-yellow-500/20"
+          className="relative p-10 overflow-hidden text-center border shadow-2xl bg-black/60 backdrop-blur-md rounded-3xl border-white/10"
         >
-          <h2 className="mb-4 text-2xl font-bold text-yellow-400 sm:text-3xl">
-            Why Choose Us?
-          </h2>
-          <p className="max-w-2xl mx-auto text-sm leading-relaxed text-gray-200 sm:text-base">
-            We’ve helped countless customers reach their destinations safely and
-            comfortably. Whether you're traveling for business or leisure,
-            Pranav Drop Taxi is your go-to ride.
+          {/* Decorative background element */}
+          <div className="absolute top-0 right-0 w-64 h-64 -translate-y-1/2 rounded-full opacity-10 bg-taxi-yellow blur-3xl translate-x-1/3" />
+
+          <h2 className="relative mb-4 text-3xl font-bold text-white">Why Choose Us?</h2>
+          <p className="relative max-w-2xl mx-auto mb-8 text-gray-300">
+            We’ve helped countless customers reach their destinations safely and comfortably. Whether you're traveling for business or leisure, Pranav Drop Taxi is your go-to ride.
           </p>
+          <Link to="/" className="relative inline-flex items-center justify-center px-8 py-3 text-base font-bold text-black transition-all duration-300 rounded-full bg-taxi-yellow hover:bg-white hover:shadow-[0_0_20px_rgba(255,193,7,0.4)]">
+            Book Your Ride Now
+          </Link>
         </motion.div>
 
         {/* Back to Top Button */}
         {showTopButton && (
-          <div className="mt-12 text-center">
-            <motion.button
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed z-50 bottom-8 right-8"
+          >
+            <button
               onClick={scrollToTop}
-              whileHover={{ scale: 1.05 }}
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-black transition bg-yellow-400 rounded-full shadow-lg hover:bg-yellow-300"
+              className="p-3 text-black transition-all shadow-lg bg-taxi-yellow rounded-xl hover:bg-white hover:scale-110 focus:outline-none"
+              title="Back to Top"
             >
-              <ChevronUp className="w-4 h-4" />
-              Back to Top
-            </motion.button>
-          </div>
+              <ChevronUp className="w-6 h-6" />
+            </button>
+          </motion.div>
         )}
       </div>
     </div>

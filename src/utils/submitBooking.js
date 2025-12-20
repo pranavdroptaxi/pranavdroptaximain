@@ -11,13 +11,6 @@ import { generateBookingId } from "../utils/generateBookingId";
 
 /**
  * Converts a place object from BookingForm into Firestore-safe format.
- * BookingForm sends:
- *
- *  {
- *    displayName: "",
- *    address: "",
- *    location: { lat: number, lng: number }
- *  }
  */
 function extractPlaceDetails(place) {
   if (!place) return null;
@@ -44,7 +37,7 @@ function extractPlaceDetails(place) {
 
 export default async function submitBooking(data) {
   const {
-    tripType,        // "round" or "single"
+    tripType,        // Input might be "roundtrip" or "round"
     date,
     returnDate,
     source,
@@ -63,7 +56,11 @@ export default async function submitBooking(data) {
     throw new Error("Source or destination not provided.");
   }
 
-  // Normalize place data
+  // 1. Normalize Trip Type (Safety check)
+  // Ensures we always store "round" or "single" regardless of what the UI sends
+  const normalizedTripType = (tripType === "roundtrip" || tripType === "round") ? "round" : "single";
+
+  // 2. Normalize Place Data
   const extractedSource = extractPlaceDetails(source);
   const extractedDestination = extractPlaceDetails(destination);
 
@@ -81,7 +78,7 @@ export default async function submitBooking(data) {
     location: { lat: destLat, lng: destLng },
   } = extractedDestination;
 
-  // Validate address & coordinates
+  // 3. Validate Coordinates
   if (
     !sourceAddress ||
     !destinationAddress ||
@@ -93,7 +90,8 @@ export default async function submitBooking(data) {
     throw new Error("Incomplete or invalid source/destination location.");
   }
 
-  // Prevent duplicate booking
+  // 4. Prevent Duplicate Bookings (Simple spam check)
+  // Checks if a booking with same Phone, Date, Source & Dest exists
   const bookingQuery = query(
     collection(db, "bookings"),
     where("phone", "==", phone),
@@ -104,32 +102,36 @@ export default async function submitBooking(data) {
 
   const existing = await getDocs(bookingQuery);
   if (!existing.empty) {
-    throw new Error("A booking with these details already exists.");
+    throw new Error("A booking with these exact details already exists.");
   }
 
-  // Generate booking ID
+  // 5. Generate Readable Booking ID
   const bookingId = generateBookingId(name, phone);
 
-  // Firestore payload
+  // 6. Construct Payload
   const bookingEntry = {
     bookingId,
-    tripType,                                       // "round" or "single"
+    tripType: normalizedTripType,
     date,
-    returnDate: tripType === "round" ? returnDate : null,  // ✅ FIXED
+    // Only save returnDate if it's a round trip
+    returnDate: normalizedTripType === "round" ? returnDate : null, 
     source: extractedSource,
     destination: extractedDestination,
     vehicleType,
-    cost,
-    distance,
-    duration,
+    cost: Number(cost), // Ensure number
+    distance: Number(distance), // Ensure number
+    duration: Number(duration), // Ensure number
     name,
     phone,
-    userId: userId || null,
-    userEmail: userEmail || null,
-    status: "pending",
+    // CRITICAL for Rules: explicit null if undefined
+    userId: userId || null, 
+    userEmail: userEmail || null, 
+    status: "pending", // Default status
     createdAt: serverTimestamp(),
   };
 
+  // 7. Save to Firestore
   await addDoc(collection(db, "bookings"), bookingEntry);
+  
   return bookingId;
 }

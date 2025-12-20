@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, AlertTriangle } from "lucide-react";
+import { CheckCircle2, AlertTriangle} from "lucide-react";
 import { useLocation } from "react-router-dom";
 
 import TripTypeSelector from "./BookingForm/TripTypeSelector";
@@ -224,100 +224,125 @@ const BookingForm = () => {
     <>
       <motion.form
         onSubmit={handleSubmit}
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="space-y-6 text-white"
+        transition={{ duration: 0.6 }}
+        className="space-y-8 text-white"
       >
-        <TripTypeSelector tripType={tripType} setTripType={setTripType} />
+        {/* Step 1: Trip Type */}
+        <div className="p-1 rounded-full bg-black/40 backdrop-blur-sm">
+            <TripTypeSelector tripType={tripType} setTripType={setTripType} />
+        </div>
 
-        <LocationInputs
-          onSourcePlaceSelect={setSourcePlace}
-          onDestinationPlaceSelect={setDestinationPlace}
-          pickupError={pickupError}
-          dropError={dropError}
-        />
+        {/* Step 2: Route & Date */}
+        <div className="space-y-6">
+            <LocationInputs
+                onSourcePlaceSelect={setSourcePlace}
+                onDestinationPlaceSelect={setDestinationPlace}
+                pickupError={pickupError}
+                dropError={dropError}
+            />
 
-        <DateTimePicker
-          tripType={tripType}
-          date={date}
-          returnDate={returnDate}
-          setDate={setDate}
-          setReturnDate={setReturnDate}
-        />
+            <DateTimePicker
+                tripType={tripType}
+                date={date}
+                returnDate={returnDate}
+                setDate={setDate}
+                setReturnDate={setReturnDate}
+            />
+        </div>
 
-        <VehicleSelector
-          tripType={tripType}
-          vehicleType={vehicleType}
-          setVehicleType={setVehicleType}
-        />
+        {/* Step 3: Vehicle Selection */}
+        <div className="pt-4 border-t border-white/10">
+            <VehicleSelector
+                tripType={tripType}
+                vehicleType={vehicleType}
+                setVehicleType={setVehicleType}
+            />
+        </div>
 
-        <ContactInputs
-          name={name}
-          phone={phone}
-          setName={setName}
-          setPhone={setPhone}
-        />
-
-        {/* Summary */}
+        {/* Summary Section (Conditional) */}
         <AnimatePresence>
           {distance && cost && duration && showSummary && (
             <motion.div
               key="summary"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, height: 0, scale: 0.95 }}
+              animate={{ opacity: 1, height: "auto", scale: 1 }}
+              exit={{ opacity: 0, height: 0, scale: 0.95 }}
               transition={{ duration: 0.4 }}
+              className="overflow-hidden border shadow-lg rounded-2xl bg-white/5 border-taxi-yellow/20"
             >
-              <TripSummary
-                distance={distance}
-                duration={duration}
-                cost={cost}
-                tripType={tripType === "roundtrip" ? "round" : "single"}
-              />
+              <div className="p-2">
+                  <TripSummary
+                    distance={distance}
+                    duration={duration}
+                    cost={cost}
+                    tripType={tripType === "roundtrip" ? "round" : "single"}
+                  />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        <SubmitButton submitting={submitting} />
+        {/* Step 4: Contact & Submit */}
+        <div className="pt-4 space-y-6 border-t border-white/10">
+            <ContactInputs
+                name={name}
+                phone={phone}
+                setName={setName}
+                setPhone={setPhone}
+            />
+
+            <SubmitButton submitting={submitting} />
+        </div>
 
         {error && (
-          <motion.p
-            className="flex items-center justify-center gap-2 text-sm font-medium text-red-400"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center justify-center gap-3 p-3 text-sm font-semibold text-red-200 border border-red-500/30 bg-red-900/20 rounded-xl"
           >
-            <AlertTriangle className="w-5 h-5" /> {error}
-          </motion.p>
+            <AlertTriangle className="w-5 h-5 text-red-500" /> {error}
+          </motion.div>
         )}
       </motion.form>
+
+      {/* --- MODALS --- */}
 
       {/* Success Modal */}
       <AnimatePresence>
         {showSuccessModal && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="w-full max-w-sm p-6 text-center border border-gray-700 shadow-2xl bg-black/90 rounded-2xl"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative w-full max-w-sm p-8 text-center border shadow-2xl bg-taxi-dark rounded-3xl border-taxi-gray"
+              initial={{ scale: 0.8, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.8, y: 20 }}
             >
-              <CheckCircle2 className="w-10 h-10 mx-auto mb-3 text-green-400" />
-              <h2 className="mb-2 text-xl font-bold text-yellow-300">
-                Booking Successful
-              </h2>
-              <p className="mb-4 text-sm text-gray-300">Your booking ID is:</p>
-              <p className="px-3 py-2 font-mono text-lg tracking-wide text-yellow-200 border border-gray-700 rounded-lg bg-black/60">
-                {bookingId}
-              </p>
+              <div className="absolute top-0 right-0 w-32 h-32 translate-x-1/2 -translate-y-1/2 rounded-full opacity-20 bg-taxi-yellow blur-3xl" />
+              
+              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 rounded-full bg-green-500/10">
+                <CheckCircle2 className="w-8 h-8 text-green-500" />
+              </div>
+
+              <h2 className="mb-2 text-2xl font-bold text-white">Booking Confirmed!</h2>
+              <p className="mb-6 text-sm text-gray-400">Your ride has been scheduled.</p>
+
+              <div className="mb-8 overflow-hidden border rounded-xl bg-black/50 border-white/10">
+                  <p className="py-2 text-xs font-bold tracking-widest text-gray-500 uppercase bg-white/5">Booking ID</p>
+                  <p className="py-3 font-mono text-lg font-bold tracking-wider text-taxi-yellow">
+                    {bookingId}
+                  </p>
+              </div>
+
               <button
                 onClick={() => setShowSuccessModal(false)}
-                className="w-full px-4 py-2 mt-6 text-sm font-semibold text-black transition-colors bg-yellow-300 rounded-xl hover:bg-yellow-400 sm:w-auto"
+                className="w-full px-6 py-3.5 text-sm font-bold text-black uppercase transition-all transform bg-taxi-yellow rounded-xl hover:bg-white hover:scale-[1.02] shadow-[0_0_15px_rgba(255,193,7,0.3)]"
               >
                 Close
               </button>
@@ -330,33 +355,43 @@ const BookingForm = () => {
       <AnimatePresence>
         {showLoginModal && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="w-full max-w-sm p-6 text-center border border-gray-700 shadow-2xl bg-black/90 rounded-2xl"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              className="w-full max-w-sm p-8 text-center border shadow-2xl bg-taxi-dark rounded-3xl border-taxi-gray"
+              initial={{ scale: 0.8, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.8, y: 20 }}
             >
-              <h3 className="mb-4 text-xl font-bold text-yellow-300">
-                Login Successful
-              </h3>
-              <p className="mb-6 text-sm text-gray-300">
-                Please confirm your booking.
+              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 rounded-full bg-taxi-yellow/10">
+                <CheckCircle2 className="w-8 h-8 text-taxi-yellow" />
+              </div>
+
+              <h3 className="mb-2 text-xl font-bold text-white">Login Successful</h3>
+              <p className="mb-8 text-sm text-gray-400">
+                You are now logged in. Please confirm to proceed with your booking.
               </p>
 
-              <button
-                onClick={() => {
-                  setShowLoginModal(false);
-                  handleFinalSubmit();
-                }}
-                className="w-full px-4 py-2 text-sm font-semibold text-black transition-colors bg-yellow-300 rounded-xl hover:bg-yellow-400"
-              >
-                Confirm Booking
-              </button>
+              <div className="grid grid-cols-2 gap-4">
+                  <button
+                    onClick={() => setShowLoginModal(false)}
+                    className="w-full px-4 py-3 text-sm font-bold text-gray-400 transition-colors border border-gray-600 rounded-xl hover:text-white hover:border-gray-400"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowLoginModal(false);
+                      handleFinalSubmit();
+                    }}
+                    className="w-full px-4 py-3 text-sm font-bold text-black transition-colors bg-taxi-yellow rounded-xl hover:bg-white"
+                  >
+                    Confirm
+                  </button>
+              </div>
             </motion.div>
           </motion.div>
         )}

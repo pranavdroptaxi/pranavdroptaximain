@@ -4,3 +4,58 @@
 
 /* ✅ Add Leaflet CSS for OpenStreetMap (GoMap) support */
 @import 'leaflet/dist/leaflet.css';
+
+/* --- Global Styles --- */
+body {
+  @apply antialiased text-gray-200 bg-black;
+  font-family: 'Inter', sans-serif;
+}
+
+/* --- Custom Scrollbar (Webkit) --- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 4px;
+  border: 1px solid #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #FFC107;
+}
+
+/* --- Scrollbar Hide Utility --- */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* --- Text Selection Color --- */
+::selection {
+  background-color: #FFC107;
+  color: #000;
+}
+
+/* --- Leaflet Map Dark Mode --- */
+.leaflet-layer,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out,
+.leaflet-control-attribution {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+.leaflet-marker-icon, 
+.leaflet-popup, 
+.leaflet-tooltip {
+  filter: invert(0%) !important; 
+}

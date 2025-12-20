@@ -1,5 +1,6 @@
 /* global google */
 import React, { useEffect } from "react";
+import { MapPin, Navigation } from "lucide-react";
 import loadGoogleMapsAPI from "../../utils/loadGoogleMapsAPI";
 
 const LocationInputs = ({
@@ -23,10 +24,11 @@ const LocationInputs = ({
 
         container.innerHTML = "";
 
-        // Wrapper with Tailwind styling (same as ContactInputs)
+        // Wrapper with Glossy Dark Theme Styling
         const wrapper = document.createElement("div");
+        // Using focus-within to highlight the box when the inner google input is clicked
         wrapper.className =
-          "w-full p-3 text-white bg-gray-800 border border-gray-600 rounded";
+          "w-full px-2 py-1 text-white transition-all duration-300 border bg-black/50 border-white/10 rounded-xl focus-within:border-taxi-yellow focus-within:ring-1 focus-within:ring-taxi-yellow/50";
 
         const input = new google.maps.places.PlaceAutocompleteElement({
           includedRegionCodes: ["IN"],
@@ -37,6 +39,12 @@ const LocationInputs = ({
             west: 74.0,
           },
         });
+
+        // Attempt to style the internal web component via inline style (best effort)
+        // This helps it blend into the dark background
+        input.style.backgroundColor = "transparent";
+        input.style.width = "100%";
+        input.style.color = "white"; 
 
         wrapper.appendChild(input);
         container.appendChild(wrapper);
@@ -74,36 +82,46 @@ const LocationInputs = ({
   }, [onSourcePlaceSelect, onDestinationPlaceSelect]);
 
   return (
-    <div className="space-y-4">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      
       {/* Pickup Box */}
-      <div>
-        <label className="block mb-1 text-sm text-gray-300">
-          Pickup Location
+      <div className="space-y-2">
+        <label className="flex items-center gap-2 ml-1 text-xs font-bold tracking-wider text-gray-400 uppercase">
+          <MapPin className="w-3 h-3 text-taxi-yellow" /> Pickup Location
         </label>
 
         <div
           id="pickup-input"
-          className={`${pickupError ? "border-red-500" : "border-transparent"}`}
+          // If error, we add a red ring around the container
+          className={`rounded-xl transition-all ${
+            pickupError ? "ring-1 ring-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]" : ""
+          }`}
         />
 
         {pickupError && (
-          <p className="mt-1 text-sm text-red-400">{pickupError}</p>
+          <p className="ml-1 text-xs font-medium text-red-400 animate-pulse">
+            * {pickupError}
+          </p>
         )}
       </div>
 
       {/* Drop Box */}
-      <div>
-        <label className="block mb-1 text-sm text-gray-300">
-          Drop Location
+      <div className="space-y-2">
+        <label className="flex items-center gap-2 ml-1 text-xs font-bold tracking-wider text-gray-400 uppercase">
+          <Navigation className="w-3 h-3 text-taxi-yellow" /> Drop Location
         </label>
 
         <div
           id="drop-input"
-          className={`${dropError ? "border-red-500" : "border-transparent"}`}
+          className={`rounded-xl transition-all ${
+            dropError ? "ring-1 ring-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]" : ""
+          }`}
         />
 
         {dropError && (
-          <p className="mt-1 text-sm text-red-400">{dropError}</p>
+          <p className="ml-1 text-xs font-medium text-red-400 animate-pulse">
+            * {dropError}
+          </p>
         )}
       </div>
     </div>

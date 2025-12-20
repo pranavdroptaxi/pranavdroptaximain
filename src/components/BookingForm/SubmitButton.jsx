@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader2 } from 'lucide-react';
+import { Loader2, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const SubmitButton = ({ submitting }) => {
@@ -8,16 +8,27 @@ const SubmitButton = ({ submitting }) => {
       type="submit"
       disabled={submitting}
       aria-busy={submitting}
-      whileTap={{ scale: 0.98 }}
-      className="flex items-center justify-center w-full gap-2 py-3 font-bold text-black transition bg-yellow-400 rounded hover:bg-yellow-300 disabled:opacity-60 disabled:cursor-not-allowed"
+      whileHover={{ scale: submitting ? 1 : 1.02 }}
+      whileTap={{ scale: 0.95 }}
+      className={`
+        relative w-full py-4 text-sm font-extrabold uppercase tracking-widest text-black
+        transition-all duration-300 transform rounded-xl
+        bg-taxi-yellow shadow-[0_0_20px_rgba(255,193,7,0.4)]
+        hover:bg-white hover:shadow-[0_0_30px_rgba(255,193,7,0.6)]
+        disabled:opacity-50 disabled:cursor-not-allowed disabled:grayscale disabled:shadow-none
+        flex items-center justify-center gap-3
+      `}
     >
       {submitting ? (
         <>
           <Loader2 className="w-5 h-5 animate-spin" />
-          Booking...
+          <span>Processing Booking...</span>
         </>
       ) : (
-        'Confirm Booking'
+        <>
+          <CheckCircle2 className="w-5 h-5" />
+          <span>Confirm Booking</span>
+        </>
       )}
     </motion.button>
   );
