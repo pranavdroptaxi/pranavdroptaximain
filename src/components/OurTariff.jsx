@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Car, Route, Repeat, Info, CheckCircle } from "lucide-react";
 import { useState } from "react";
+import { Helmet } from "react-helmet"; // 1. Import Helmet
 
 export default function Tariff() {
   const [tab, setTab] = useState("oneway");
@@ -24,12 +25,51 @@ export default function Tariff() {
     ]
   };
 
-  // Shared card style matching Fleet/Home
+  // 2. SEO Structured Data
+  const tariffSchema = {
+    "@context": "https://schema.org",
+    "@type": "PriceSpecification",
+    "name": "Pranav Drop Taxi Tariff Rates",
+    "description": "Transparent taxi fare for one-way and round-trip across South India.",
+    "priceCurrency": "INR",
+    "eligibleQuantity": {
+      "@type": "QuantitativeValue",
+      "unitCode": "KMT",
+      "value": 1
+    },
+    "offers": tariff.map((car) => ({
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": `${car.type} Taxi Service`
+      },
+      "price": car.oneway,
+      "priceCurrency": "INR",
+      "description": `One-way rate: ₹${car.oneway}/km, Round-trip rate: ₹${car.roundtrip}/km`
+    }))
+  };
+
   const boxStyle =
     "p-6 bg-black/60 border border-white/10 rounded-3xl backdrop-blur-md transition-all duration-300 hover:bg-black/80 hover:border-taxi-yellow/40 hover:shadow-[0_0_20px_rgba(255,193,7,0.15)] group";
 
   return (
     <section className="relative z-10 px-4 py-16 text-white bg-transparent sm:py-20">
+      {/* --- SEO HEADER --- */}
+      <Helmet>
+        <title>Taxi Tariff & Price per KM | Pranav Drop Taxi Chennai</title>
+        <meta name="description" content="Transparent taxi pricing starting from ₹13/km. View our detailed tariff for Sedan, SUV, and Innova Crysta. No hidden charges for one-way and round trips." />
+        <meta name="keywords" content="taxi fare per km, innova crysta per km rate chennai, drop taxi tariff, one way taxi price tamilnadu, driver bata charges" />
+        <link rel="canonical" href="https://pranavdroptaxi.com/tariff" />
+        
+        {/* OG Tags */}
+        <meta property="og:title" content="Transparent Taxi Tariff | Best Rates in Chennai" />
+        <meta property="og:description" content="Check our budget-friendly taxi rates. Sedan starts at ₹13/km. Book your drop taxi today!" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify(tariffSchema)}
+        </script>
+      </Helmet>
+
       <div className="max-w-6xl mx-auto">
         
         {/* Title */}
@@ -48,6 +88,7 @@ export default function Tariff() {
         <div className="flex justify-center gap-4 mb-12">
           <button
             onClick={() => setTab("oneway")}
+            aria-label="View One Way Taxi Rates"
             className={`px-8 py-3 rounded-full text-sm font-bold tracking-wide transition-all duration-300 transform ${
               tab === "oneway"
                 ? "bg-taxi-yellow text-black scale-105 shadow-[0_0_20px_rgba(255,193,7,0.4)]"
@@ -59,6 +100,7 @@ export default function Tariff() {
 
           <button
             onClick={() => setTab("roundtrip")}
+            aria-label="View Round Trip Taxi Rates"
             className={`px-8 py-3 rounded-full text-sm font-bold tracking-wide transition-all duration-300 transform ${
               tab === "roundtrip"
                 ? "bg-taxi-yellow text-black scale-105 shadow-[0_0_20px_rgba(255,193,7,0.4)]"
@@ -79,17 +121,18 @@ export default function Tariff() {
         >
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-300 border-separate border-spacing-0">
+              <caption className="sr-only">Detailed taxi tariff for various vehicle types</caption>
               <thead>
                 <tr className="bg-white/5">
-                  <th className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow">Vehicle</th>
-                  <th className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow">
+                  <th scope="col" className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow">Vehicle</th>
+                  <th scope="col" className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow">
                     <div className="flex items-center gap-2">
                       {tab === "oneway" ? <Route className="w-4 h-4" /> : <Repeat className="w-4 h-4" />}
                       Rate
                     </div>
                   </th>
-                  <th className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow">Driver Bata</th>
-                  <th className="w-48 p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow">Note</th>
+                  <th scope="col" className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow">Driver Bata</th>
+                  <th scope="col" className="w-48 p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow">Note</th>
                 </tr>
               </thead>
 

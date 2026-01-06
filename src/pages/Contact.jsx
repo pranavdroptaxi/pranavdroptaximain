@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Mail, Phone, MapPin, LocateFixed, ChevronUp, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet"; // Import Helmet
 
 export default function Contact() {
   const [showTopBtn, setShowTopBtn] = useState(false);
@@ -14,16 +15,77 @@ export default function Contact() {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
+  // JSON-LD Schema for Local Business (Taxi Service)
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "TaxiService",
+    "name": "Pranav Drop Taxi",
+    "image": "https://pranavdroptaxi.com/images/taxi.jpg", // REPLACE with actual domain
+    "telephone": "+918778143908",
+    "email": "droptaxipranav@gmail.com",
+    "url": "https://pranavdroptaxi.com/contact", // REPLACE with actual domain
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "28A, Karmel St, opposite V Cure Hospital, Pallikaranai",
+      "addressLocality": "Chennai",
+      "addressRegion": "TN",
+      "postalCode": "600100",
+      "addressCountry": "IN"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+      ],
+      "opens": "00:00",
+      "closes": "23:59"
+    },
+    "priceRange": "₹₹",
+    "areaServed": "Tamil Nadu"
+  };
+
   return (
     <div className="relative w-full min-h-screen overflow-hidden text-gray-200 bg-black">
       
-      {/* --- GLOBAL FIXED BACKGROUND (Full Page & Brighter) --- */}
+      {/* --- SEO HEAD --- */}
+      <Helmet>
+        {/* Primary Meta Tags */}
+        <title>Contact Pranav Drop Taxi | 24/7 Taxi Service in Chennai</title>
+        <meta name="description" content="Contact Pranav Drop Taxi for reliable outstation and drop taxi services in Chennai. Call +91 8778143908. Located in Pallikaranai. Best rates for one-way trips." />
+        <meta name="keywords" content="Pranav Drop Taxi contact, drop taxi chennai number, outstation taxi chennai, call taxi pallikaranai, one way taxi tamilnadu, taxi booking number" />
+        <link rel="canonical" href="https://pranavdroptaxi.com/contact" />
+        <meta name="robots" content="index, follow" />
+        <meta name="theme-color" content="#F7C948" />
+
+        {/* Open Graph / Facebook / WhatsApp */}
+        <meta property="og:type" content="business.business" />
+        <meta property="og:title" content="Contact Pranav Drop Taxi - Best Cabs in Chennai" />
+        <meta property="og:description" content="Need a ride? Contact us at +91 8778143908. We provide safe, affordable, and 24/7 drop taxi services across Tamil Nadu." />
+        <meta property="og:url" content="https://pranavdroptaxi.com/contact" />
+        <meta property="og:image" content="https://pranavdroptaxi.com/public\favicon.ico" />
+        <meta property="business:contact_data:street_address" content="28A, Karmel St, Pallikaranai" />
+        <meta property="business:contact_data:locality" content="Chennai" />
+        <meta property="business:contact_data:postal_code" content="600100" />
+        <meta property="business:contact_data:country_name" content="India" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Book Pranav Drop Taxi | Contact Us" />
+        <meta name="twitter:description" content="Reliable outstation taxi service in Chennai. Call +91 9884609789 for bookings." />
+        <meta name="twitter:image" content="https://pranavdroptaxi.com/public\favicon.ico" />
+
+        {/* Structured Data (JSON-LD) */}
+        <script type="application/ld+json">
+          {JSON.stringify(schemaData)}
+        </script>
+      </Helmet>
+
+      {/* --- GLOBAL FIXED BACKGROUND --- */}
       <div className="fixed inset-0 z-0">
         <div 
             className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-100"
             style={{ backgroundImage: "url('/images/taxi.jpg')" }}
         />
-        {/* Lighter gradient to let the image shine through, darker at top/bottom for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90" />
       </div>
 
@@ -32,7 +94,7 @@ export default function Contact() {
         <div className="flex items-center gap-3">
             <img 
               src="/favicon.ico" 
-              alt="Logo" 
+              alt="Pranav Drop Taxi Logo" 
               className="object-contain w-10 h-10"
             />
             <span className="text-xl font-bold tracking-tighter text-white">Pranav Drop Taxi</span>
@@ -120,10 +182,10 @@ export default function Contact() {
                 <div>
                   <p className="mb-1 text-sm font-bold text-gray-400 uppercase">Email Address</p>
                   <a
-                    href="mailto:droptaxipravan@gmail.com"
+                    href="mailto:droptaxipranav@gmail.com"
                     className="text-lg font-medium text-white transition-colors hover:text-taxi-yellow"
                   >
-                    droptaxipravan@gmail.com
+                    droptaxipranav@gmail.com
                   </a>
                 </div>
               </div>

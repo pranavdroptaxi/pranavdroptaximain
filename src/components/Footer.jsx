@@ -73,10 +73,10 @@ const Footer = () => {
                     <FiMail />
                 </div>
                 <a
-                  href="mailto:droptaxipravan@gmail.com"
+                  href="mailto:droptaxipranav@gmail.com"
                   className="mt-1 transition-colors hover:text-taxi-yellow"
                 >
-                  droptaxipravan@gmail.com
+                  droptaxipranav@gmail.com
                 </a>
               </li>
 

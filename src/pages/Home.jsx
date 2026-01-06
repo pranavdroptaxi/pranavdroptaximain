@@ -93,7 +93,7 @@ function Home() {
         />
         <meta property="og:url" content="https://pranavdroptaxi.com/" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://pranavdroptaxi.com/taxi.jpg" />
+        <meta property="og:image" content="https://pranavdroptaxi.com/public\favicon.ico" />
 
       
         <meta name="twitter:card" content="summary_large_image" />
@@ -113,12 +113,12 @@ function Home() {
             "name": "Pranav Drop Taxi",
             "url": "https://pranavdroptaxi.com/",
             "description": "Airport taxi and outstation drop taxi service in Chennai. 24/7 professional cab service across Tamil Nadu.",
-            "telephone": "+919884609789",
+            "telephone": "+918778143908",
             "areaServed": "Chennai, Tamil Nadu, India",
             "image": "https://pranavdroptaxi.com/taxi.jpg",
             "priceRange": "₹₹",
             "sameAs": [
-              "https://wa.me/919884609789"
+              "https://wa.me/918778143908"
             ]
           }
           `}
@@ -171,7 +171,7 @@ function Home() {
               </a>
 
               <a
-                href="https://wa.me/919884609789"
+                href="https://wa.me/918778143908"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-white transition-all duration-300 transform bg-green-600 rounded-full shadow-lg hover:bg-green-500 hover:scale-105 active:scale-95"

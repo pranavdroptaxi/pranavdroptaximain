@@ -11,8 +11,8 @@ import {
   MountainSnow,
   Crown,
 } from "lucide-react";
-
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet"; // 1. Import Helmet
 
 export default function OurFleet() {
   const fleet = [
@@ -93,8 +93,47 @@ export default function OurFleet() {
     },
   ];
 
+  // 2. Generate Structured Data for the Fleet
+  const fleetSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": fleet.map((car, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Product",
+        "name": `${car.name} - Pranav Drop Taxi`,
+        "image": `https://pranavdroptaxi.com${car.img}`,
+        "description": `Book a ${car.name} for ${car.passengers} passengers. Ideal for ${car.features[0].text}.`,
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "INR",
+          "price": car.pricing.oneway,
+          "description": "Price per kilometer for one-way trips"
+        }
+      }
+    }))
+  };
+
   return (
     <section className="px-4 py-16 text-white bg-transparent sm:py-20">
+      {/* --- SEO HEADER --- */}
+      <Helmet>
+        <title>Our Fleet | Sedan, SUV & Innova Crysta | Pranav Drop Taxi</title>
+        <meta name="description" content="Explore our wide range of vehicles: Sedans, SUVs, and Innova Crysta. Best rates per km for one-way and round trips in Chennai and Tamil Nadu." />
+        <meta name="keywords" content="taxi fleet chennai, innova crysta rental chennai, sedan drop taxi, suv taxi tamilnadu, innova per km rate, pranav drop taxi fleet" />
+        <link rel="canonical" href="https://pranavdroptaxi.com/fleet" />
+        
+        {/* OG Tags */}
+        <meta property="og:title" content="Our Fleet - Choose Your Perfect Ride | Pranav Drop Taxi" />
+        <meta property="og:description" content="From budget-friendly Sedans to luxury Innova Crysta, view our fleet and transparent pricing per KM." />
+        <meta property="og:url" content="https://pranavdroptaxi.com/fleet" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify(fleetSchema)}
+        </script>
+      </Helmet>
+
       <h2 className="mb-10 text-3xl font-extrabold text-center text-white sm:text-5xl drop-shadow-lg">
         Our <span className="text-taxi-yellow">Fleet</span>
       </h2>
@@ -109,63 +148,40 @@ export default function OurFleet() {
       >
         <table className="w-full text-left text-gray-300 border-separate border-spacing-0">
           <thead>
-            {/* Header: Responsive Text Sizes */}
             <tr className="text-[10px] sm:text-sm font-bold tracking-wider text-taxi-yellow uppercase bg-white/5">
               <th className="p-2 border-b sm:p-5 border-white/10">Vehicle</th>
-              
-              {/* Desktop Headers */}
               <th className="hidden p-5 border-b sm:table-cell border-white/10">Passengers</th>
               <th className="hidden p-5 border-b sm:table-cell border-white/10">Bags</th>
-              
-              {/* Mobile Header (Merged) */}
               <th className="p-2 border-b sm:hidden border-white/10">Capacity</th>
-
-              <th className="p-2 border-b sm:p-5 border-white/10">
-                <span className="hidden sm:inline">One Way</span>
-                <span className="sm:hidden">One Way</span>
-              </th>
-              <th className="p-2 border-b sm:p-5 border-white/10">
-                <span className="hidden sm:inline">Round Trip</span>
-                <span className="sm:hidden">Round Trip</span>
-              </th>
+              <th className="p-2 border-b sm:p-5 border-white/10">One Way</th>
+              <th className="p-2 border-b sm:p-5 border-white/10">Round Trip</th>
             </tr>
           </thead>
           <tbody>
             {fleet.map((car, idx) => (
               <tr key={idx} className="text-[10px] sm:text-sm transition-colors hover:bg-white/5">
-                
-                {/* Column 1: Vehicle Name + Icon */}
                 <td className="p-2 font-bold text-white border-b sm:p-5 border-white/10">
                   <div className="flex items-center gap-3">
                     <div className="items-center justify-center hidden w-10 h-10 rounded-full sm:flex bg-taxi-yellow/10 text-taxi-yellow">
                       <car.icon className="w-5 h-5" />
                     </div>
-                    {/* Shorten names on mobile if needed, though mostly fine */}
                     <span>{car.name}</span>
                   </div>
                 </td>
-
-                {/* Desktop: Passengers & Bags */}
-                <td className="hidden p-5 border-b sm:table-cell border-white/10">{car.passengers} Passengers</td>
-                <td className="hidden p-5 border-b sm:table-cell border-white/10">{car.bags} Bags</td>
-
-                {/* Mobile: Capacity (Merged) */}
+                <td className="hidden p-5 border-b sm:table-cell border-white/10">{car.passengers}</td>
+                <td className="hidden p-5 border-b sm:table-cell border-white/10">{car.bags}</td>
                 <td className="p-2 border-b sm:hidden border-white/10">
                     <div className="flex flex-col gap-0.5">
                         <span className="flex items-center gap-1"><Users className="w-3 h-3 text-gray-500"/> {car.passengers}</span>
                         <span className="flex items-center gap-1"><Briefcase className="w-3 h-3 text-gray-500"/> {car.bags}</span>
                     </div>
                 </td>
-
-                {/* Column 3: One Way Price */}
                 <td className="p-2 border-b sm:p-5 border-white/10">
                   <span className="px-2 py-1 font-bold text-black rounded sm:px-3 sm:rounded-full bg-taxi-yellow">
                     ₹{car.pricing.oneway}
                   </span>
                   <span className="ml-1 text-gray-500">/km</span>
                 </td>
-
-                {/* Column 4: Round Trip Price */}
                 <td className="p-2 border-b sm:p-5 border-white/10">
                   <span className="px-2 py-1 font-bold text-black rounded sm:px-3 sm:rounded-full bg-taxi-yellow">
                     ₹{car.pricing.roundtrip}
@@ -190,14 +206,13 @@ export default function OurFleet() {
             transition={{ duration: 0.3, delay: idx * 0.1 }}
             className="relative p-6 overflow-hidden border shadow-2xl bg-black/30 backdrop-blur-md rounded-3xl border-white/10 group hover:border-taxi-yellow/50"
           >
-            {/* Card Glow */}
             <div className="absolute top-0 right-0 w-32 h-32 transition-opacity duration-500 translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 bg-taxi-yellow blur-3xl group-hover:opacity-20" />
 
             <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center justify-center p-4 mb-6 rounded-2xl bg-white/5">
                     <img
                     src={car.img}
-                    alt={car.name}
+                    alt={`${car.name} vehicle - Pranav Drop Taxi`}
                     className="object-contain w-full h-32 transition-transform duration-500 group-hover:scale-110"
                     />
                 </div>

@@ -11,6 +11,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet"; // 1. Import Helmet
 
 export default function AboutUs() {
   const [showTopButton, setShowTopButton] = useState(false);
@@ -27,14 +28,39 @@ export default function AboutUs() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Animation variants for staggered entrance
+  // 2. Define Schema Data for "About Page" (Reinforcing Organization/Service)
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "TaxiService",
+    "name": "Pranav Drop Taxi",
+    "alternateName": "Pranav Cabs",
+    "logo": "https://pranavdroptaxi.com/public/favicon.ico",
+    "image": "https://pranavdroptaxi.com/images/taxi.jpg",
+    "description": "Pranav Drop Taxi provides safe, reliable, and affordable taxi services across Tamil Nadu, Kerala, Karnataka, and Andhra Pradesh.",
+    "url": "https://pranavdroptaxi.com/about", // specific URL for this page
+    "telephone": "+918778143908",
+    "email": "droptaxipranav@gmail.com",
+    "areaServed": [
+        { "@type": "State", "name": "Tamil Nadu" },
+        { "@type": "State", "name": "Kerala" },
+        { "@type": "State", "name": "Karnataka" },
+        { "@type": "State", "name": "Andhra Pradesh" }
+    ],
+    "priceRange": "₹₹",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Chennai",
+      "addressRegion": "TN",
+      "addressCountry": "IN"
+    }
+  };
+
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.1 },
     },
   };
 
@@ -46,17 +72,46 @@ export default function AboutUs() {
   return (
     <div className="relative w-full min-h-screen overflow-hidden text-gray-200 bg-black">
       
-      {/* --- GLOBAL FIXED BACKGROUND (Full Page & Brighter) --- */}
+      {/* --- 3. SEO HEADER IMPLEMENTATION --- */}
+      <Helmet>
+        {/* Primary Meta Tags */}
+        <title>About Pranav Drop Taxi | Best Outstation Cab Service in South India</title>
+        <meta name="description" content="Learn about Pranav Drop Taxi, the most reliable drop taxi service covering Tamil Nadu, Bangalore, and Kerala. We offer 24/7 support, verified drivers, and affordable one-way fares." />
+        <meta name="keywords" content="About Pranav Drop Taxi, safe taxi service tamilnadu, best outstation cabs chennai, drop taxi company profile, intercity taxi south india, reliable cab service kerala" />
+        <link rel="canonical" href="https://pranavdroptaxi.com/about" />
+        <meta name="robots" content="index, follow" />
+        <meta name="theme-color" content="#F7C948" />
+
+        {/* Open Graph / Facebook / WhatsApp */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="About Pranav Drop Taxi - Safe & Reliable Travels" />
+        <meta property="og:description" content="Traveling across South India? Discover why thousands trust Pranav Drop Taxi for their one-way and round trips. Safe drivers, clean cars, best prices." />
+        <meta property="og:url" content="https://pranavdroptaxi.com/about" />
+        <meta property="og:image" content="https://pranavdroptaxi.com/images/taxi.jpg" />
+        <meta property="og:site_name" content="Pranav Drop Taxi" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Pranav Drop Taxi | Your Travel Partner" />
+        <meta name="twitter:description" content="Reliable outstation taxi service in South India. Read our story and book your ride today." />
+        <meta name="twitter:image" content="https://pranavdroptaxi.com/images/taxi.jpg" />
+
+        {/* Structured Data (JSON-LD) */}
+        <script type="application/ld+json">
+          {JSON.stringify(schemaData)}
+        </script>
+      </Helmet>
+
+      {/* --- GLOBAL FIXED BACKGROUND --- */}
       <div className="fixed inset-0 z-0">
         <div 
             className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-100"
             style={{ backgroundImage: "url('/images/taxi.jpg')" }}
         />
-        {/* Lighter gradient to let the image shine through, darker at top/bottom for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90" />
       </div>
 
-      {/* 2. Navigation Header */}
+      {/* Navigation Header */}
       <div className="relative z-10 flex items-center justify-between px-6 py-6 mx-auto max-w-7xl">
         <div className="flex items-center gap-3">
             <img 
@@ -76,7 +131,7 @@ export default function AboutUs() {
         </Link>
       </div>
 
-      {/* 3. Main Content */}
+      {/* Main Content */}
       <div className="relative z-10 px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
         
         {/* Header Section */}
