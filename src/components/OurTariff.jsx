@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Car, Route, Repeat, Info, CheckCircle } from "lucide-react";
 import { useState } from "react";
-import { Helmet } from "react-helmet"; // 1. Import Helmet
+import { Helmet } from "react-helmet";
 
 export default function Tariff() {
   const [tab, setTab] = useState("oneway");
@@ -25,7 +25,6 @@ export default function Tariff() {
     ]
   };
 
-  // 2. SEO Structured Data
   const tariffSchema = {
     "@context": "https://schema.org",
     "@type": "PriceSpecification",
@@ -54,15 +53,13 @@ export default function Tariff() {
 
   return (
     <section className="relative z-10 px-4 py-16 text-white bg-transparent sm:py-20">
-      {/* --- SEO HEADER --- */}
+      {/* --- SEO HEADER (TITLE REMOVED TO PREVENT OVERRIDE) --- */}
       <Helmet>
-        <title>Taxi Tariff & Price per KM | Pranav Drop Taxi Chennai</title>
         <meta name="description" content="Transparent taxi pricing starting from ₹13/km. View our detailed tariff for Sedan, SUV, and Innova Crysta. No hidden charges for one-way and round trips." />
         <meta name="keywords" content="taxi fare per km, innova crysta per km rate chennai, drop taxi tariff, one way taxi price tamilnadu, driver bata charges" />
         <link rel="canonical" href="https://pranavdroptaxi.com/tariff" />
         
         {/* OG Tags */}
-        <meta property="og:title" content="Transparent Taxi Tariff | Best Rates in Chennai" />
         <meta property="og:description" content="Check our budget-friendly taxi rates. Sedan starts at ₹13/km. Book your drop taxi today!" />
         
         <script type="application/ld+json">
@@ -182,7 +179,6 @@ export default function Tariff() {
           transition={{ duration: 0.5 }}
           className="grid grid-cols-1 gap-6 md:grid-cols-2"
         >
-          {/* Drop Trip Terms */}
           <div className={boxStyle}>
             <h4 className="flex items-center gap-3 mb-4 text-lg font-bold text-white">
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-taxi-yellow text-black shadow-[0_0_15px_rgba(255,193,7,0.4)]">
@@ -198,7 +194,6 @@ export default function Tariff() {
             </ul>
           </div>
 
-          {/* Round Trip Terms */}
           <div className={boxStyle}>
             <h4 className="flex items-center gap-3 mb-4 text-lg font-bold text-white">
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-taxi-yellow text-black shadow-[0_0_15px_rgba(255,193,7,0.4)]">
@@ -214,7 +209,6 @@ export default function Tariff() {
             </ul>
           </div>
 
-          {/* Extra Charges */}
           <div className={boxStyle}>
             <h4 className="flex items-center gap-3 mb-4 text-lg font-bold text-white">
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-taxi-yellow text-black shadow-[0_0_15px_rgba(255,193,7,0.4)]">
@@ -229,7 +223,6 @@ export default function Tariff() {
             </ul>
           </div>
 
-          {/* Important Notes */}
           <div className={boxStyle}>
             <h4 className="flex items-center gap-3 mb-4 text-lg font-bold text-white">
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-taxi-yellow text-black shadow-[0_0_15px_rgba(255,193,7,0.4)]">
@@ -244,7 +237,6 @@ export default function Tariff() {
             </ul>
           </div>
         </motion.div>
-
       </div>
     </section>
   );

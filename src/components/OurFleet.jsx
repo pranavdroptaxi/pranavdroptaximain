@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Users,
   UsersRound,
@@ -12,7 +13,25 @@ import {
   Crown,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { Helmet } from "react-helmet"; // 1. Import Helmet
+import { Helmet } from "react-helmet";
+
+// Isolated SEO component for the Fleet section
+// REMOVED <title> to prevent overriding the main Home title
+const FleetSEO = ({ fleetSchema }) => (
+  <Helmet>
+    <meta name="description" content="Explore our wide range of vehicles: Sedans, SUVs, and Innova Crysta. Best rates per km for one-way and round trips in Chennai and Tamil Nadu." />
+    <meta name="keywords" content="taxi fleet chennai, innova crysta rental chennai, sedan drop taxi, suv taxi tamilnadu, innova per km rate, pranav drop taxi fleet" />
+    <link rel="canonical" href="https://pranavdroptaxi.com/fleet" />
+    
+    {/* OG Tags - Removed OG:Title to keep consistency */}
+    <meta property="og:description" content="From budget-friendly Sedans to luxury Innova Crysta, view our fleet and transparent pricing per KM." />
+    <meta property="og:url" content="https://pranavdroptaxi.com/fleet" />
+    
+    <script type="application/ld+json">
+      {JSON.stringify(fleetSchema)}
+    </script>
+  </Helmet>
+);
 
 export default function OurFleet() {
   const fleet = [
@@ -93,7 +112,6 @@ export default function OurFleet() {
     },
   ];
 
-  // 2. Generate Structured Data for the Fleet
   const fleetSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -117,22 +135,7 @@ export default function OurFleet() {
 
   return (
     <section className="px-4 py-16 text-white bg-transparent sm:py-20">
-      {/* --- SEO HEADER --- */}
-      <Helmet>
-        <title>Our Fleet | Sedan, SUV & Innova Crysta | Pranav Drop Taxi</title>
-        <meta name="description" content="Explore our wide range of vehicles: Sedans, SUVs, and Innova Crysta. Best rates per km for one-way and round trips in Chennai and Tamil Nadu." />
-        <meta name="keywords" content="taxi fleet chennai, innova crysta rental chennai, sedan drop taxi, suv taxi tamilnadu, innova per km rate, pranav drop taxi fleet" />
-        <link rel="canonical" href="https://pranavdroptaxi.com/fleet" />
-        
-        {/* OG Tags */}
-        <meta property="og:title" content="Our Fleet - Choose Your Perfect Ride | Pranav Drop Taxi" />
-        <meta property="og:description" content="From budget-friendly Sedans to luxury Innova Crysta, view our fleet and transparent pricing per KM." />
-        <meta property="og:url" content="https://pranavdroptaxi.com/fleet" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify(fleetSchema)}
-        </script>
-      </Helmet>
+      <FleetSEO fleetSchema={fleetSchema} />
 
       <h2 className="mb-10 text-3xl font-extrabold text-center text-white sm:text-5xl drop-shadow-lg">
         Our <span className="text-taxi-yellow">Fleet</span>
@@ -211,9 +214,10 @@ export default function OurFleet() {
             <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center justify-center p-4 mb-6 rounded-2xl bg-white/5">
                     <img
-                    src={car.img}
-                    alt={`${car.name} vehicle - Pranav Drop Taxi`}
-                    className="object-contain w-full h-32 transition-transform duration-500 group-hover:scale-110"
+                      src={car.img}
+                      alt={`${car.name} vehicle selection`}
+                      className="object-contain w-full h-32 transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
                     />
                 </div>
 
@@ -254,8 +258,8 @@ export default function OurFleet() {
                     </div>
 
                     <a
-                    href="tel:9884609789"
-                    className="flex items-center justify-center w-full gap-2 py-3 text-sm font-bold text-black transition-all transform rounded-xl bg-taxi-yellow hover:bg-white hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(255,193,7,0.3)]"
+                      href="tel:+918778143908"
+                      className="flex items-center justify-center w-full gap-2 py-3 text-sm font-bold text-black transition-all transform rounded-xl bg-taxi-yellow hover:bg-white hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(255,193,7,0.3)]"
                     >
                     <PhoneCall className="w-4 h-4" /> Book Now
                     </a>

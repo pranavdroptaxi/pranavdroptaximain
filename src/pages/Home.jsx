@@ -73,38 +73,32 @@ function Home() {
 
   return (
     <div className="relative min-h-screen text-gray-200 bg-black selection:bg-taxi-yellow selection:text-black">
-      <Helmet>
-        {/* Primary Meta Tags */}
-        <title>Pranav Drop Taxi | #1 Chennai Outstation & One Way Taxi Service</title>
-        <meta name="title" content="Pranav Drop Taxi | Chennai Outstation & One Way Taxi Service" />
+      <Helmet defer={false}>
+        {/* PRIMARY LOCKED TITLE */}
+        <title key="main-title">Pranav Drop Taxi | Outstation Taxi Service</title>
+        
+        <meta name="title" content="Pranav Drop Taxi | Outstation Taxi Service" />
         <meta
           name="description"
-          content="Book the cheapest one-way drop taxi in Chennai. Pranav Drop Taxi offers premium outstation cabs, 24/7 airport transfers, and intercity travel across Tamil Nadu & Pondicherry. Safe, clean, and transparent pricing."
+          content="Book the cheapest one-way drop taxi in Chennai. Pranav Drop Taxi offers premium outstation cabs, 24/7 airport transfers, and intercity travel across Tamil Nadu & Pondicherry."
         />
         <meta
           name="keywords"
-          content="drop taxi chennai, one way taxi chennai, outstation taxi chennai, airport taxi chennai, chennai to bangalore drop taxi, chennai to pondicherry taxi, cheapest drop taxi tamil nadu, pranav drop taxi booking, intercity cabs chennai, round trip taxi chennai"
+          content="drop taxi chennai, one way taxi chennai, outstation taxi chennai, airport taxi chennai, chennai to bangalore drop taxi, cheapest drop taxi tamil nadu, pranav drop taxi booking"
         />
 
-        {/* Performance: Preconnect to external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://firestore.googleapis.com" />
         <link rel="canonical" href="https://pranavdroptaxi.com/" />
 
-        {/* Open Graph / Facebook */}
+        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://pranavdroptaxi.com/" />
-        <meta property="og:title" content="Pranav Drop Taxi | Fast & Affordable Outstation Cabs" />
-        <meta property="og:description" content="Safe, professional, and affordable one-way drop taxi services from Chennai to anywhere in South India." />
+        <meta property="og:title" content="Pranav Drop Taxi | Outstation Taxi Service" />
+        <meta property="og:description" content="Safe, professional, and affordable one-way drop taxi services from Chennai." />
         <meta property="og:image" content="https://pranavdroptaxi.com/taxi.jpg" />
 
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Pranav Drop Taxi Chennai" />
-        <meta name="twitter:description" content="Book your one-way or round-trip taxi instantly with Pranav Drop Taxi." />
-        <meta name="twitter:image" content="https://pranavdroptaxi.com/taxi.jpg" />
-
-        {/* Structured Data (Schema.org) - Highly Recommended for SEO */}
+        {/* Structured Data */}
         <script type="application/ld+json">
           {`
           {
@@ -112,9 +106,6 @@ function Home() {
             "@type": "TaxiService",
             "name": "Pranav Drop Taxi",
             "url": "https://pranavdroptaxi.com/",
-            "logo": "https://pranavdroptaxi.com/logo.png",
-            "image": "https://pranavdroptaxi.com/taxi.jpg",
-            "description": "Premium outstation and one-way drop taxi service provider in Chennai, Tamil Nadu.",
             "telephone": "+918778143908",
             "priceRange": "₹₹",
             "address": {
@@ -123,21 +114,7 @@ function Home() {
               "addressRegion": "TN",
               "addressCountry": "IN"
             },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": 13.0827,
-              "longitude": 80.2707
-            },
-            "areaServed": ["Chennai", "Tamil Nadu", "Pondicherry", "Bangalore"],
-            "hasOfferCatalog": {
-              "@type": "OfferCatalog",
-              "name": "Taxi Services",
-              "itemListElement": [
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "One Way Drop Taxi" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Outstation Round Trip" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Airport Pickup & Drop" } }
-              ]
-            }
+            "areaServed": ["Chennai", "Tamil Nadu", "Pondicherry", "Bangalore"]
           }
           `}
         </script>
