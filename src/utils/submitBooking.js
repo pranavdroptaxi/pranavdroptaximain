@@ -5,6 +5,7 @@ import {
   query,
   where,
   getDocs,
+  limit,
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { generateBookingId } from "../utils/generateBookingId";
@@ -16,20 +17,20 @@ function extractPlaceDetails(place) {
   if (!place) return null;
 
   const displayName = place.displayName || "";
-  const formattedAddress = place.address || "";
+  const address = place.address || "";
 
-  // Human readable combined address
+  // Human readable combined address used for UI and Spam Check
   const fullAddress =
-    displayName && formattedAddress
-      ? `${displayName}, ${formattedAddress}`
-      : formattedAddress || displayName;
+    displayName && address
+      ? `${displayName}, ${address}`
+      : address || displayName;
 
   const lat = place.location?.lat ?? null;
   const lng = place.location?.lng ?? null;
 
   return {
     displayName,
-    formattedAddress,
+    address,
     fullAddress,
     location: { lat, lng },
   };
@@ -37,7 +38,7 @@ function extractPlaceDetails(place) {
 
 export default async function submitBooking(data) {
   const {
-    tripType,        // Input might be "roundtrip" or "round"
+    tripType,
     date,
     returnDate,
     source,
@@ -53,85 +54,71 @@ export default async function submitBooking(data) {
   } = data;
 
   if (!source || !destination) {
-    throw new Error("Source or destination not provided.");
+    throw new Error("Pickup or drop location is missing.");
   }
 
-  // 1. Normalize Trip Type (Safety check)
-  // Ensures we always store "round" or "single" regardless of what the UI sends
-  const normalizedTripType = (tripType === "roundtrip" || tripType === "round") ? "round" : "single";
-
-  // 2. Normalize Place Data
+  // 1. Normalize Place Data
   const extractedSource = extractPlaceDetails(source);
   const extractedDestination = extractPlaceDetails(destination);
 
-  if (!extractedSource || !extractedDestination) {
-    throw new Error("Places could not be processed.");
-  }
-
-  const {
-    fullAddress: sourceAddress,
-    location: { lat: sourceLat, lng: sourceLng },
-  } = extractedSource;
-
-  const {
-    fullAddress: destinationAddress,
-    location: { lat: destLat, lng: destLng },
-  } = extractedDestination;
-
-  // 3. Validate Coordinates
+  // 2. Validate Coordinates & Addresses
   if (
-    !sourceAddress ||
-    !destinationAddress ||
-    typeof sourceLat !== "number" ||
-    typeof sourceLng !== "number" ||
-    typeof destLat !== "number" ||
-    typeof destLng !== "number"
+    !extractedSource.fullAddress ||
+    !extractedDestination.fullAddress ||
+    typeof extractedSource.location.lat !== "number" ||
+    typeof extractedDestination.location.lat !== "number"
   ) {
-    throw new Error("Incomplete or invalid source/destination location.");
+    throw new Error("Invalid location details. Please re-select locations.");
   }
 
-  // 4. Prevent Duplicate Bookings (Simple spam check)
-  // Checks if a booking with same Phone, Date, Source & Dest exists
+  // 3. Prevent Duplicate Bookings (Spam check)
+  // Check for existing pending booking with same phone and route on the same day
   const bookingQuery = query(
     collection(db, "bookings"),
     where("phone", "==", phone),
     where("date", "==", date),
-    where("source.fullAddress", "==", sourceAddress),
-    where("destination.fullAddress", "==", destinationAddress)
+    where("source.fullAddress", "==", extractedSource.fullAddress),
+    where("status", "==", "pending"),
+    limit(1)
   );
 
   const existing = await getDocs(bookingQuery);
   if (!existing.empty) {
-    throw new Error("A booking with these exact details already exists.");
+    throw new Error("A booking for this route and date already exists under this phone number.");
   }
 
-  // 5. Generate Readable Booking ID
+  // 4. Generate Readable Booking ID
   const bookingId = generateBookingId(name, phone);
 
-  // 6. Construct Payload
+  // 5. Construct Payload
   const bookingEntry = {
     bookingId,
-    tripType: normalizedTripType,
+    tripType: tripType === "round" ? "round" : "single",
     date,
-    // Only save returnDate if it's a round trip
-    returnDate: normalizedTripType === "round" ? returnDate : null, 
+    returnDate: tripType === "round" ? returnDate : null,
     source: extractedSource,
     destination: extractedDestination,
     vehicleType,
-    cost: Number(cost), // Ensure number
-    distance: Number(distance), // Ensure number
-    duration: Number(duration), // Ensure number
+    cost: Number(cost),
+    distance: Number(distance),
+    duration: Number(duration),
     name,
     phone,
-    // CRITICAL for Rules: explicit null if undefined
-    userId: userId || null, 
-    userEmail: userEmail || null, 
-    status: "pending", // Default status
+    userId: userId || null, // Critical for Firestore Rules
+    userEmail: userEmail || null,
+    status: "pending",
     createdAt: serverTimestamp(),
   };
 
-  // 7. Save to Firestore
-  await addDoc(collection(db, "bookings"), bookingEntry);
-  
-  return bookingId;
+  // 6. Save to Firestore
+  try {
+    await addDoc(collection(db, "bookings"), bookingEntry);
+    return bookingId;
+  } catch (error) {
+    console.error("Firestore Error:", error);
+    if (error.code === 'permission-denied') {
+      throw new Error("Permission denied. Please ensure you are logged in.");
+    }
+    throw new Error("Could not save booking. Please try again later.");
+  }
 }

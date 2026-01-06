@@ -5,16 +5,21 @@ export default function ScrollToTop() {
   const { pathname, state } = useLocation();
 
   useEffect(() => {
-    // Only scroll to top if we are NOT trying to scroll to a specific section via state
-    // This prevents fighting with the Navbar's smooth scroll logic
-    if (!state?.scrollTo) {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "instant" // Snap to top immediately on route change
-      });
+    /**
+     * LOGIC:
+     * We only want to snap to top when the actual URL changes.
+     * We ignore state updates here to prevent fighting with 
+     * the BookingForm's internal scroll-to-modal logic.
+     */
+    const shouldScroll = !state?.scrollTo;
+
+    if (shouldScroll) {
+      window.scrollTo(0, 0);
     }
-  }, [pathname, state]);
+    
+    // The comment below silences the warning for the missing 'state' dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]); 
 
   return null;
 }

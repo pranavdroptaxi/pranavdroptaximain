@@ -14,7 +14,10 @@ import {
   Quote,
   ArrowLeft,
   ArrowRight,
-  ChevronUp
+  ChevronUp,
+  MapPin,
+  Clock,
+  ShieldCheck
 } from "lucide-react";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../utils/firebase";
@@ -69,42 +72,39 @@ function Home() {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
 
   return (
-    <div className="relative min-h-screen text-gray-200 bg-black">
+    <div className="relative min-h-screen text-gray-200 bg-black selection:bg-taxi-yellow selection:text-black">
       <Helmet>
-        
-        <title>Pranav Drop Taxi | Airport & Outstation Taxi Service in Chennai</title>
+        {/* Primary Meta Tags */}
+        <title>Pranav Drop Taxi | #1 Chennai Outstation & One Way Taxi Service</title>
+        <meta name="title" content="Pranav Drop Taxi | Chennai Outstation & One Way Taxi Service" />
         <meta
           name="description"
-          content="Book safe and affordable airport, local and outstation drop taxi service in Chennai. 24/7 availability, professional drivers, clean cabs, and transparent pricing. Call or WhatsApp to book your ride instantly."
+          content="Book the cheapest one-way drop taxi in Chennai. Pranav Drop Taxi offers premium outstation cabs, 24/7 airport transfers, and intercity travel across Tamil Nadu & Pondicherry. Safe, clean, and transparent pricing."
         />
         <meta
           name="keywords"
-          content="drop taxi chennai, pranav drop taxi, one way cab chennai, airport taxi chennai, outstation taxi service, chennai drop taxi, taxi booking chennai, cab service tamil nadu"
+          content="drop taxi chennai, one way taxi chennai, outstation taxi chennai, airport taxi chennai, chennai to bangalore drop taxi, chennai to pondicherry taxi, cheapest drop taxi tamil nadu, pranav drop taxi booking, intercity cabs chennai, round trip taxi chennai"
         />
 
-        
+        {/* Performance: Preconnect to external domains */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://firestore.googleapis.com" />
         <link rel="canonical" href="https://pranavdroptaxi.com/" />
 
-        
-        <meta property="og:title" content="Pranav Drop Taxi | Chennai Outstation & Airport Taxi" />
-        <meta
-          property="og:description"
-          content="Affordable one-way drop taxi & airport taxi service in Chennai. 24/7 support, clean vehicles, professional drivers. Book instantly!"
-        />
-        <meta property="og:url" content="https://pranavdroptaxi.com/" />
+        {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://pranavdroptaxi.com/public\favicon.ico" />
+        <meta property="og:url" content="https://pranavdroptaxi.com/" />
+        <meta property="og:title" content="Pranav Drop Taxi | Fast & Affordable Outstation Cabs" />
+        <meta property="og:description" content="Safe, professional, and affordable one-way drop taxi services from Chennai to anywhere in South India." />
+        <meta property="og:image" content="https://pranavdroptaxi.com/taxi.jpg" />
 
-      
+        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Pranav Drop Taxi | Chennai Airport & Outstation Taxi" />
-        <meta
-          name="twitter:description"
-          content="Book safe and affordable outstation/airport taxi service in Chennai. 24/7 availability."
-        />
+        <meta name="twitter:title" content="Pranav Drop Taxi Chennai" />
+        <meta name="twitter:description" content="Book your one-way or round-trip taxi instantly with Pranav Drop Taxi." />
         <meta name="twitter:image" content="https://pranavdroptaxi.com/taxi.jpg" />
 
-        
+        {/* Structured Data (Schema.org) - Highly Recommended for SEO */}
         <script type="application/ld+json">
           {`
           {
@@ -112,60 +112,80 @@ function Home() {
             "@type": "TaxiService",
             "name": "Pranav Drop Taxi",
             "url": "https://pranavdroptaxi.com/",
-            "description": "Airport taxi and outstation drop taxi service in Chennai. 24/7 professional cab service across Tamil Nadu.",
-            "telephone": "+918778143908",
-            "areaServed": "Chennai, Tamil Nadu, India",
+            "logo": "https://pranavdroptaxi.com/logo.png",
             "image": "https://pranavdroptaxi.com/taxi.jpg",
+            "description": "Premium outstation and one-way drop taxi service provider in Chennai, Tamil Nadu.",
+            "telephone": "+918778143908",
             "priceRange": "₹₹",
-            "sameAs": [
-              "https://wa.me/918778143908"
-            ]
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Chennai",
+              "addressRegion": "TN",
+              "addressCountry": "IN"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 13.0827,
+              "longitude": 80.2707
+            },
+            "areaServed": ["Chennai", "Tamil Nadu", "Pondicherry", "Bangalore"],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Taxi Services",
+              "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "One Way Drop Taxi" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Outstation Round Trip" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Airport Pickup & Drop" } }
+              ]
+            }
           }
           `}
         </script>
       </Helmet>
 
-      {/* --- GLOBAL FIXED BACKGROUND (Full Page) --- */}
-      <div className="fixed inset-0 z-0">
-          {/* Image Layer: Full Opacity for Brightness */}
+      {/* --- BACKGROUND LAYER --- */}
+      <div className="fixed inset-0 z-0 overflow-hidden">
           <div 
-              className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-100"
+              className="absolute inset-0 scale-105 bg-center bg-no-repeat bg-cover"
               style={{ backgroundImage: "url('/taxi.jpg')" }}
+              role="img"
+              aria-label="Pranav Drop Taxi background"
           />
-          {/* Overlay Layer: Very light gradient to keep image bright but readable */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90" />
       </div>
 
-      {/* --- CONTENT SCROLLABLE AREA --- */}
-      <div className="relative z-10">
+      <main className="relative z-10">
         
-        {/* Hero Section */}
-        <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
+        {/* HERO SECTION */}
+        <header className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="w-full max-w-4xl p-8 border shadow-2xl bg-black/40 backdrop-blur-md rounded-3xl border-white/20 sm:p-12"
+            className="w-full max-w-4xl p-8 border shadow-2xl bg-black/40 backdrop-blur-xl rounded-3xl border-white/20 sm:p-12"
           >
-            <h1 className="mb-6 text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-taxi-yellow to-white sm:text-6xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-              Welcome to Pranav Drop Taxi
+            <span className="inline-block px-4 py-1 mb-4 text-xs font-bold tracking-widest text-black uppercase rounded-full bg-taxi-yellow">
+              Pranav Drop Taxi
+            </span>
+            <h1 className="mb-6 text-4xl font-extrabold text-white sm:text-7xl drop-shadow-2xl">
+              Reliable <span className="text-taxi-yellow">One Way</span> Drop Taxi
             </h1>
-            <p className="max-w-2xl mx-auto mb-8 text-lg font-medium leading-relaxed text-white drop-shadow-md sm:text-xl">
-              Wherever the road takes you, we bring comfort, convenience, and confidence to your outstation travel needs!
+            <p className="max-w-2xl mx-auto mb-8 text-lg font-medium leading-relaxed text-gray-100 sm:text-xl">
+              Safe, affordable, and professional outstation travel. We specialize in intercity drops across Tamil Nadu with transparent pricing.
             </p>
             
             <div className="flex flex-wrap justify-center gap-4">
               <a
-                href="tel:9884609789"
-                className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-black transition-all duration-300 transform bg-white rounded-full shadow-lg hover:bg-taxi-yellow hover:scale-105 active:scale-95"
+                href="tel:+918778143908"
+                aria-label="Call Pranav Drop Taxi"
+                className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-black transition-all bg-white rounded-full hover:bg-taxi-yellow hover:scale-105"
               >
-                <PhoneCall className="w-5 h-5" />
-                Call Now
+                <PhoneCall className="w-5 h-5" /> Call Now
               </a>
 
               <a
                 href="#booking"
-                className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-black transition-all duration-300 transform rounded-full bg-taxi-yellow hover:bg-white hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,193,7,0.6)]"
+                className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-black transition-all rounded-full shadow-lg bg-taxi-yellow hover:bg-white hover:scale-105 shadow-taxi-yellow/20"
               >
                 Book Your Ride
               </a>
@@ -174,101 +194,64 @@ function Home() {
                 href="https://wa.me/918778143908"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-white transition-all duration-300 transform bg-green-600 rounded-full shadow-lg hover:bg-green-500 hover:scale-105 active:scale-95"
+                aria-label="Message us on WhatsApp"
+                className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-white transition-all bg-green-600 rounded-full hover:bg-green-500 hover:scale-105"
               >
-                <FaWhatsapp className="w-5 h-5" />
-                WhatsApp
+                <FaWhatsapp className="w-5 h-5" /> WhatsApp
               </a>
             </div>
           </motion.div>
-        </div>
+        </header>
 
-        {/* Booking Section */}
-        <section id="booking" className="px-4 py-12 -mt-20 sm:py-16">
-          {/* Transparent container, only inner form has glass effect */}
-          <div className="max-w-5xl p-6 mx-auto border shadow-2xl bg-black/60 backdrop-blur-md rounded-3xl border-white/10 sm:p-10">
+        {/* BOOKING SECTION */}
+        <section id="booking" aria-label="Book a Taxi" className="px-4 py-12 -mt-20 sm:py-20">
+          <div className="max-w-5xl p-6 mx-auto border shadow-2xl bg-black/80 backdrop-blur-lg rounded-3xl border-white/10 sm:p-10">
             <h2 className="mb-8 text-3xl font-bold text-center text-white sm:text-4xl">
-              Book Your Ride <span className="text-taxi-yellow">Instantly</span>
+              Instant <span className="text-taxi-yellow">Online Booking</span>
             </h2>
             <BookingForm />
           </div>
         </section>
 
-        {/* Tariff & Fleet Components 
-            Removed solid backgrounds, now purely transparent
-        */}
-        <section id="tariff" className="py-16 bg-transparent">
-           <OurTariff />
-        </section>
-        
-        <section id="fleet" className="py-16 bg-transparent">
-           <OurFleet />
-        </section>
-
-        {/* How It Works */}
-        <section className="px-4 py-20 bg-transparent">
+        {/* SERVICES / HOW IT WORKS */}
+        <section className="px-4 py-20 bg-transparent" id="how-it-works">
           <div className="max-w-6xl mx-auto text-center">
-              <h2 className="mb-16 text-3xl font-bold text-white sm:text-5xl drop-shadow-md">
-                  How It Works
-              </h2>
+              <h2 className="mb-4 text-3xl font-bold text-white sm:text-5xl">How to Book Your Taxi</h2>
+              <p className="mb-16 text-gray-400">Simple three-step process for a stress-free journey.</p>
               <div className="grid gap-8 sm:grid-cols-3">
                   {[
-                  {
-                      Icon: Car,
-                      title: "Choose Your Ride",
-                      desc: "Select from a range of clean and comfortable vehicles.",
-                  },
-                  {
-                      Icon: ClipboardList,
-                      title: "Enter Trip Details",
-                      desc: "Fill in pickup and drop locations, trip type, and schedule.",
-                  },
-                  {
-                      Icon: CheckCircle,
-                      title: "Confirm & Go",
-                      desc: "Get instant confirmation and ride stress-free.",
-                  },
+                    { Icon: MapPin, title: "Set Route", desc: "Select pickup and drop location within Tamil Nadu or Pondicherry." },
+                    { Icon: Car, title: "Choose Vehicle", desc: "Choose from Hatchback, Sedan, or SUV based on your comfort." },
+                    { Icon: CheckCircle, title: "Enjoy Trip", desc: "Our professional driver arrives on time for a safe journey." }
                   ].map(({ Icon, title, desc }, idx) => (
-                  <div key={idx} className="relative p-8 transition-all duration-300 border shadow-xl border-white/10 group bg-black/50 backdrop-blur-md rounded-3xl hover:bg-black/70 hover:border-taxi-yellow/30 hover:-translate-y-2">
-                      <div className="flex items-center justify-center w-20 h-20 mx-auto mb-6 transition-transform rounded-full bg-taxi-yellow/10 text-taxi-yellow group-hover:scale-110 group-hover:bg-taxi-yellow group-hover:text-black">
+                  <div key={idx} className="p-8 transition-all border shadow-xl border-white/10 bg-black/50 backdrop-blur-md rounded-3xl hover:-translate-y-2">
+                      <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-black rounded-full bg-taxi-yellow">
                           <Icon className="w-8 h-8" />
                       </div>
                       <h3 className="mb-4 text-xl font-bold text-white">{title}</h3>
-                      <p className="leading-relaxed text-gray-300">{desc}</p>
+                      <p className="text-gray-400">{desc}</p>
                   </div>
                   ))}
               </div>
           </div>
         </section>
 
-        {/* Why Choose Us */}
-        <section className="px-4 py-20 bg-transparent">
+        {/* DYNAMIC COMPONENTS */}
+        <section id="tariff" className="py-16"><OurTariff /></section>
+        <section id="fleet" className="py-16"><OurFleet /></section>
+
+        {/* WHY CHOOSE US */}
+        <section className="px-4 py-20">
           <div className="max-w-6xl mx-auto text-center">
-              <h2 className="mb-16 text-3xl font-bold text-white sm:text-5xl drop-shadow-md">
-                  Why Choose <span className="text-taxi-yellow">Pranav Drop Taxi?</span>
-              </h2>
+              <h2 className="mb-16 text-3xl font-bold text-white sm:text-5xl">Why Choose <span className="text-taxi-yellow">Pranav?</span></h2>
               <div className="grid gap-8 sm:grid-cols-3">
                   {[
-                  {
-                      Icon: Car,
-                      title: "Reliable Rides",
-                      desc: "On-time pickups and clean vehicles ensure smooth travel.",
-                  },
-                  {
-                      Icon: ClipboardList,
-                      title: "Transparent Pricing",
-                      desc: "No hidden fees. Know your fare upfront.",
-                  },
-                  {
-                      Icon: PhoneCall,
-                      title: "24/7 Support",
-                      desc: "Always here to help before, during, and after your trip.",
-                  },
+                    { Icon: ShieldCheck, title: "Verified Drivers", desc: "Safe and background-checked professional drivers." },
+                    { Icon: Clock, title: "24/7 Availability", desc: "Mid-night airport drops or early morning intercity travel." },
+                    { Icon: ClipboardList, title: "Transparent Bill", desc: "No hidden charges. Toll and parking are as per actuals." }
                   ].map(({ Icon, title, desc }, idx) => (
-                  <div key={idx} className="p-8 transition-all duration-300 border shadow-lg group bg-black/50 backdrop-blur-md border-white/10 rounded-3xl hover:border-taxi-yellow hover:shadow-[0_0_25px_rgba(255,193,7,0.1)]">
-                      <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-black transition-transform duration-500 rounded-full bg-taxi-yellow group-hover:rotate-12">
-                          <Icon className="w-8 h-8" />
-                      </div>
+                  <div key={idx} className="p-8 transition-colors border bg-black/40 border-white/5 rounded-3xl hover:border-taxi-yellow/50">
+                      <Icon className="w-12 h-12 mx-auto mb-6 text-taxi-yellow" />
                       <h3 className="mb-3 text-xl font-bold text-white">{title}</h3>
                       <p className="text-gray-400">{desc}</p>
                   </div>
@@ -277,23 +260,19 @@ function Home() {
           </div>
         </section>
 
-        {/* Reviews Section */}
-        <section className="px-4 py-24 bg-transparent">
-          <h2 className="mb-16 text-3xl font-bold text-center text-white sm:text-5xl drop-shadow-md">
-            What Our Customers Say
-          </h2>
+        {/* REVIEWS */}
+        <section className="px-4 py-24 bg-transparent" aria-label="Customer Reviews">
+          <h2 className="mb-16 text-3xl font-bold text-center text-white sm:text-5xl">What Our Customers Say</h2>
 
           {loading ? (
-            <p className="text-center text-gray-400 animate-pulse">Loading reviews...</p>
-          ) : reviews.length === 0 ? (
-            <p className="text-center text-gray-400">No reviews yet.</p>
+            <div className="flex justify-center"><div className="w-10 h-10 border-4 rounded-full border-taxi-yellow border-t-transparent animate-spin"></div></div>
           ) : (
             <div className="relative flex flex-col items-center max-w-6xl mx-auto">
-              {/* Desktop Navigation Arrows */}
               <button
                 onClick={handlePrev}
                 disabled={currentIndex === 0}
-                className="absolute left-0 z-10 hidden p-4 text-black transition-all transform rounded-full bg-taxi-yellow sm:block hover:bg-white disabled:opacity-30 hover:scale-110 hover:shadow-lg"
+                aria-label="Previous review"
+                className="absolute left-0 z-10 hidden p-4 text-black transition-all rounded-full bg-taxi-yellow sm:block disabled:opacity-20"
               >
                 <ArrowLeft className="w-6 h-6" />
               </button>
@@ -302,36 +281,28 @@ function Home() {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentIndex}
-                    initial={{ x: direction > 0 ? 100 : -100, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: direction > 0 ? -100 : 100, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    initial={{ opacity: 0, x: direction * 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: direction * -50 }}
                     className="flex flex-col items-stretch justify-center gap-8 px-4 sm:flex-row"
                   >
-                    {reviews
-                      .slice(currentIndex, currentIndex + (isMobile ? 1 : 2))
-                      .map((review, idx) => (
-                        <div
-                          key={idx}
-                          className="flex flex-col w-full max-w-md p-8 border shadow-2xl bg-black/60 rounded-3xl border-white/10 backdrop-blur-md"
-                        >
-                          <Quote className="w-10 h-10 mb-6 text-taxi-yellow opacity-40" />
-                          <p className="flex-1 mb-6 text-lg italic leading-relaxed text-gray-300">
-                            "{review.review || "No review text"}"
-                          </p>
+                    {reviews.slice(currentIndex, currentIndex + (isMobile ? 1 : 2)).map((review, idx) => (
+                        <div key={idx} className="flex flex-col w-full max-w-md p-8 border bg-black/60 rounded-3xl border-white/10 backdrop-blur-md">
+                          <Quote className="w-10 h-10 mb-6 text-taxi-yellow/30" />
+                          <p className="flex-1 mb-6 text-lg italic text-gray-300">"{review.review}"</p>
                           <div className="flex items-center gap-4 pt-6 mt-auto border-t border-white/10">
                               <div className="flex items-center justify-center w-12 h-12 text-xl font-bold text-black rounded-full bg-taxi-yellow">
-                                  {review.name ? review.name.charAt(0).toUpperCase() : 'A'}
+                                  {review.name?.charAt(0) || 'U'}
                               </div>
                               <div>
-                                  <p className="font-bold text-white text-md">{review.name || "Anonymous"}</p>
+                                  <p className="font-bold text-white">{review.name || "Happy Customer"}</p>
                                   <div className="flex items-center gap-1 text-xs text-green-400">
-                                      <CheckCircle className="w-3 h-3" /> Verified Customer
+                                      <CheckCircle className="w-3 h-3" /> Verified User
                                   </div>
                               </div>
                           </div>
                         </div>
-                      ))}
+                    ))}
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -339,45 +310,38 @@ function Home() {
               <button
                 onClick={handleNext}
                 disabled={currentIndex >= reviews.length - (isMobile ? 1 : 2)}
-                className="absolute right-0 z-10 hidden p-4 text-black transition-all transform rounded-full bg-taxi-yellow sm:block hover:bg-white disabled:opacity-30 hover:scale-110 hover:shadow-lg"
+                aria-label="Next review"
+                className="absolute right-0 z-10 hidden p-4 text-black transition-all rounded-full bg-taxi-yellow sm:block disabled:opacity-20"
               >
                 <ArrowRight className="w-6 h-6" />
               </button>
-              
-              {/* Mobile Nav */}
-              <div className="flex gap-6 mt-10 sm:hidden">
-                  <button onClick={handlePrev} disabled={currentIndex === 0} className="p-4 text-black rounded-full bg-taxi-yellow disabled:opacity-50"><ArrowLeft/></button>
-                  <button onClick={handleNext} disabled={currentIndex >= reviews.length - 1} className="p-4 text-black rounded-full bg-taxi-yellow disabled:opacity-50"><ArrowRight/></button>
-              </div>
             </div>
           )}
         </section>
-      </div>
+      </main>
 
-      {/* Floating Buttons */}
+      {/* FLOATING ACTION BUTTONS */}
       <div className="fixed z-[999] bottom-6 right-6 flex flex-col items-end gap-4">
-        {/* WhatsApp */}
         <motion.a
-          href="https://wa.me/919884609789"
+          href="https://wa.me/918778143908"
           target="_blank"
           rel="noopener noreferrer"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
+          aria-label="Chat on WhatsApp"
           whileHover={{ scale: 1.1 }}
-          className="flex items-center justify-center text-white transition-all duration-300 bg-green-500 rounded-full shadow-lg w-14 h-14 hover:bg-green-600 hover:shadow-green-500/40"
+          className="flex items-center justify-center text-white bg-green-500 rounded-full shadow-2xl w-14 h-14 hover:bg-green-600 shadow-green-500/20"
         >
           <FaWhatsapp className="w-8 h-8" />
         </motion.a>
 
-        {/* Scroll To Top */}
         <AnimatePresence>
           {showTopButton && (
             <motion.button
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              aria-label="Scroll to top"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="flex items-center justify-center text-black transition-all duration-300 rounded-full shadow-lg w-14 h-14 bg-taxi-yellow hover:bg-white hover:scale-110"
+              className="flex items-center justify-center text-black rounded-full shadow-2xl bg-taxi-yellow w-14 h-14 hover:bg-white"
             >
               <ChevronUp className="w-8 h-8" />
             </motion.button>
