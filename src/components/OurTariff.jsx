@@ -17,35 +17,12 @@ export default function Tariff() {
   const descriptions = {
     oneway: [
       "Quick rides offered at best affordable rates.",
-      "Ideal choice for seamless single-way travel."
+      "Ideal choice for seamless single-way travel.",
     ],
     roundtrip: [
       "Lowest fares guaranteed for return trips.",
-      "Perfect option for long, comfortable travel plans."
-    ]
-  };
-
-  const tariffSchema = {
-    "@context": "https://schema.org",
-    "@type": "PriceSpecification",
-    "name": "Pranav Drop Taxi Tariff Rates",
-    "description": "Transparent taxi fare for one-way and round-trip across South India.",
-    "priceCurrency": "INR",
-    "eligibleQuantity": {
-      "@type": "QuantitativeValue",
-      "unitCode": "KMT",
-      "value": 1
-    },
-    "offers": tariff.map((car) => ({
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": `${car.type} Taxi Service`
-      },
-      "price": car.oneway,
-      "priceCurrency": "INR",
-      "description": `One-way rate: ₹${car.oneway}/km, Round-trip rate: ₹${car.roundtrip}/km`
-    }))
+      "Perfect option for long, comfortable travel plans.",
+    ],
   };
 
   const boxStyle =
@@ -55,20 +32,58 @@ export default function Tariff() {
     <section className="relative z-10 px-4 py-16 text-white bg-transparent sm:py-20">
       {/* --- SEO HEADER (TITLE REMOVED TO PREVENT OVERRIDE) --- */}
       <Helmet>
-        <meta name="description" content="Transparent taxi pricing starting from ₹13/km. View our detailed tariff for Sedan, SUV, and Innova Crysta. No hidden charges for one-way and round trips." />
-        <meta name="keywords" content="taxi fare per km, innova crysta per km rate chennai, drop taxi tariff, one way taxi price tamilnadu, driver bata charges" />
+        {/* META DESCRIPTION – HIGH INTENT */}
+        <meta
+          name="description"
+          content="Check Pranav Drop Taxi tariff details with transparent per km pricing. Sedan starts from ₹13/km, SUV and Innova available for one-way and round-trip outstation travel from Chennai across Tamil Nadu, Bangalore, and South India. No hidden charges."
+        />
+
+        {/* STRONG KEYWORDS */}
+        <meta
+          name="keywords"
+          content="
+      taxi tariff chennai,
+      drop taxi tariff,
+      one way taxi price per km,
+      outstation taxi rates chennai,
+      sedan taxi fare chennai,
+      suv taxi fare tamil nadu,
+      innova taxi per km rate,
+      innova crysta tariff chennai,
+      cheapest drop taxi rates,
+      pranav drop taxi tariff
+    "
+        />
+
+        {/* CANONICAL */}
         <link rel="canonical" href="https://pranavdroptaxi.com/tariff" />
-        
-        {/* OG Tags */}
-        <meta property="og:description" content="Check our budget-friendly taxi rates. Sedan starts at ₹13/km. Book your drop taxi today!" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify(tariffSchema)}
-        </script>
+
+        {/* OPEN GRAPH */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Pranav Drop Taxi" />
+        <meta property="og:url" content="https://pranavdroptaxi.com/tariff" />
+        <meta
+          property="og:description"
+          content="View Pranav Drop Taxi tariff with best per km rates for one-way and round-trip travel. Sedan, SUV, Innova, and Innova Crysta available."
+        />
+        <meta
+          property="og:image"
+          content="https://pranavdroptaxi.com/taxi.jpg"
+        />
+
+        {/* TWITTER */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:description"
+          content="Affordable taxi tariff starting from ₹13/km. Check Pranav Drop Taxi rates for one-way and outstation trips."
+        />
+        <meta
+          name="twitter:image"
+          content="https://pranavdroptaxi.com/taxi.jpg"
+        />
       </Helmet>
 
       <div className="max-w-6xl mx-auto">
-        
         {/* Title */}
         <h2 className="mb-6 text-3xl font-extrabold text-center text-white sm:text-5xl drop-shadow-lg">
           Tariff <span className="text-taxi-yellow">Details</span>
@@ -76,9 +91,15 @@ export default function Tariff() {
 
         {/* Dynamic Description */}
         <div className="flex flex-col items-center justify-center gap-2 mb-10 text-lg text-gray-300 sm:flex-row">
-          <p className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-taxi-yellow"/> {descriptions[tab][0]}</p>
+          <p className="flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 text-taxi-yellow" />{" "}
+            {descriptions[tab][0]}
+          </p>
           <span className="hidden w-1.5 h-1.5 rounded-full bg-gray-600 sm:block" />
-          <p className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-taxi-yellow"/> {descriptions[tab][1]}</p>
+          <p className="flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 text-taxi-yellow" />{" "}
+            {descriptions[tab][1]}
+          </p>
         </div>
 
         {/* Tabs */}
@@ -118,18 +139,42 @@ export default function Tariff() {
         >
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-300 border-separate border-spacing-0">
-              <caption className="sr-only">Detailed taxi tariff for various vehicle types</caption>
+              <caption className="sr-only">
+                Detailed taxi tariff for various vehicle types
+              </caption>
               <thead>
                 <tr className="bg-white/5">
-                  <th scope="col" className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow">Vehicle</th>
-                  <th scope="col" className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow">
+                  <th
+                    scope="col"
+                    className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow"
+                  >
+                    Vehicle
+                  </th>
+                  <th
+                    scope="col"
+                    className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow"
+                  >
                     <div className="flex items-center gap-2">
-                      {tab === "oneway" ? <Route className="w-4 h-4" /> : <Repeat className="w-4 h-4" />}
+                      {tab === "oneway" ? (
+                        <Route className="w-4 h-4" />
+                      ) : (
+                        <Repeat className="w-4 h-4" />
+                      )}
                       Rate
                     </div>
                   </th>
-                  <th scope="col" className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow">Driver Bata</th>
-                  <th scope="col" className="w-48 p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow">Note</th>
+                  <th
+                    scope="col"
+                    className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow"
+                  >
+                    Driver Bata
+                  </th>
+                  <th
+                    scope="col"
+                    className="w-48 p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow"
+                  >
+                    Note
+                  </th>
                 </tr>
               </thead>
 
@@ -138,13 +183,16 @@ export default function Tariff() {
                   <tr key={idx} className="transition-colors hover:bg-white/5">
                     <td className="flex items-center gap-3 p-5 font-bold text-white border-b border-white/10">
                       <div className="flex items-center justify-center w-10 h-10 rounded-full bg-taxi-yellow/10 text-taxi-yellow">
-                        <Car className="w-5 h-5" /> 
+                        <Car className="w-5 h-5" />
                       </div>
                       {item.type}
                     </td>
 
                     <td className="p-5 font-mono text-lg font-bold text-white border-b border-white/10">
-                      ₹{tab === "oneway" ? item.oneway : item.roundtrip}<span className="text-sm font-normal text-gray-500">/km</span>
+                      ₹{tab === "oneway" ? item.oneway : item.roundtrip}
+                      <span className="text-sm font-normal text-gray-500">
+                        /km
+                      </span>
                     </td>
 
                     <td className="p-5 border-b border-white/10">
@@ -187,10 +235,22 @@ export default function Tariff() {
               Drop Trip Terms
             </h4>
             <ul className="pl-2 space-y-3 text-sm text-gray-400">
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> Driver Bata: ₹400</li>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> Waiting Charges: ₹120 per hour</li>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> Minimum billing: 130 KM</li>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> Hill station charges: ₹300</li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                Driver Bata: ₹400
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                Waiting Charges: ₹120 per hour
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                Minimum billing: 130 KM
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                Hill station charges: ₹300
+              </li>
             </ul>
           </div>
 
@@ -202,10 +262,22 @@ export default function Tariff() {
               Round Trip Terms
             </h4>
             <ul className="pl-2 space-y-3 text-sm text-gray-400">
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> Driver Bata: ₹400 per day</li>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> Minimum billing: 250 KM</li>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> Bangalore pickup: 300kms min</li>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> Other states: 250kms min</li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                Driver Bata: ₹400 per day
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                Minimum billing: 250 KM
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                Bangalore pickup: 300kms min
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                Other states: 250kms min
+              </li>
             </ul>
           </div>
 
@@ -217,9 +289,18 @@ export default function Tariff() {
               Extra Charges
             </h4>
             <ul className="pl-2 space-y-3 text-sm text-gray-400">
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> Toll fees (as applicable)</li>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> Inter-State Permit charges</li>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> GST charges (if any)</li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                Toll fees (as applicable)
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                Inter-State Permit charges
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                GST charges (if any)
+              </li>
             </ul>
           </div>
 
@@ -231,9 +312,18 @@ export default function Tariff() {
               Important Notes
             </h4>
             <ul className="pl-2 space-y-3 text-sm text-gray-400">
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> 1 day = 1 calendar day (12 AM to 12 AM)</li>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> Luggage policy at driver’s discretion</li>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span> Taxis are passenger vehicles only</li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                1 day = 1 calendar day (12 AM to 12 AM)
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                Luggage policy at driver’s discretion
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
+                Taxis are passenger vehicles only
+              </li>
             </ul>
           </div>
         </motion.div>

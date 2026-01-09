@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import BookingForm from "../components/BookingForm";
 import OurFleet from "../components/OurFleet";
 import OurTariff from "../components/OurTariff";
-import { Helmet } from "react-helmet";  
+import { Helmet } from "react-helmet";
 import { FaWhatsapp } from "react-icons/fa";
 
 import {
@@ -17,7 +17,7 @@ import {
   ChevronUp,
   MapPin,
   Clock,
-  ShieldCheck
+  ShieldCheck,
 } from "lucide-react";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../utils/firebase";
@@ -74,65 +74,90 @@ function Home() {
   return (
     <div className="relative min-h-screen text-gray-200 bg-black selection:bg-taxi-yellow selection:text-black">
       <Helmet defer={false}>
-        {/* PRIMARY LOCKED TITLE */}
-        <title key="main-title">Pranav Drop Taxi | Outstation Taxi Service</title>
-        
-        <meta name="title" content="Pranav Drop Taxi | Outstation Taxi Service" />
+        {/* PRIMARY TITLE (Very Strong) */}
+        <title>
+          Pranav Drop Taxi – Cheapest One Way & Outstation Taxi in Chennai
+        </title>
+
+        {/* CORE META */}
         <meta
           name="description"
-          content="Book the cheapest one-way drop taxi in Chennai. Pranav Drop Taxi offers premium outstation cabs, 24/7 airport transfers, and intercity travel across Tamil Nadu & Pondicherry."
+          content="Pranav Drop Taxi offers the cheapest one-way and outstation taxi services in Chennai with 24/7 airport pickups, safe professional drivers, clean cabs, transparent pricing, and reliable Chennai to Bangalore, Coimbatore, Trichy & Pondicherry drop taxi services."
         />
+
         <meta
           name="keywords"
-          content="drop taxi chennai, one way taxi chennai, outstation taxi chennai, airport taxi chennai, chennai to bangalore drop taxi, cheapest drop taxi tamil nadu, pranav drop taxi booking"
+          content="
+      drop taxi chennai,
+      one way taxi chennai,
+      outstation taxi chennai,
+      airport taxi chennai,
+      chennai to bangalore drop taxi,
+      chennai to pondicherry taxi,
+      cheapest drop taxi tamil nadu,
+      one way cab chennai,
+      intercity taxi chennai,
+      outstation cabs tamil nadu,
+      pranav drop taxi,
+      chennai airport taxi service
+    "
         />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://firestore.googleapis.com" />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Pranav Drop Taxi" />
+
+        {/* CANONICAL */}
         <link rel="canonical" href="https://pranavdroptaxi.com/" />
 
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://pranavdroptaxi.com/" />
-        <meta property="og:title" content="Pranav Drop Taxi | Outstation Taxi Service" />
-        <meta property="og:description" content="Safe, professional, and affordable one-way drop taxi services from Chennai." />
-        <meta property="og:image" content="https://pranavdroptaxi.com/taxi.jpg" />
+        {/* PERFORMANCE */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://firestore.googleapis.com" />
 
-        {/* Structured Data */}
-        <script type="application/ld+json">
-          {`
-          {
-            "@context": "https://schema.org",
-            "@type": "TaxiService",
-            "name": "Pranav Drop Taxi",
-            "url": "https://pranavdroptaxi.com/",
-            "telephone": "+918778143908",
-            "priceRange": "₹₹",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Chennai",
-              "addressRegion": "TN",
-              "addressCountry": "IN"
-            },
-            "areaServed": ["Chennai", "Tamil Nadu", "Pondicherry", "Bangalore"]
-          }
-          `}
-        </script>
+        {/* OPEN GRAPH (Facebook / WhatsApp) */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Pranav Drop Taxi" />
+        <meta property="og:url" content="https://pranavdroptaxi.com/" />
+        <meta
+          property="og:title"
+          content="Pranav Drop Taxi – Cheapest One Way & Outstation Taxi in Chennai"
+        />
+        <meta
+          property="og:description"
+          content="Book affordable one-way drop taxi and outstation cabs from Chennai. Safe drivers, transparent pricing, 24/7 availability."
+        />
+        <meta
+          property="og:image"
+          content="https://pranavdroptaxi.com/taxi.jpg"
+        />
+
+        {/* TWITTER */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Pranav Drop Taxi – Cheapest One Way & Outstation Taxi in Chennai"
+        />
+        <meta
+          name="twitter:description"
+          content="Affordable outstation and one-way drop taxi services from Chennai with professional drivers."
+        />
+        <meta
+          name="twitter:image"
+          content="https://pranavdroptaxi.com/taxi.jpg"
+        />
       </Helmet>
 
       {/* --- BACKGROUND LAYER --- */}
       <div className="fixed inset-0 z-0 overflow-hidden">
-          <div 
-              className="absolute inset-0 scale-105 bg-center bg-no-repeat bg-cover"
-              style={{ backgroundImage: "url('/taxi.jpg')" }}
-              role="img"
-              aria-label="Pranav Drop Taxi background"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90" />
+        <div
+          className="absolute inset-0 scale-105 bg-center bg-no-repeat bg-cover"
+          style={{ backgroundImage: "url('/taxi.jpg')" }}
+          role="img"
+          aria-label="Pranav Drop Taxi background"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90" />
       </div>
 
       <main className="relative z-10">
-        
         {/* HERO SECTION */}
         <header className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
           <motion.div
@@ -145,12 +170,15 @@ function Home() {
               Pranav Drop Taxi
             </span>
             <h1 className="mb-6 text-4xl font-extrabold text-white sm:text-7xl drop-shadow-2xl">
-              Reliable <span className="text-taxi-yellow">One Way</span> Drop Taxi
+              Reliable <span className="text-taxi-yellow">One Way</span> Drop
+              Taxi
             </h1>
             <p className="max-w-2xl mx-auto mb-8 text-lg font-medium leading-relaxed text-gray-100 sm:text-xl">
-              Safe, affordable, and professional outstation travel. We specialize in intercity drops across Tamil Nadu with transparent pricing.
+              Safe, affordable, and professional outstation travel. We
+              specialize in intercity drops across Tamil Nadu with transparent
+              pricing.
             </p>
-            
+
             <div className="flex flex-wrap justify-center gap-4">
               <a
                 href="tel:+918778143908"
@@ -181,7 +209,11 @@ function Home() {
         </header>
 
         {/* BOOKING SECTION */}
-        <section id="booking" aria-label="Book a Taxi" className="px-4 py-12 -mt-20 sm:py-20">
+        <section
+          id="booking"
+          aria-label="Book a Taxi"
+          className="px-4 py-12 -mt-20 sm:py-20"
+        >
           <div className="max-w-5xl p-6 mx-auto border shadow-2xl bg-black/80 backdrop-blur-lg rounded-3xl border-white/10 sm:p-10">
             <h2 className="mb-8 text-3xl font-bold text-center text-white sm:text-4xl">
               Instant <span className="text-taxi-yellow">Online Booking</span>
@@ -193,56 +225,103 @@ function Home() {
         {/* SERVICES / HOW IT WORKS */}
         <section className="px-4 py-20 bg-transparent" id="how-it-works">
           <div className="max-w-6xl mx-auto text-center">
-              <h2 className="mb-4 text-3xl font-bold text-white sm:text-5xl">How to Book Your Taxi</h2>
-              <p className="mb-16 text-gray-400">Simple three-step process for a stress-free journey.</p>
-              <div className="grid gap-8 sm:grid-cols-3">
-                  {[
-                    { Icon: MapPin, title: "Set Route", desc: "Select pickup and drop location within Tamil Nadu or Pondicherry." },
-                    { Icon: Car, title: "Choose Vehicle", desc: "Choose from Hatchback, Sedan, or SUV based on your comfort." },
-                    { Icon: CheckCircle, title: "Enjoy Trip", desc: "Our professional driver arrives on time for a safe journey." }
-                  ].map(({ Icon, title, desc }, idx) => (
-                  <div key={idx} className="p-8 transition-all border shadow-xl border-white/10 bg-black/50 backdrop-blur-md rounded-3xl hover:-translate-y-2">
-                      <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-black rounded-full bg-taxi-yellow">
-                          <Icon className="w-8 h-8" />
-                      </div>
-                      <h3 className="mb-4 text-xl font-bold text-white">{title}</h3>
-                      <p className="text-gray-400">{desc}</p>
+            <h2 className="mb-4 text-3xl font-bold text-white sm:text-5xl">
+              How to Book Your Taxi
+            </h2>
+            <p className="mb-16 text-gray-400">
+              Simple three-step process for a stress-free journey.
+            </p>
+            <div className="grid gap-8 sm:grid-cols-3">
+              {[
+                {
+                  Icon: MapPin,
+                  title: "Set Route",
+                  desc: "Select pickup and drop location within Tamil Nadu or Pondicherry.",
+                },
+                {
+                  Icon: Car,
+                  title: "Choose Vehicle",
+                  desc: "Choose from Hatchback, Sedan, or SUV based on your comfort.",
+                },
+                {
+                  Icon: CheckCircle,
+                  title: "Enjoy Trip",
+                  desc: "Our professional driver arrives on time for a safe journey.",
+                },
+              ].map(({ Icon, title, desc }, idx) => (
+                <div
+                  key={idx}
+                  className="p-8 transition-all border shadow-xl border-white/10 bg-black/50 backdrop-blur-md rounded-3xl hover:-translate-y-2"
+                >
+                  <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-black rounded-full bg-taxi-yellow">
+                    <Icon className="w-8 h-8" />
                   </div>
-                  ))}
-              </div>
+                  <h3 className="mb-4 text-xl font-bold text-white">{title}</h3>
+                  <p className="text-gray-400">{desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* DYNAMIC COMPONENTS */}
-        <section id="tariff" className="py-16"><OurTariff /></section>
-        <section id="fleet" className="py-16"><OurFleet /></section>
+        <section id="tariff" className="py-16">
+          <OurTariff />
+        </section>
+        <section id="fleet" className="py-16">
+          <OurFleet />
+        </section>
 
         {/* WHY CHOOSE US */}
         <section className="px-4 py-20">
           <div className="max-w-6xl mx-auto text-center">
-              <h2 className="mb-16 text-3xl font-bold text-white sm:text-5xl">Why Choose <span className="text-taxi-yellow">Pranav?</span></h2>
-              <div className="grid gap-8 sm:grid-cols-3">
-                  {[
-                    { Icon: ShieldCheck, title: "Verified Drivers", desc: "Safe and background-checked professional drivers." },
-                    { Icon: Clock, title: "24/7 Availability", desc: "Mid-night airport drops or early morning intercity travel." },
-                    { Icon: ClipboardList, title: "Transparent Bill", desc: "No hidden charges. Toll and parking are as per actuals." }
-                  ].map(({ Icon, title, desc }, idx) => (
-                  <div key={idx} className="p-8 transition-colors border bg-black/40 border-white/5 rounded-3xl hover:border-taxi-yellow/50">
-                      <Icon className="w-12 h-12 mx-auto mb-6 text-taxi-yellow" />
-                      <h3 className="mb-3 text-xl font-bold text-white">{title}</h3>
-                      <p className="text-gray-400">{desc}</p>
-                  </div>
-                  ))}
-              </div>
+            <h2 className="mb-16 text-3xl font-bold text-white sm:text-5xl">
+              Why Choose <span className="text-taxi-yellow">Pranav?</span>
+            </h2>
+            <div className="grid gap-8 sm:grid-cols-3">
+              {[
+                {
+                  Icon: ShieldCheck,
+                  title: "Verified Drivers",
+                  desc: "Safe and background-checked professional drivers.",
+                },
+                {
+                  Icon: Clock,
+                  title: "24/7 Availability",
+                  desc: "Mid-night airport drops or early morning intercity travel.",
+                },
+                {
+                  Icon: ClipboardList,
+                  title: "Transparent Bill",
+                  desc: "No hidden charges. Toll and parking are as per actuals.",
+                },
+              ].map(({ Icon, title, desc }, idx) => (
+                <div
+                  key={idx}
+                  className="p-8 transition-colors border bg-black/40 border-white/5 rounded-3xl hover:border-taxi-yellow/50"
+                >
+                  <Icon className="w-12 h-12 mx-auto mb-6 text-taxi-yellow" />
+                  <h3 className="mb-3 text-xl font-bold text-white">{title}</h3>
+                  <p className="text-gray-400">{desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* REVIEWS */}
-        <section className="px-4 py-24 bg-transparent" aria-label="Customer Reviews">
-          <h2 className="mb-16 text-3xl font-bold text-center text-white sm:text-5xl">What Our Customers Say</h2>
+        <section
+          className="px-4 py-24 bg-transparent"
+          aria-label="Customer Reviews"
+        >
+          <h2 className="mb-16 text-3xl font-bold text-center text-white sm:text-5xl">
+            What Our Customers Say
+          </h2>
 
           {loading ? (
-            <div className="flex justify-center"><div className="w-10 h-10 border-4 rounded-full border-taxi-yellow border-t-transparent animate-spin"></div></div>
+            <div className="flex justify-center">
+              <div className="w-10 h-10 border-4 rounded-full border-taxi-yellow border-t-transparent animate-spin"></div>
+            </div>
           ) : (
             <div className="relative flex flex-col items-center max-w-6xl mx-auto">
               <button
@@ -263,23 +342,33 @@ function Home() {
                     exit={{ opacity: 0, x: direction * -50 }}
                     className="flex flex-col items-stretch justify-center gap-8 px-4 sm:flex-row"
                   >
-                    {reviews.slice(currentIndex, currentIndex + (isMobile ? 1 : 2)).map((review, idx) => (
-                        <div key={idx} className="flex flex-col w-full max-w-md p-8 border bg-black/60 rounded-3xl border-white/10 backdrop-blur-md">
+                    {reviews
+                      .slice(currentIndex, currentIndex + (isMobile ? 1 : 2))
+                      .map((review, idx) => (
+                        <div
+                          key={idx}
+                          className="flex flex-col w-full max-w-md p-8 border bg-black/60 rounded-3xl border-white/10 backdrop-blur-md"
+                        >
                           <Quote className="w-10 h-10 mb-6 text-taxi-yellow/30" />
-                          <p className="flex-1 mb-6 text-lg italic text-gray-300">"{review.review}"</p>
+                          <p className="flex-1 mb-6 text-lg italic text-gray-300">
+                            "{review.review}"
+                          </p>
                           <div className="flex items-center gap-4 pt-6 mt-auto border-t border-white/10">
-                              <div className="flex items-center justify-center w-12 h-12 text-xl font-bold text-black rounded-full bg-taxi-yellow">
-                                  {review.name?.charAt(0) || 'U'}
+                            <div className="flex items-center justify-center w-12 h-12 text-xl font-bold text-black rounded-full bg-taxi-yellow">
+                              {review.name?.charAt(0) || "U"}
+                            </div>
+                            <div>
+                              <p className="font-bold text-white">
+                                {review.name || "Happy Customer"}
+                              </p>
+                              <div className="flex items-center gap-1 text-xs text-green-400">
+                                <CheckCircle className="w-3 h-3" /> Verified
+                                User
                               </div>
-                              <div>
-                                  <p className="font-bold text-white">{review.name || "Happy Customer"}</p>
-                                  <div className="flex items-center gap-1 text-xs text-green-400">
-                                      <CheckCircle className="w-3 h-3" /> Verified User
-                                  </div>
-                              </div>
+                            </div>
                           </div>
                         </div>
-                    ))}
+                      ))}
                   </motion.div>
                 </AnimatePresence>
               </div>
