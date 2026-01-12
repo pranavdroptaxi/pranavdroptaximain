@@ -141,7 +141,7 @@ export default function Contact() {
               <div className="flex gap-4">
                 <MapPin className="w-6 h-6 text-taxi-yellow" />
                 <p>
-                  28A, Karmel St, opposite V Cure Hospital,
+                  MGR Nagar, Nehru Street,
                   <br />
                   Pallikaranai, Chennai – 600100
                 </p>
