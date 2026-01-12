@@ -25,17 +25,13 @@ const Navbar = () => {
 
   // --- SCROLL TO TOP LOGIC (Logo & Home) ---
   const handleHomeClick = (e) => {
-    // Close menus
     setMenuOpen(false);
     setDropdownOpen(false);
 
     if (location.pathname === "/") {
-      // If already on Home, prevent default navigation and just scroll up smoothly
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
     } 
-    // If not on Home, the <Link> component will handle the navigation to "/" naturally.
-    // React Router usually handles scroll reset on navigation, but if you have a global ScrollToTop component it works best.
   };
 
   // --- ROBUST SCROLL LOGIC (Sections) ---
@@ -124,7 +120,7 @@ const Navbar = () => {
       <div className="relative z-[60] bg-taxi-yellow text-black text-xs font-bold tracking-wide md:hidden">
         <div className="container flex items-center justify-center gap-3 py-2 mx-auto">
           <a
-            href="https://www.google.com/maps/place/28A,+Karmel+St,+opposite+V+Cure+Hospital,+Pallikaranai"
+            href="https://www.google.com/maps/dir/?api=1&destination=12.9254883,80.1970964"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 transition-opacity hover:opacity-75"
@@ -135,9 +131,9 @@ const Navbar = () => {
 
           <span className="opacity-50">|</span>
 
-          <a href="tel:9884609789" className="flex items-center gap-1 transition-opacity hover:opacity-75">
+          <a href="tel:8778143908" className="flex items-center gap-1 transition-opacity hover:opacity-75">
             <FiPhone className="w-3 h-3" />
-            <span>9884609789</span>
+            <span>8778143908</span>
           </a>
         </div>
       </div>
@@ -146,7 +142,6 @@ const Navbar = () => {
       <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/80 backdrop-blur-md">
         <div className="container flex items-center justify-between h-16 px-4 mx-auto md:h-20 md:px-6">
           
-          {/* Logo (Click scrolls top) */}
           <Link 
             to="/" 
             onClick={handleHomeClick} 
@@ -166,7 +161,6 @@ const Navbar = () => {
                     <Link
                         key={index}
                         to={link.path}
-                        // Use handleHomeClick for Home link, otherwise just navigate
                         onClick={link.path === "/" ? handleHomeClick : undefined}
                         className={`px-4 py-2 text-sm font-bold uppercase tracking-wider transition-all duration-300 rounded-full hover:bg-white/10 ${
                             location.pathname === link.path ? "text-taxi-yellow" : "text-white hover:text-taxi-yellow"
@@ -185,7 +179,6 @@ const Navbar = () => {
                 )
             ))}
 
-            {/* User Profile Desktop */}
             {user ? (
               <div className="relative ml-4" ref={desktopDropdownRef}>
                 <button 
@@ -242,10 +235,8 @@ const Navbar = () => {
             ) : null}
           </div>
 
-          {/* Mobile Actions (Outside Menu) */}
+          {/* Mobile Actions */}
           <div className="flex items-center gap-3 lg:hidden">
-             
-             {/* My Bookings Text Link (Mobile) */}
              <Link 
                 to="/my-bookings" 
                 className="px-2 py-1 text-xs font-bold transition-colors text-taxi-yellow hover:text-white active:scale-95 whitespace-nowrap"
@@ -253,7 +244,6 @@ const Navbar = () => {
                  My Bookings
              </Link>
 
-             {/* User Profile (Mobile) - Toggle Dropdown */}
              {user ? (
                 <div className="relative" ref={mobileDropdownRef}>
                     <button 
@@ -275,11 +265,11 @@ const Navbar = () => {
                           exit={{ opacity: 0, y: 10, scale: 0.95 }}
                           className="absolute right-0 w-56 mt-3 overflow-hidden border shadow-2xl bg-black/95 border-white/10 rounded-xl backdrop-blur-xl"
                         >
-                           <div className="p-3 border-b border-white/10">
+                            <div className="p-3 border-b border-white/10">
                                 <p className="text-sm font-bold text-white truncate">{user.displayName}</p>
                                 <p className="text-xs text-gray-400 truncate">{user.email}</p>
-                           </div>
-                           <button
+                            </div>
+                            <button
                                 onClick={handleLogout}
                                 className="flex items-center w-full gap-2 p-3 text-sm text-red-400 transition hover:bg-white/5"
                             >
@@ -295,7 +285,6 @@ const Navbar = () => {
                  </Link>
              )}
 
-            {/* Hamburger Menu */}
             <button 
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="p-1.5 text-white transition-colors rounded-lg hover:text-taxi-yellow focus:outline-none"
@@ -316,13 +305,11 @@ const Navbar = () => {
               className="overflow-hidden border-t border-white/10 bg-black/95 backdrop-blur-xl lg:hidden"
             >
               <div className="flex flex-col p-6 space-y-4">
-                
                 {navLinks.map((link, index) => (
                     link.type === "link" ? (
                         <Link
                             key={index}
                             to={link.path}
-                            // Use handleHomeClick for Home link
                             onClick={(e) => {
                                 if (link.path === "/") handleHomeClick(e);
                                 else setMenuOpen(false);

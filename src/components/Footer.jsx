@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiMail, FiPhone, FiMapPin, FiArrowRight } from 'react-icons/fi';
+import { motion } from 'framer-motion'; // Importing motion for animations
 
 const Footer = () => {
   return (
@@ -32,33 +33,23 @@ const Footer = () => {
               Quick Links
             </h4>
             <ul className="space-y-3 text-sm font-medium">
-              <li>
-                <Link
-                  to="/about"
-                  className="flex items-center gap-2 transition-colors duration-300 hover:text-taxi-yellow"
-                >
-                  <FiArrowRight className="text-taxi-yellow" />
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contact"
-                  className="flex items-center gap-2 transition-colors duration-300 hover:text-taxi-yellow"
-                >
-                  <FiArrowRight className="text-taxi-yellow" />
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/my-bookings"
-                  className="flex items-center gap-2 transition-colors duration-300 hover:text-taxi-yellow"
-                >
-                  <FiArrowRight className="text-taxi-yellow" />
-                  My Bookings
-                </Link>
-              </li>
+              {[
+                { name: "About Us", path: "/about" },
+                { name: "Contact Us", path: "/contact" },
+                { name: "My Bookings", path: "/my-bookings" }
+              ].map((link, idx) => (
+                <li key={idx}>
+                  <Link to={link.path} className="flex items-center gap-2 group w-fit">
+                    <FiArrowRight className="transition-transform duration-300 text-taxi-yellow group-hover:translate-x-1" />
+                    <motion.span 
+                      whileHover={{ x: 5 }}
+                      className="transition-colors duration-300 group-hover:text-taxi-yellow"
+                    >
+                      {link.name}
+                    </motion.span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -85,10 +76,10 @@ const Footer = () => {
                     <FiPhone />
                 </div>
                 <a
-                  href="tel:+919884609789"
+                  href="tel:+91 8778143908"
                   className="mt-1 transition-colors hover:text-taxi-yellow"
                 >
-                  +91 9884609789
+                  +91 8778143908
                 </a>
               </li>
 
@@ -97,13 +88,14 @@ const Footer = () => {
                     <FiMapPin />
                 </div>
                 <a 
-                  href="https://www.google.com/maps/place/28A,+Karmel+St,+opposite+V+Cure+Hospital,+Pallikaranai"
+                  href="https://www.google.com/maps/dir/?api=1&destination=12.9254883,80.1970964"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-1 leading-relaxed transition-colors hover:text-taxi-yellow"
                 >
-                  28A, Karmel St, opposite V Cure Hospital,<br />
-                  Pallikaranai, Chennai, Tamil Nadu 600100
+                  MGR Nagar, Nehru Street,
+                  <br />
+                  Pallikaranai, Chennai – 600100
                 </a>
               </li>
             </ul>

@@ -149,8 +149,8 @@ export default function Contact() {
 
               <div className="flex gap-4">
                 <Phone className="w-6 h-6 text-taxi-yellow" />
-                <a href="tel:+919884609789" className="hover:text-taxi-yellow">
-                  +91 9884609789
+                <a href="tel:+918778143908" className="hover:text-taxi-yellow">
+                  +91 8778143908
                 </a>
               </div>
 
