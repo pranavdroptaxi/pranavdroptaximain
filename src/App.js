@@ -3,8 +3,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation,
-  Navigate
+  useLocation
 } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
@@ -15,20 +14,19 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import LoginPage from './pages/LoginPage';
 import TermsAndConditions from './pages/TermsAndConditions';
-import PageRestricted from './pages/PageRestricted';
 
 import { AuthProvider } from './utils/AuthContext';
 import ScrollToTop from './components/ScrollToTop';
 import { Toaster } from "react-hot-toast";
+
 
 // Layout Controller
 const LayoutWrapper = ({ children }) => {
   const { pathname } = useLocation();
 
   const hideLayoutRoutes = [
-    '/my-bookings',
     '/login',
-    '/restricted', // Hide Navbar/Footer here
+    '/my-bookings',
   ];
 
   const shouldHideLayout = hideLayoutRoutes.some(route =>
@@ -54,8 +52,8 @@ function App() {
         <LayoutWrapper>
           <Routes>
 
-            {/* 🔒 Site Locked → Redirect Home to Restricted */}
-            <Route path="/" element={<Navigate to="/home"/>} />
+            {/* Home is now open */}
+            <Route path="/" element={<Home />} />
 
             {/* Main Pages */}
             <Route path="/home" element={<Home />} />
@@ -64,12 +62,6 @@ function App() {
             <Route path="/my-bookings" element={<MyBookings />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-
-            {/* Restricted Page */}
-            <Route path="/restricted" element={<PageRestricted />} />
-
-            {/* Optional: Allow Home later by switching back */}
-            {/* <Route path="/" element={<Home />} /> */}
 
           </Routes>
         </LayoutWrapper>
