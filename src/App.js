@@ -55,7 +55,7 @@ function App() {
           <Routes>
 
             {/* 🔒 Site Locked → Redirect Home to Restricted */}
-            <Route path="/" element={<Navigate to="/restricted" replace />} />
+            <Route path="/" element={<Navigate to="/home"/>} />
 
             {/* Main Pages */}
             <Route path="/home" element={<Home />} />
