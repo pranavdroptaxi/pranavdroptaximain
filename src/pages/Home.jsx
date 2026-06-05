@@ -181,7 +181,7 @@ function Home() {
 
             <div className="flex flex-wrap justify-center gap-4">
               <a
-                href="tel:+918778143908"
+                href="tel:+919884949171"
                 aria-label="Call Pranav Drop Taxi"
                 className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-black transition-all bg-white rounded-full hover:bg-taxi-yellow hover:scale-105"
               >
@@ -196,7 +196,7 @@ function Home() {
               </a>
 
               <a
-                href="https://wa.me/918778143908"
+                href="https://wa.me/919884949171"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Message us on WhatsApp"
@@ -389,7 +389,7 @@ function Home() {
       {/* FLOATING ACTION BUTTONS */}
       <div className="fixed z-[999] bottom-6 right-6 flex flex-col items-end gap-4">
         <motion.a
-          href="https://wa.me/918778143908"
+          href="https://wa.me/919884949171"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"

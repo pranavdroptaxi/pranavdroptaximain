@@ -149,8 +149,8 @@ export default function Contact() {
 
               <div className="flex gap-4">
                 <Phone className="w-6 h-6 text-taxi-yellow" />
-                <a href="tel:+918778143908" className="hover:text-taxi-yellow">
-                  +91 8778143908
+                <a href="tel:+919884949171" className="hover:text-taxi-yellow">
+                  +91 9884949171
                 </a>
               </div>
 
@@ -175,14 +175,14 @@ export default function Contact() {
           >
             <iframe
               title="Pranav Drop Taxi Location"
-              src="https://www.google.com/maps?q=28A,Karmel+St,Pallikaranai,Chennai,Tamil+Nadu+600100&output=embed"
+              src="https://www.google.com/maps?q=Pranav+Drop+Taxi,+Pallikaranai,+Chennai&output=embed"
               className="w-full border-0 h-96 rounded-2xl"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
 
             <a
-              href="https://www.google.com/maps/dir/?api=1&destination=28A,+Karmel+St,+Pallikaranai,+Chennai"
+              href="https://www.google.com/maps/place/Pranav+Drop+Taxi/@12.9254481,80.197137,17z"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 py-3 mt-4 font-bold text-black bg-taxi-yellow rounded-xl hover:bg-white"

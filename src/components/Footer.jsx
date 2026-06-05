@@ -76,10 +76,10 @@ const Footer = () => {
                     <FiPhone />
                 </div>
                 <a
-                  href="tel:+91 8778143908"
+                  href="tel:+91 9884949171"
                   className="mt-1 transition-colors hover:text-taxi-yellow"
                 >
-                  +91 8778143908
+                  +91 9884949171
                 </a>
               </li>
 

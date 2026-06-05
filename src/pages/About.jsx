@@ -102,7 +102,7 @@ export default function AboutUs() {
           className="absolute inset-0 bg-center bg-no-repeat bg-cover"
           style={{ backgroundImage: "url('/images/taxi.jpg')" }}
         />
-        <div className="absolute inset-0 bg-black/80" />
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       {/* Header */}

@@ -131,9 +131,9 @@ const Navbar = () => {
 
           <span className="opacity-50">|</span>
 
-          <a href="tel:8778143908" className="flex items-center gap-1 transition-opacity hover:opacity-75">
+          <a href="tel:9884949171" className="flex items-center gap-1 transition-opacity hover:opacity-75">
             <FiPhone className="w-3 h-3" />
-            <span>8778143908</span>
+            <span>9884949171</span>
           </a>
         </div>
       </div>
