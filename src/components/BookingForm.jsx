@@ -187,9 +187,24 @@ const BookingForm = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="space-y-8 text-white"
+        className="space-y-10 text-white"
       >
-        <div className="p-1 rounded-full bg-black/40 backdrop-blur-sm">
+        {/* Step Indicator */}
+        <div className="flex items-center justify-between max-w-sm mx-auto mb-10 text-[9px] font-extrabold uppercase tracking-widest text-gray-500">
+          <div className="flex items-center gap-1.5 text-taxi-yellow">
+            <span className="flex items-center justify-center w-4 h-4 rounded-full border border-taxi-yellow bg-taxi-yellow/15 text-[8px]">1</span> Route & Time
+          </div>
+          <div className="w-8 h-px bg-white/5" />
+          <div className={`flex items-center gap-1.5 transition-colors ${vehicleType ? 'text-taxi-yellow' : 'text-gray-600'}`}>
+            <span className={`flex items-center justify-center w-4 h-4 rounded-full border text-[8px] ${vehicleType ? 'border-taxi-yellow bg-taxi-yellow/15' : 'border-white/5'}`}>2</span> Vehicle
+          </div>
+          <div className="w-8 h-px bg-white/5" />
+          <div className={`flex items-center gap-1.5 transition-colors ${(name && phone) ? 'text-taxi-yellow' : 'text-gray-600'}`}>
+            <span className={`flex items-center justify-center w-4 h-4 rounded-full border text-[8px] ${(name && phone) ? 'border-taxi-yellow bg-taxi-yellow/15' : 'border-white/5'}`}>3</span> Confirm
+          </div>
+        </div>
+
+        <div className="p-1 rounded-full bg-white/5 border border-white/5 shadow-inner max-w-xs mx-auto">
           <TripTypeSelector tripType={tripType} setTripType={setTripType} />
         </div>
 
@@ -209,7 +224,7 @@ const BookingForm = () => {
           />
         </div>
 
-        <div className="pt-4 border-t border-white/10">
+        <div className="pt-6 border-t border-white/5">
           <VehicleSelector
             tripType={tripType}
             vehicleType={vehicleType}
@@ -225,9 +240,9 @@ const BookingForm = () => {
               animate={{ opacity: 1, height: "auto", scale: 1 }}
               exit={{ opacity: 0, height: 0, scale: 0.95 }}
               transition={{ duration: 0.4 }}
-              className="overflow-hidden border shadow-lg rounded-2xl bg-white/5 border-taxi-yellow/20"
+              className="overflow-hidden border shadow-2xl rounded-3xl bg-white/5 border-taxi-yellow/10"
             >
-              <div className="p-2">
+              <div className="p-1">
                 <TripSummary
                   distance={distance}
                   duration={duration}
@@ -239,7 +254,7 @@ const BookingForm = () => {
           )}
         </AnimatePresence>
 
-        <div className="pt-4 space-y-6 border-t border-white/10">
+        <div className="pt-6 space-y-6 border-t border-white/5">
           <ContactInputs name={name} phone={phone} setName={setName} setPhone={setPhone} />
           <SubmitButton submitting={submitting} />
         </div>
@@ -248,9 +263,9 @@ const BookingForm = () => {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center justify-center gap-3 p-3 text-sm font-semibold text-red-200 border border-red-500/30 bg-red-900/20 rounded-xl"
+            className="flex items-center justify-center gap-3 p-3 text-xs font-bold text-red-200 border border-red-500/25 bg-red-900/10 rounded-xl"
           >
-            <AlertTriangle className="w-5 h-5 text-red-500" /> {error}
+            <AlertTriangle className="w-4 h-4 text-red-500" /> {error}
           </motion.div>
         )}
       </motion.form>
@@ -261,30 +276,30 @@ const BookingForm = () => {
       <AnimatePresence>
         {showSuccessModal && (
           <motion.div
-            className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl"
             style={{ overscrollBehavior: 'contain' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="relative flex flex-col items-center w-full max-w-sm p-8 text-center border shadow-2xl bg-taxi-dark rounded-3xl border-taxi-gray"
-              initial={{ scale: 0.9 }}
+              className="relative flex flex-col items-center w-full max-w-sm p-8 text-center border shadow-2xl bg-black border-white/10 rounded-3xl"
+              initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
+              exit={{ scale: 0.95 }}
             >
-              <div className="absolute top-0 right-0 w-32 h-32 translate-x-1/2 -translate-y-1/2 rounded-full opacity-20 bg-taxi-yellow blur-3xl" />
+              <div className="absolute top-0 right-0 w-32 h-32 translate-x-1/2 -translate-y-1/2 rounded-full opacity-10 bg-taxi-yellow blur-3xl" />
               
-              <div className="flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-green-500/10 shrink-0">
-                <CheckCircle2 className="w-8 h-8 text-green-500" />
+              <div className="flex items-center justify-center w-14 h-14 mb-6 rounded-2xl bg-green-500/10 border border-green-500/15 text-green-500 shrink-0">
+                <CheckCircle2 className="w-6 h-6" />
               </div>
 
-              <h2 className="mb-2 text-2xl font-bold text-white">Booking Confirmed!</h2>
-              <p className="mb-8 text-sm text-gray-400">Your ride has been scheduled successfully.</p>
+              <h2 className="mb-2 text-xl font-extrabold tracking-wider text-white uppercase">Booking Confirmed!</h2>
+              <p className="mb-8 text-xs text-gray-500 uppercase tracking-wider font-bold">Your ride has been scheduled successfully.</p>
 
-              <div className="w-full mb-8 overflow-hidden border rounded-xl bg-black/50 border-white/10">
-                  <p className="py-2 text-[10px] font-bold tracking-widest text-gray-500 uppercase bg-white/5">Booking ID</p>
-                  <p className="py-4 font-mono text-xl font-bold tracking-wider text-taxi-yellow">
+              <div className="w-full mb-8 overflow-hidden border rounded-2xl bg-white/5 border-white/5 shadow-inner">
+                  <p className="py-2.5 text-[9px] font-extrabold tracking-widest text-gray-500 uppercase bg-white/5">Booking ID</p>
+                  <p className="py-5 font-mono text-xl font-extrabold tracking-widest text-taxi-yellow">
                     {bookingId}
                   </p>
               </div>
@@ -292,7 +307,7 @@ const BookingForm = () => {
               <button
                 type="button" 
                 onClick={() => setShowSuccessModal(false)}
-                className="w-full px-6 py-4 text-sm font-bold text-black uppercase transition-all transform bg-taxi-yellow rounded-xl hover:bg-white active:scale-95 shadow-[0_0_20px_rgba(255,193,7,0.2)]"
+                className="w-full px-6 py-4 text-xs font-bold text-black uppercase tracking-wider transition-all transform bg-taxi-yellow rounded-xl hover:bg-white active:scale-95 shadow-[0_0_20px_rgba(255,193,7,0.2)]"
               >
                 Done
               </button>
@@ -305,24 +320,24 @@ const BookingForm = () => {
       <AnimatePresence>
         {showLoginModal && (
           <motion.div
-            className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl"
             style={{ overscrollBehavior: 'contain' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="flex flex-col items-center w-full max-w-sm p-8 text-center border shadow-2xl bg-taxi-dark rounded-3xl border-taxi-gray"
-              initial={{ scale: 0.9 }}
+              className="flex flex-col items-center w-full max-w-sm p-8 text-center border shadow-2xl bg-black border-white/10 rounded-3xl"
+              initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
+              exit={{ scale: 0.95 }}
             >
-              <div className="flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-taxi-yellow/10 shrink-0">
-                <CheckCircle2 className="w-8 h-8 text-taxi-yellow" />
+              <div className="flex items-center justify-center w-14 h-14 mb-6 rounded-2xl bg-taxi-yellow/10 border border-taxi-yellow/15 text-taxi-yellow shrink-0 animate-pulse-glow">
+                <CheckCircle2 className="w-6 h-6" />
               </div>
 
-              <h3 className="mb-2 text-xl font-bold text-white">Login Successful</h3>
-              <p className="mb-8 text-sm leading-relaxed text-gray-400">
+              <h3 className="mb-2 text-lg font-extrabold tracking-wider text-white uppercase">Login Successful</h3>
+              <p className="mb-8 text-xs leading-relaxed text-gray-400 font-bold uppercase tracking-wider">
                 You are now signed in. Click confirm to finalize your booking details.
               </p>
 
@@ -330,7 +345,7 @@ const BookingForm = () => {
                   <button
                     type="button"
                     onClick={() => setShowLoginModal(false)}
-                    className="flex-1 px-4 py-3.5 text-sm font-bold text-gray-400 transition-colors border border-gray-600 rounded-xl hover:text-white hover:border-gray-400 active:bg-white/5"
+                    className="flex-1 px-4 py-3.5 text-xs font-bold text-gray-500 uppercase tracking-wider transition-colors border border-white/5 rounded-xl hover:text-white hover:bg-white/5 active:bg-white/10"
                   >
                     Cancel
                   </button>
@@ -340,7 +355,7 @@ const BookingForm = () => {
                       setShowLoginModal(false);
                       handleFinalSubmit();
                     }}
-                    className="flex-1 px-4 py-3.5 text-sm font-bold text-black transition-all bg-taxi-yellow rounded-xl hover:bg-white active:scale-95 shadow-[0_0_15px_rgba(255,193,7,0.2)]"
+                    className="flex-1 px-4 py-3.5 text-xs font-bold text-black uppercase tracking-wider transition-all bg-taxi-yellow rounded-xl hover:bg-white active:scale-95 shadow-[0_0_15px_rgba(255,193,7,0.2)]"
                   >
                     Confirm
                   </button>

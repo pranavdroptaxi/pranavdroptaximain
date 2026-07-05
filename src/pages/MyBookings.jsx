@@ -179,16 +179,16 @@ const MyBookings = () => {
   };
 
   return (
-    <div className="relative min-h-screen text-gray-200 bg-black">
+    <div className="relative min-h-screen text-gray-200 bg-transparent">
       
-      {/* --- GLOBAL FIXED BACKGROUND (Full Page & Brighter) --- */}
+      {/* --- GLOBAL FIXED BACKGROUND (WebP & Premium Radial Mesh) --- */}
       <div className="fixed inset-0 z-0">
         <div 
-            className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-100"
-            style={{ backgroundImage: "url('/images/taxi.jpg')" }}
+            className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-40 blur-[1px]"
+            style={{ backgroundImage: "url('/taxi.webp')" }}
         />
-        {/* Lighter gradient to let the image shine through, darker at top/bottom for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black" />
+        <div className="absolute inset-0 bg-radial-mesh opacity-40 pointer-events-none" />
       </div>
 
       {/* 2. Navigation Header */}
@@ -197,16 +197,16 @@ const MyBookings = () => {
             <img 
               src="/favicon.ico" 
               alt="Logo" 
-              className="object-contain w-10 h-10"
+              className="object-contain w-8 h-8 filter brightness-110"
             />
-            <span className="text-xl font-bold tracking-tighter text-white">Pranav Drop Taxi</span>
+            <span className="text-lg font-extrabold tracking-wider text-white uppercase">Pranav Drop Taxi</span>
         </div>
 
         <Link
           to="/"
-          className="flex items-center gap-2 px-5 py-2 text-sm font-bold text-black transition-all transform rounded-full shadow-lg bg-taxi-yellow hover:bg-white hover:scale-105 active:scale-95"
+          className="flex items-center gap-2 px-5 py-2 text-xs font-bold uppercase tracking-wider text-black transition-all transform rounded-full shadow-lg bg-taxi-yellow hover:bg-white active:scale-95"
         >
-          <Home className="w-4 h-4" />
+          <Home className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">Back to Home</span>
         </Link>
       </div>
@@ -214,25 +214,25 @@ const MyBookings = () => {
       {/* 3. Main Content */}
       <div className="relative z-10 max-w-4xl px-4 py-8 mx-auto sm:px-6">
         
-        <div className="mb-8 text-center">
-          <h2 className="text-3xl font-extrabold text-white">Your <span className="text-taxi-yellow">Bookings</span></h2>
-          <div className="w-16 h-1 mx-auto mt-2 rounded bg-taxi-yellow shadow-[0_0_10px_#FFC107]"></div>
+        <div className="mb-12 text-center">
+          <h2 className="text-2xl font-extrabold uppercase tracking-wider text-white">Your <span className="text-taxi-yellow">Bookings</span></h2>
+          <div className="w-12 h-1 mx-auto mt-2 rounded bg-taxi-yellow shadow-[0_0_10px_#FFC107]"></div>
         </div>
 
         {error && (
-          <p className="p-3 mb-6 text-sm text-center text-red-400 border border-red-500/30 bg-red-900/20 rounded-xl">
+          <p className="p-3 mb-6 text-xs font-bold text-center text-red-400 border border-red-500/25 bg-red-900/10 rounded-xl">
             {error}
           </p>
         )}
 
         {loading ? (
           <div className="space-y-4">
-             {[1,2,3].map(i => <div key={i} className="h-32 bg-gray-800 rounded-xl animate-pulse"></div>)}
+             {[1,2,3].map(i => <div key={i} className="h-32 bg-white/5 border border-white/5 rounded-2xl animate-pulse"></div>)}
           </div>
         ) : bookings.length === 0 ? (
-          <div className="p-12 text-center border shadow-2xl bg-black/60 backdrop-blur-md rounded-3xl border-taxi-gray">
-             <p className="text-gray-400">No bookings found.</p>
-             <Link to="/" className="inline-block mt-4 text-taxi-yellow hover:underline">Book your first ride now →</Link>
+          <div className="p-12 text-center border border-white/5 shadow-2xl bg-white/5 backdrop-blur-md rounded-3xl">
+             <p className="text-sm font-bold text-gray-500 uppercase tracking-wider">No bookings found.</p>
+             <Link to="/" className="inline-block mt-4 text-xs font-bold uppercase tracking-widest text-taxi-yellow hover:underline">Book your first ride now →</Link>
           </div>
         ) : (
           <div className="space-y-6">
@@ -283,8 +283,8 @@ const MyBookings = () => {
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   className={`overflow-hidden border transition-all duration-300 rounded-2xl ${
                     isExpanded 
-                      ? "bg-black/80 border-taxi-yellow shadow-[0_0_15px_rgba(255,193,7,0.15)]" 
-                      : "bg-black/60 backdrop-blur-md border-taxi-gray hover:border-gray-500"
+                      ? "bg-white/5 border-taxi-yellow/40 shadow-[0_0_20px_rgba(255,193,7,0.1)]" 
+                      : "bg-white/5 backdrop-blur-md border-white/5 hover:border-white/10"
                   }`}
                 >
                   {/* Card Header (Summary) */}
@@ -293,11 +293,11 @@ const MyBookings = () => {
                     className="flex flex-col gap-4 p-5 cursor-pointer sm:flex-row sm:items-center sm:justify-between"
                   >
                     <div className="flex-1">
-                      <div className="flex flex-wrap items-center gap-3 mb-2">
-                        <span className="flex items-center justify-center w-6 h-6 text-xs font-bold text-black rounded-full bg-taxi-yellow">
+                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                        <span className="flex items-center justify-center w-5 h-5 text-[10px] font-bold text-black rounded-lg bg-taxi-yellow">
                           {index + 1}
                         </span>
-                        <h3 className="font-mono text-sm font-bold text-gray-400">ID: {bookingId || id.slice(0,8)}</h3>
+                        <h3 className="font-mono text-xs font-bold text-gray-500 uppercase tracking-widest">ID: {bookingId || id.slice(0,8)}</h3>
                         
                         {/* Status Tag */}
                         {getStatusTag(status)}
@@ -306,10 +306,10 @@ const MyBookings = () => {
                         {isCompleted && invoiceEnabled && (
                           <button
                             onClick={(e) => {
-                              e.stopPropagation(); // Stop expand toggle
+                              e.stopPropagation(); 
                               generateInvoicePDF(booking);
                             }}
-                            className="flex items-center gap-1 px-2 py-1 text-[10px] font-bold text-black transition-transform bg-green-500 rounded hover:bg-green-400 hover:scale-105"
+                            className="flex items-center gap-1 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-black transition-all bg-green-500 rounded hover:bg-green-400"
                             title="Download Invoice"
                           >
                             <FileText className="w-3 h-3" /> Invoice
@@ -317,25 +317,25 @@ const MyBookings = () => {
                         )}
                       </div>
                       
-                      <div className="flex items-center gap-2 text-sm font-medium text-white sm:text-base">
+                      <div className="flex items-center gap-2 text-xs font-extrabold text-white uppercase tracking-wider sm:text-sm">
                          <span>{source?.displayName || "N/A"}</span>
-                         <ArrowRight className="w-4 h-4 text-gray-500" />
+                         <ArrowRight className="w-4 h-4 text-taxi-yellow" />
                          <span>{destination?.displayName || "N/A"}</span>
                       </div>
                       
-                      <p className="flex items-center gap-2 mt-1 text-xs text-gray-500">
-                        <Calendar className="w-3 h-3" />
+                      <p className="flex items-center gap-2 mt-2 text-[9px] font-bold uppercase tracking-widest text-gray-600">
+                        <Calendar className="w-3 h-3 text-taxi-yellow" />
                         Trip: {formatDate(date)} {isRound && `— ${formatDate(returnDate)}`}
                       </p>
                     </div>
 
-                    <div className="flex items-center justify-between sm:flex-col sm:items-end sm:gap-1">
-                       <p className="text-lg font-bold text-white">
+                    <div className="flex items-center justify-between sm:flex-col sm:items-end sm:gap-2">
+                       <p className="text-base font-extrabold text-white leading-none">
                          ₹{total.toLocaleString()}
-                         {!isCompleted && <span className="ml-1 text-xs font-normal text-yellow-500/70">(Est)</span>}
+                         {!isCompleted && <span className="ml-1 text-[9px] font-bold uppercase tracking-widest text-yellow-500/70">(Est)</span>}
                        </p>
-                       <div className="p-2 transition-colors rounded-full bg-white/5 hover:bg-white/10">
-                          {isExpanded ? <ChevronUp className="w-5 h-5 text-taxi-yellow"/> : <ChevronDown className="w-5 h-5 text-gray-400"/>}
+                       <div className="p-2 transition-colors rounded-xl bg-white/5 border border-white/5 hover:bg-white/10">
+                          {isExpanded ? <ChevronUp className="w-4 h-4 text-taxi-yellow"/> : <ChevronDown className="w-4 h-4 text-gray-500"/>}
                        </div>
                     </div>
                   </div>
@@ -347,41 +347,41 @@ const MyBookings = () => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="border-t border-gray-800 bg-black/40"
+                        className="border-t border-white/5 bg-black/30"
                       >
                         <div className="p-6 space-y-6">
                           
                           {/* Details Grid */}
-                          <div className="grid grid-cols-1 gap-6 text-sm sm:grid-cols-2">
+                          <div className="grid grid-cols-1 gap-6 text-xs sm:grid-cols-2">
                              {/* Col 1: General Info */}
-                             <div className="space-y-3">
-                                <h4 className="mb-2 text-xs font-bold tracking-wider text-gray-400 uppercase">Trip Details</h4>
+                             <div className="space-y-3 font-bold uppercase tracking-wider">
+                                <h4 className="mb-2 text-[10px] font-extrabold tracking-widest text-gray-500 uppercase border-b border-white/5 pb-1">Trip Details</h4>
                                 <div className="flex justify-between"><span className="text-gray-500">Booked On:</span> <span>{formatDate(createdAt)}</span></div>
                                 <div className="flex justify-between"><span className="text-gray-500">Type:</span> <span>{isRound ? "Round Trip" : "One Way"}</span></div>
                                 <div className="flex justify-between"><span className="text-gray-500">Vehicle:</span> <span>{vehicleLabelMap[vehicleType]}</span></div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-500">Distance:</span> 
-                                    <span>{distance || '-'} km {!isCompleted && <span className="text-xs text-yellow-500/70">(Est)</span>}</span>
+                                    <span>{distance || '-'} km {!isCompleted && <span className="text-[9px] font-bold text-yellow-500/70">(Est)</span>}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-500">Duration:</span> 
-                                    <span>{formatDuration(duration)} {!isCompleted && <span className="text-xs text-yellow-500/70">(Est)</span>}</span>
+                                    <span>{formatDuration(duration)} {!isCompleted && <span className="text-[9px] font-bold text-yellow-500/70">(Est)</span>}</span>
                                 </div>
                              </div>
 
                              {/* Col 2: Cost Breakdown */}
-                             <div className="space-y-3">
-                                <h4 className="mb-2 text-xs font-bold tracking-wider text-gray-400 uppercase">Fare Breakdown</h4>
+                             <div className="space-y-3 font-bold uppercase tracking-wider">
+                                <h4 className="mb-2 text-[10px] font-extrabold tracking-widest text-gray-500 uppercase border-b border-white/5 pb-1">Fare Breakdown</h4>
                                 <div className="flex justify-between"><span className="text-gray-500">Base Fare:</span> <span>₹{base}</span></div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-500">Driver Bata:</span> 
-                                    <span className="text-xs text-gray-400">₹400 × {days} days = <span className="text-sm text-white">₹{bata}</span></span>
+                                    <span className="text-[10px] text-gray-400">₹400 × {days} days = <span className="text-xs text-white">₹{bata}</span></span>
                                 </div>
                                 {toll > 0 && <div className="flex justify-between"><span className="text-gray-500">Toll:</span> <span>₹{toll}</span></div>}
                                 {parking > 0 && <div className="flex justify-between"><span className="text-gray-500">Parking:</span> <span>₹{parking}</span></div>}
                                 {hill > 0 && <div className="flex justify-between"><span className="text-gray-500">Hill Charges:</span> <span>₹{hill}</span></div>}
                                 {permit > 0 && <div className="flex justify-between"><span className="text-gray-500">Permit:</span> <span>₹{permit}</span></div>}
-                                <div className="flex justify-between pt-2 font-bold border-t border-gray-700 text-taxi-yellow">
+                                <div className="flex justify-between pt-2.5 font-extrabold border-t border-white/5 text-taxi-yellow">
                                    <span>Total:</span> <span>₹{total}</span>
                                 </div>
                              </div>
@@ -389,27 +389,27 @@ const MyBookings = () => {
 
                           {/* Review Section */}
                           {isCompleted && (
-                            <div className="p-4 border border-gray-800 rounded-xl bg-gray-900/50">
+                            <div className="p-4 border border-white/5 rounded-2xl bg-white/5 shadow-inner">
                                {review ? (
                                  <div>
-                                    <div className="flex items-center gap-2 mb-2 text-sm font-bold text-taxi-yellow">
-                                       <Star className="w-4 h-4 fill-current" /> Your Review
+                                    <div className="flex items-center gap-1.5 mb-2 text-[10px] font-bold tracking-widest text-taxi-yellow uppercase">
+                                       <Star className="w-3.5 h-3.5 fill-current animate-pulse-glow" /> Your Review
                                     </div>
-                                    <p className="text-sm italic text-gray-400">"{review}"</p>
+                                    <p className="text-xs italic text-gray-400">"{review}"</p>
                                  </div>
                                ) : (
                                  <div className="space-y-3">
-                                    <label className="block text-sm font-bold text-taxi-yellow">Rate Your Experience</label>
+                                    <label className="block text-[10px] font-bold tracking-widest text-taxi-yellow uppercase">Rate Your Experience</label>
                                     <textarea
                                       rows={2}
                                       value={tempReview}
                                       placeholder="Write your feedback here..."
                                       onChange={(e) => setBookings(prev => prev.map(b => b.id === id ? { ...b, tempReview: e.target.value } : b))}
-                                      className="w-full p-3 text-sm text-white placeholder-gray-600 bg-black border border-gray-700 rounded-lg focus:border-taxi-yellow focus:outline-none"
+                                      className="w-full p-3 text-xs text-white placeholder-gray-600 bg-black/50 border border-white/5 rounded-xl focus:border-taxi-yellow/30 focus:outline-none"
                                     />
                                     <button
                                       onClick={() => handleReviewSubmit(id, tempReview)}
-                                      className="px-4 py-2 text-xs font-bold text-black transition-colors rounded-lg bg-taxi-yellow hover:bg-yellow-400"
+                                      className="px-4 py-2.5 text-[9px] font-extrabold uppercase tracking-widest text-black transition-all rounded-lg bg-taxi-yellow hover:bg-white active:scale-95"
                                     >
                                       Submit Review
                                     </button>

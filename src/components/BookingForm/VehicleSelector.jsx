@@ -45,11 +45,11 @@ const VehicleSelector = ({ vehicleType, setVehicleType, tripType }) => {
       
       {/* Label */}
       <div className="flex items-center justify-between">
-        <label className="ml-1 text-xs font-bold tracking-wider text-gray-400 uppercase">
+        <label className="ml-1 text-[10px] font-bold tracking-widest text-gray-500 uppercase">
           Select Vehicle
         </label>
-        <span className="flex items-center gap-1 text-[10px] text-taxi-yellow bg-yellow-500/10 px-2 py-1 rounded-full">
-          <Info className="w-3 h-3" /> Rates depend on trip type
+        <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-taxi-yellow bg-taxi-yellow/10 border border-taxi-yellow/10 px-2.5 py-1 rounded-full">
+          <Info className="w-3 h-3 animate-pulse-glow" /> Rates depend on trip type
         </span>
       </div>
 
@@ -66,48 +66,49 @@ const VehicleSelector = ({ vehicleType, setVehicleType, tripType }) => {
               key={v.type}
               onClick={() => setVehicleType(v.type)}
               className={`
-                relative flex flex-col items-center justify-between p-3 cursor-pointer transition-all duration-300 rounded-2xl border group
+                relative flex flex-col items-center justify-between p-4 cursor-pointer transition-all duration-300 rounded-2xl border group
                 ${isSelected 
-                  ? "bg-taxi-yellow/10 border-taxi-yellow shadow-[0_0_15px_rgba(255,193,7,0.2)] scale-[1.02]" 
-                  : "bg-black/50 border-white/10 hover:border-taxi-yellow/50 hover:bg-white/5"
+                  ? "bg-taxi-yellow/10 border-taxi-yellow/40 shadow-[0_0_20px_rgba(255,193,7,0.15)] scale-[1.02]" 
+                  : "bg-white/5 border-white/5 hover:border-taxi-yellow/20 hover:bg-white/10"
                 }
               `}
             >
               {/* Selected Indicator */}
               {isSelected && (
                 <div className="absolute top-2 right-2">
-                  <CheckCircle2 className="w-5 h-5 text-taxi-yellow fill-black" />
+                  <CheckCircle2 className="w-4 h-4 text-taxi-yellow fill-black" />
                 </div>
               )}
 
               {/* Image */}
-              <div className="flex items-center justify-center w-full h-16 mb-2">
+              <div className="flex items-center justify-center w-full h-14 mb-2">
                 <img
                   src={v.image}
                   alt={v.label}
-                  className={`object-contain w-full h-full transition-transform duration-500 ${isSelected ? 'scale-110' : 'group-hover:scale-105'}`}
+                  className={`object-contain w-full h-full transition-transform duration-500 ${isSelected ? 'scale-105' : 'group-hover:scale-102'}`}
+                  loading="lazy"
                 />
               </div>
 
               {/* Content */}
-              <div className="w-full text-center">
-                <h3 className={`text-sm font-bold truncate transition-colors ${isSelected ? 'text-taxi-yellow' : 'text-white'}`}>
+              <div className="w-full text-center mt-2">
+                <h3 className={`text-xs font-bold truncate transition-colors ${isSelected ? 'text-taxi-yellow' : 'text-white'}`}>
                   {v.label}
                 </h3>
 
-                <div className="flex flex-col items-center justify-center gap-1 mt-2">
+                <div className="flex flex-col items-center justify-center gap-1 mt-3">
                   {/* Price Tag */}
-                  <span className="px-2 py-0.5 text-xs font-bold text-black rounded-md bg-taxi-yellow">
-                    ₹{rate}<span className="text-[9px] font-medium opacity-80">/km</span>
+                  <span className="px-2 py-0.5 text-[10px] font-bold text-black rounded bg-taxi-yellow">
+                    ₹{rate}<span className="text-[8px] font-medium opacity-80">/km</span>
                   </span>
                   
                   {/* Trip Type Label */}
-                  <span className="text-[10px] font-medium text-gray-300">
+                  <span className="text-[9px] font-bold text-gray-500 uppercase tracking-wider mt-1">
                     {tripLabel}
                   </span>
                   
                   {/* Min KM */}
-                  <div className="flex items-center gap-1 text-[10px] text-gray-500 mt-1">
+                  <div className="flex items-center gap-1 text-[9px] font-bold text-gray-600 uppercase tracking-widest mt-1">
                     <Gauge className="w-3 h-3" /> Min {minKm}km
                   </div>
                 </div>

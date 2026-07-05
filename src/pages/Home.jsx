@@ -51,7 +51,7 @@ function Home() {
 
   useEffect(() => {
     const handleScroll = () => setShowTopButton(window.scrollY > 300);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -72,48 +72,24 @@ function Home() {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
 
   return (
-    <div className="relative min-h-screen text-gray-200 bg-black selection:bg-taxi-yellow selection:text-black">
+    <div className="relative min-h-screen text-gray-300 bg-black selection:bg-taxi-yellow selection:text-black">
       <Helmet defer={false}>
-        {/* PRIMARY TITLE (Very Strong) */}
         <title>
           Pranav Drop Taxi – Cheapest One Way & Outstation Taxi in Chennai
         </title>
-
-        {/* CORE META */}
         <meta
           name="description"
           content="Pranav Drop Taxi offers the cheapest one-way and outstation taxi services in Chennai with 24/7 airport pickups, safe professional drivers, clean cabs, transparent pricing, and reliable Chennai to Bangalore, Coimbatore, Trichy & Pondicherry drop taxi services."
         />
-
         <meta
           name="keywords"
-          content="
-      drop taxi chennai,
-      one way taxi chennai,
-      outstation taxi chennai,
-      airport taxi chennai,
-      chennai to bangalore drop taxi,
-      chennai to pondicherry taxi,
-      cheapest drop taxi tamil nadu,
-      one way cab chennai,
-      intercity taxi chennai,
-      outstation cabs tamil nadu,
-      pranav drop taxi,
-      chennai airport taxi service
-    "
+          content="drop taxi chennai, one way taxi chennai, outstation taxi chennai, airport taxi chennai, chennai to bangalore drop taxi, chennai to pondicherry taxi, cheapest drop taxi tamil nadu, one way cab chennai, intercity taxi chennai, outstation cabs tamil nadu, pranav drop taxi, chennai airport taxi service"
         />
-
         <meta name="robots" content="index, follow" />
         <meta name="author" content="Pranav Drop Taxi" />
-
-        {/* CANONICAL */}
         <link rel="canonical" href="https://pranavdroptaxi.com/" />
-
-        {/* PERFORMANCE */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://firestore.googleapis.com" />
-
-        {/* OPEN GRAPH (Facebook / WhatsApp) */}
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Pranav Drop Taxi" />
         <meta property="og:url" content="https://pranavdroptaxi.com/" />
@@ -129,8 +105,6 @@ function Home() {
           property="og:image"
           content="https://pranavdroptaxi.com/taxi.jpg"
         />
-
-        {/* TWITTER */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
@@ -146,34 +120,35 @@ function Home() {
         />
       </Helmet>
 
-      {/* --- BACKGROUND LAYER --- */}
+      {/* --- BACKGROUND LAYER (Optimized to WebP for fast load) --- */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         <div
-          className="absolute inset-0 scale-105 bg-center bg-no-repeat bg-cover"
-          style={{ backgroundImage: "url('/taxi.jpg')" }}
+          className="absolute inset-0 scale-105 bg-center bg-no-repeat bg-cover opacity-40 blur-[1px]"
+          style={{ backgroundImage: "url('/taxi.webp')" }}
           role="img"
           aria-label="Pranav Drop Taxi background"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black" />
+        <div className="absolute inset-0 bg-radial-mesh opacity-40 pointer-events-none" />
       </div>
 
       <main className="relative z-10">
         {/* HERO SECTION */}
-        <header className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
+        <header className="flex flex-col items-center justify-center min-h-[92vh] px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="w-full max-w-4xl p-8 border shadow-2xl bg-black/40 backdrop-blur-xl rounded-3xl border-white/20 sm:p-12"
+            className="w-full max-w-4xl p-8 border border-white/10 shadow-2xl bg-black/60 backdrop-blur-xl rounded-3xl sm:p-12"
           >
-            <span className="inline-block px-4 py-1 mb-4 text-xs font-bold tracking-widest text-black uppercase rounded-full bg-taxi-yellow">
+            <span className="inline-block px-3.5 py-1 mb-5 text-[10px] font-extrabold tracking-widest text-black uppercase rounded-full bg-taxi-yellow shadow-[0_0_15px_rgba(255,193,7,0.25)]">
               Pranav Drop Taxi
             </span>
-            <h1 className="mb-6 text-4xl font-extrabold text-white sm:text-7xl drop-shadow-2xl">
-              Reliable <span className="text-taxi-yellow">One Way</span> Drop
+            <h1 className="mb-6 text-4xl font-extrabold text-white sm:text-7xl tracking-tight leading-tight">
+              Reliable <span className="gradient-text-yellow">One Way</span> Drop
               Taxi
             </h1>
-            <p className="max-w-2xl mx-auto mb-8 text-lg font-medium leading-relaxed text-gray-100 sm:text-xl">
+            <p className="max-w-2xl mx-auto mb-10 text-base font-medium leading-relaxed text-gray-400 sm:text-lg">
               Safe, affordable, and professional outstation travel. We
               specialize in intercity drops across Tamil Nadu with transparent
               pricing.
@@ -183,14 +158,14 @@ function Home() {
               <a
                 href="tel:+919884949171"
                 aria-label="Call Pranav Drop Taxi"
-                className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-black transition-all bg-white rounded-full hover:bg-taxi-yellow hover:scale-105"
+                className="flex items-center gap-2 px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition-all border border-white/10 rounded-full bg-white/5 hover:bg-white hover:text-black hover:scale-102"
               >
-                <PhoneCall className="w-5 h-5" /> Call Now
+                <PhoneCall className="w-4 h-4 text-taxi-yellow" /> Call Now
               </a>
 
               <a
                 href="#booking"
-                className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-black transition-all rounded-full shadow-lg bg-taxi-yellow hover:bg-white hover:scale-105 shadow-taxi-yellow/20"
+                className="flex items-center gap-2 px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-black transition-all rounded-full bg-taxi-yellow hover:bg-white hover:scale-102 shadow-[0_0_20px_rgba(255,193,7,0.25)]"
               >
                 Book Your Ride
               </a>
@@ -200,10 +175,25 @@ function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Message us on WhatsApp"
-                className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-white transition-all bg-green-600 rounded-full hover:bg-green-500 hover:scale-105"
+                className="flex items-center gap-2 px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition-all border border-green-500/20 bg-green-600/10 rounded-full hover:bg-green-600 hover:scale-102"
               >
-                <FaWhatsapp className="w-5 h-5" /> WhatsApp
+                <FaWhatsapp className="w-4 h-4 text-green-500" /> WhatsApp
               </a>
+            </div>
+
+            {/* Trust Bar Strip */}
+            <div className="flex flex-wrap items-center justify-center gap-6 mt-12 pt-8 border-t border-white/5 text-gray-500 text-[10px] font-bold uppercase tracking-widest">
+              <div className="flex items-center gap-2">
+                <span className="text-taxi-yellow">5000+</span> Trips Completed
+              </div>
+              <span className="hidden sm:block opacity-20">|</span>
+              <div className="flex items-center gap-2">
+                <span className="text-taxi-yellow">4.8★</span> Rating
+              </div>
+              <span className="hidden sm:block opacity-20">|</span>
+              <div className="flex items-center gap-2">
+                <span className="text-taxi-yellow">24/7</span> Dispatch Available
+              </div>
             </div>
           </motion.div>
         </header>
@@ -214,8 +204,8 @@ function Home() {
           aria-label="Book a Taxi"
           className="px-4 py-12 -mt-20 sm:py-20"
         >
-          <div className="max-w-5xl p-6 mx-auto border shadow-2xl bg-black/80 backdrop-blur-lg rounded-3xl border-white/10 sm:p-10">
-            <h2 className="mb-8 text-3xl font-bold text-center text-white sm:text-4xl">
+          <div className="max-w-5xl p-6 mx-auto border border-white/5 shadow-2xl bg-black/85 backdrop-blur-xl rounded-3xl sm:p-10">
+            <h2 className="mb-8 text-2xl font-extrabold text-center text-white sm:text-3xl uppercase tracking-wider">
               Instant <span className="text-taxi-yellow">Online Booking</span>
             </h2>
             <BookingForm />
@@ -225,13 +215,13 @@ function Home() {
         {/* SERVICES / HOW IT WORKS */}
         <section className="px-4 py-20 bg-transparent" id="how-it-works">
           <div className="max-w-6xl mx-auto text-center">
-            <h2 className="mb-4 text-3xl font-bold text-white sm:text-5xl">
+            <h2 className="mb-4 text-3xl font-extrabold text-white sm:text-4xl uppercase tracking-wider">
               How to Book Your Taxi
             </h2>
-            <p className="mb-16 text-gray-400">
+            <p className="mb-16 text-xs font-bold uppercase tracking-widest text-gray-500">
               Simple three-step process for a stress-free journey.
             </p>
-            <div className="grid gap-8 sm:grid-cols-3">
+            <div className="grid gap-8 sm:grid-cols-3 relative">
               {[
                 {
                   Icon: MapPin,
@@ -251,13 +241,17 @@ function Home() {
               ].map(({ Icon, title, desc }, idx) => (
                 <div
                   key={idx}
-                  className="p-8 transition-all border shadow-xl border-white/10 bg-black/50 backdrop-blur-md rounded-3xl hover:-translate-y-2"
+                  className="p-8 border border-white/5 bg-white/5 backdrop-blur-md rounded-3xl relative transition-all duration-300 hover:border-taxi-yellow/20 hover:bg-white/10 group shadow-lg"
                 >
-                  <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-black rounded-full bg-taxi-yellow">
+                  <span className="absolute top-4 right-6 font-mono text-5xl font-black text-white/5 group-hover:text-taxi-yellow/10 transition-colors">
+                    0{idx + 1}
+                  </span>
+                  
+                  <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-black rounded-2xl bg-taxi-yellow shadow-[0_0_15px_rgba(255,193,7,0.2)]">
                     <Icon className="w-8 h-8" />
                   </div>
-                  <h3 className="mb-4 text-xl font-bold text-white">{title}</h3>
-                  <p className="text-gray-400">{desc}</p>
+                  <h3 className="mb-3 text-lg font-bold text-white uppercase tracking-wider">{title}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed">{desc}</p>
                 </div>
               ))}
             </div>
@@ -265,17 +259,17 @@ function Home() {
         </section>
 
         {/* DYNAMIC COMPONENTS */}
-        <section id="tariff" className="py-16">
+        <section id="tariff" className="py-12 border-t border-white/5 bg-transparent">
           <OurTariff />
         </section>
-        <section id="fleet" className="py-16">
+        <section id="fleet" className="py-12 border-t border-white/5 bg-transparent">
           <OurFleet />
         </section>
 
         {/* WHY CHOOSE US */}
         <section className="px-4 py-20">
           <div className="max-w-6xl mx-auto text-center">
-            <h2 className="mb-16 text-3xl font-bold text-white sm:text-5xl">
+            <h2 className="mb-16 text-3xl font-extrabold text-white sm:text-4xl uppercase tracking-wider">
               Why Choose <span className="text-taxi-yellow">Pranav?</span>
             </h2>
             <div className="grid gap-8 sm:grid-cols-3">
@@ -298,11 +292,13 @@ function Home() {
               ].map(({ Icon, title, desc }, idx) => (
                 <div
                   key={idx}
-                  className="p-8 transition-colors border bg-black/40 border-white/5 rounded-3xl hover:border-taxi-yellow/50"
+                  className="p-8 transition-all duration-300 border bg-white/5 border-white/5 rounded-3xl hover:border-taxi-yellow/30 hover:bg-white/10 hover:shadow-xl text-center"
                 >
-                  <Icon className="w-12 h-12 mx-auto mb-6 text-taxi-yellow" />
-                  <h3 className="mb-3 text-xl font-bold text-white">{title}</h3>
-                  <p className="text-gray-400">{desc}</p>
+                  <div className="flex items-center justify-center w-14 h-14 mx-auto mb-6 rounded-2xl bg-taxi-yellow/5 border border-taxi-yellow/15 text-taxi-yellow shadow-inner">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="mb-3 text-lg font-bold text-white uppercase tracking-wider">{title}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed">{desc}</p>
                 </div>
               ))}
             </div>
@@ -311,16 +307,16 @@ function Home() {
 
         {/* REVIEWS */}
         <section
-          className="px-4 py-24 bg-transparent"
+          className="px-4 py-24 border-t border-white/5 bg-transparent"
           aria-label="Customer Reviews"
         >
-          <h2 className="mb-16 text-3xl font-bold text-center text-white sm:text-5xl">
+          <h2 className="mb-16 text-3xl font-extrabold text-center text-white sm:text-4xl uppercase tracking-wider">
             What Our Customers Say
           </h2>
 
           {loading ? (
             <div className="flex justify-center">
-              <div className="w-10 h-10 border-4 rounded-full border-taxi-yellow border-t-transparent animate-spin"></div>
+              <div className="w-10 h-10 border-2 rounded-full border-taxi-yellow border-t-transparent animate-spin"></div>
             </div>
           ) : (
             <div className="relative flex flex-col items-center max-w-6xl mx-auto">
@@ -328,9 +324,9 @@ function Home() {
                 onClick={handlePrev}
                 disabled={currentIndex === 0}
                 aria-label="Previous review"
-                className="absolute left-0 z-10 hidden p-4 text-black transition-all rounded-full bg-taxi-yellow sm:block disabled:opacity-20"
+                className="absolute left-0 z-10 hidden p-3.5 text-black transition-all rounded-full bg-taxi-yellow sm:block disabled:opacity-10 hover:bg-white active:scale-95"
               >
-                <ArrowLeft className="w-6 h-6" />
+                <ArrowLeft className="w-5 h-5" />
               </button>
 
               <div className="w-full overflow-hidden">
@@ -347,23 +343,30 @@ function Home() {
                       .map((review, idx) => (
                         <div
                           key={idx}
-                          className="flex flex-col w-full max-w-md p-8 border bg-black/60 rounded-3xl border-white/10 backdrop-blur-md"
+                          className="flex flex-col w-full max-w-md p-8 border border-white/5 bg-white/5 rounded-3xl backdrop-blur-md relative"
                         >
-                          <Quote className="w-10 h-10 mb-6 text-taxi-yellow/30" />
-                          <p className="flex-1 mb-6 text-lg italic text-gray-300">
+                          <Quote className="w-8 h-8 mb-6 text-taxi-yellow/20" />
+                          
+                          {/* Premium Stars Display */}
+                          <div className="flex items-center gap-1 mb-4 text-taxi-yellow">
+                            {[...Array(5)].map((_, i) => (
+                              <svg key={i} className="w-4 h-4 fill-current animate-pulse-glow" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                            ))}
+                          </div>
+
+                          <p className="flex-1 mb-6 text-sm italic text-gray-300 leading-relaxed">
                             "{review.review}"
                           </p>
-                          <div className="flex items-center gap-4 pt-6 mt-auto border-t border-white/10">
-                            <div className="flex items-center justify-center w-12 h-12 text-xl font-bold text-black rounded-full bg-taxi-yellow">
+                          <div className="flex items-center gap-4 pt-6 mt-auto border-t border-white/5">
+                            <div className="flex items-center justify-center w-10 h-10 text-sm font-bold text-black rounded-xl bg-taxi-yellow">
                               {review.name?.charAt(0) || "U"}
                             </div>
                             <div>
-                              <p className="font-bold text-white">
+                              <p className="text-xs font-bold text-white uppercase tracking-wider">
                                 {review.name || "Happy Customer"}
                               </p>
-                              <div className="flex items-center gap-1 text-xs text-green-400">
-                                <CheckCircle className="w-3 h-3" /> Verified
-                                User
+                              <div className="flex items-center gap-1 text-[10px] text-green-400 font-medium">
+                                <CheckCircle className="w-3 h-3" /> Verified Customer
                               </div>
                             </div>
                           </div>
@@ -377,9 +380,9 @@ function Home() {
                 onClick={handleNext}
                 disabled={currentIndex >= reviews.length - (isMobile ? 1 : 2)}
                 aria-label="Next review"
-                className="absolute right-0 z-10 hidden p-4 text-black transition-all rounded-full bg-taxi-yellow sm:block disabled:opacity-20"
+                className="absolute right-0 z-10 hidden p-3.5 text-black transition-all rounded-full bg-taxi-yellow sm:block disabled:opacity-10 hover:bg-white active:scale-95"
               >
-                <ArrowRight className="w-6 h-6" />
+                <ArrowRight className="w-5 h-5" />
               </button>
             </div>
           )}
@@ -387,29 +390,29 @@ function Home() {
       </main>
 
       {/* FLOATING ACTION BUTTONS */}
-      <div className="fixed z-[999] bottom-6 right-6 flex flex-col items-end gap-4">
+      <div className="fixed z-[999] bottom-6 right-6 flex flex-col items-end gap-3.5">
         <motion.a
           href="https://wa.me/919884949171"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
-          whileHover={{ scale: 1.1 }}
-          className="flex items-center justify-center text-white bg-green-500 rounded-full shadow-2xl w-14 h-14 hover:bg-green-600 shadow-green-500/20"
+          whileHover={{ scale: 1.05 }}
+          className="flex items-center justify-center text-white bg-green-500 rounded-full shadow-2xl w-13 h-13 hover:bg-green-600 shadow-green-500/20"
         >
-          <FaWhatsapp className="w-8 h-8" />
+          <FaWhatsapp className="w-7 h-7" />
         </motion.a>
 
         <AnimatePresence>
           {showTopButton && (
             <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
               aria-label="Scroll to top"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="flex items-center justify-center text-black rounded-full shadow-2xl bg-taxi-yellow w-14 h-14 hover:bg-white"
+              className="flex items-center justify-center text-black rounded-full shadow-2xl bg-taxi-yellow w-13 h-13 hover:bg-white"
             >
-              <ChevronUp className="w-8 h-8" />
+              <ChevronUp className="w-6 h-6" />
             </motion.button>
           )}
         </AnimatePresence>

@@ -140,7 +140,7 @@ export default function OurFleet() {
     <section className="px-4 py-16 text-white bg-transparent sm:py-20">
       <FleetSEO />
 
-      <h2 className="mb-10 text-3xl font-extrabold text-center text-white sm:text-5xl drop-shadow-lg">
+      <h2 className="mb-10 text-3xl font-extrabold text-center text-white sm:text-4xl uppercase tracking-wider drop-shadow-lg">
         Our <span className="text-taxi-yellow">Fleet</span>
       </h2>
 
@@ -152,52 +152,52 @@ export default function OurFleet() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            whileHover={{ y: -10 }}
+            whileHover={{ y: -6 }}
             transition={{ duration: 0.3 }}
-            className="relative p-6 overflow-hidden border shadow-2xl bg-black/30 backdrop-blur-md rounded-3xl border-white/10 hover:border-taxi-yellow/50"
+            className="relative p-6 overflow-hidden border shadow-2xl bg-white/5 backdrop-blur-md rounded-3xl border-white/5 hover:border-taxi-yellow/30 hover:bg-black/50"
           >
-            <div className="flex items-center justify-center p-4 mb-6 rounded-2xl bg-white/5">
+            <div className="flex items-center justify-center p-4 mb-6 rounded-2xl bg-white/5 shadow-inner">
               <img
                 src={car.img}
                 alt={`${car.name} taxi`}
-                className="object-contain w-full h-32"
+                className="object-contain w-full h-32 transition-transform duration-300 hover:scale-105"
                 loading="lazy"
               />
             </div>
 
-            <h3 className="mb-2 text-2xl font-bold text-center text-white">
+            <h3 className="mb-2 text-xl font-extrabold text-center text-white uppercase tracking-wider">
               {car.name}
             </h3>
 
-            <div className="flex items-center justify-center gap-6 mb-6 text-sm text-gray-400">
+            <div className="flex items-center justify-center gap-6 mb-6 text-xs font-bold uppercase tracking-wider text-gray-500">
               <span>{car.passengers} Passengers</span>
               <span>{car.bags} Bags</span>
             </div>
 
-            <div className="mb-6 space-y-2">
+            <div className="mb-6 space-y-2.5">
               {car.features.map((item, i) => (
-                <div key={i} className="flex items-center gap-2 text-sm text-gray-300">
+                <div key={i} className="flex items-center gap-2 text-xs font-medium text-gray-400">
                   <item.icon className="w-4 h-4 text-taxi-yellow" />
                   {item.text}
                 </div>
               ))}
             </div>
 
-            <div className="pt-6 mt-auto border-t border-white/10">
-              <div className="flex justify-between mb-2 text-sm">
-                <span className="text-gray-400">One Way</span>
-                <span className="font-bold text-white">₹{car.pricing.oneway}/km</span>
+            <div className="pt-6 mt-auto border-t border-white/5">
+              <div className="flex justify-between mb-2 text-xs font-bold uppercase tracking-wider">
+                <span className="text-gray-500">One Way</span>
+                <span className="font-extrabold text-white">₹{car.pricing.oneway}/km</span>
               </div>
-              <div className="flex justify-between mb-6 text-sm">
-                <span className="text-gray-400">Round Trip</span>
-                <span className="font-bold text-white">₹{car.pricing.roundtrip}/km</span>
+              <div className="flex justify-between mb-6 text-xs font-bold uppercase tracking-wider">
+                <span className="text-gray-500">Round Trip</span>
+                <span className="font-extrabold text-white">₹{car.pricing.roundtrip}/km</span>
               </div>
 
               <a
                 href="tel:+918778143908"
-                className="flex items-center justify-center w-full gap-2 py-3 text-sm font-bold text-black transition-all rounded-xl bg-taxi-yellow hover:bg-white"
+                className="flex items-center justify-center w-full gap-2 py-3.5 text-xs font-extrabold uppercase tracking-widest text-black transition-all rounded-xl bg-taxi-yellow hover:bg-white active:scale-[0.98]"
               >
-                <PhoneCall className="w-4 h-4" /> Book Now
+                <PhoneCall className="w-3.5 h-3.5" /> Book Now
               </a>
             </div>
           </motion.div>

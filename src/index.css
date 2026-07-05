@@ -6,25 +6,30 @@
 @import 'leaflet/dist/leaflet.css';
 
 /* --- Global Styles --- */
-body {
-  @apply antialiased text-gray-200 bg-black;
-  font-family: 'Inter', sans-serif;
+@layer base {
+  body {
+    @apply antialiased text-gray-200 bg-black;
+    font-family: 'Inter', sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'tnum';
+    overflow-x: hidden;
+  }
 }
 
 /* --- Custom Scrollbar (Webkit) --- */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #333;
-  border-radius: 4px;
-  border: 1px solid #1a1a1a;
+  background-color: #1a1a1a;
+  border-radius: 9999px;
+  border: 1px solid #000000;
+  transition: background-color 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -43,7 +48,7 @@ body {
 /* --- Text Selection Color --- */
 ::selection {
   background-color: #FFC107;
-  color: #000;
+  color: #000000;
 }
 
 /* --- Leaflet Map Dark Mode --- */
@@ -58,4 +63,62 @@ body {
 .leaflet-popup, 
 .leaflet-tooltip {
   filter: invert(0%) !important; 
+}
+
+/* --- Premium UI Custom Utilities --- */
+@layer utilities {
+  .glass-card {
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .glass-card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .glass-card-hover:hover {
+    background: rgba(20, 20, 20, 0.85);
+    border-color: rgba(255, 193, 7, 0.25);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px 0 rgba(255, 193, 7, 0.05);
+  }
+
+  .glow-yellow {
+    box-shadow: 0 0 40px -10px rgba(255, 193, 7, 0.15);
+  }
+  
+  .glow-yellow-sm {
+    box-shadow: 0 0 20px -5px rgba(255, 193, 7, 0.2);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-taxi-yellow;
+  }
+
+  .gradient-text-yellow {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-taxi-yellow via-yellow-500 to-amber-600;
+  }
+
+  .shimmer-bg {
+    background: linear-gradient(90deg, rgba(255,193,7,0.1) 25%, rgba(255,193,7,0.2) 50%, rgba(255,193,7,0.1) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2.5s infinite linear;
+  }
+}
+
+/* Base fade-in keyframe animations */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Background light overlay layers */
+.bg-radial-mesh {
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(255, 193, 7, 0.06) 0px, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(255, 193, 7, 0.03) 0px, transparent 50%);
 }

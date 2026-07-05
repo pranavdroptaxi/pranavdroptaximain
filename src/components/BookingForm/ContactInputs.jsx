@@ -23,12 +23,12 @@ const ContactInputs = ({ name, phone, setName, setPhone }) => {
       
       {/* Name Input */}
       <div className="space-y-2">
-        <label className="ml-1 text-xs font-bold tracking-wider text-gray-400 uppercase">
+        <label className="ml-1 text-[10px] font-bold tracking-widest text-gray-500 uppercase">
           Full Name
         </label>
         <div className="relative group">
           <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-            <User className="w-5 h-5 text-gray-500 transition-colors group-focus-within:text-taxi-yellow" />
+            <User className="w-4 h-4 text-gray-500 transition-colors group-focus-within:text-taxi-yellow" />
           </div>
           <input
             type="text"
@@ -36,19 +36,19 @@ const ContactInputs = ({ name, phone, setName, setPhone }) => {
             value={name}
             onChange={handleNameChange}
             required
-            className="w-full py-3.5 pl-12 pr-4 text-white placeholder-gray-600 transition-all bg-black/50 border border-white/10 rounded-xl focus:outline-none focus:border-taxi-yellow focus:ring-1 focus:ring-taxi-yellow/50"
+            className="w-full py-3.5 pl-11 pr-4 text-xs font-bold text-white placeholder-gray-600 transition-all bg-white/5 border border-white/5 rounded-xl focus:outline-none focus:border-taxi-yellow/30 focus:bg-black/50 shadow-inner"
           />
         </div>
       </div>
 
       {/* Phone Input */}
       <div className="space-y-2">
-        <label className="ml-1 text-xs font-bold tracking-wider text-gray-400 uppercase">
+        <label className="ml-1 text-[10px] font-bold tracking-widest text-gray-500 uppercase">
           Phone Number
         </label>
         <div className="relative flex group">
-          <span className="flex items-center justify-center px-4 font-bold text-gray-400 transition-colors border border-r-0 border-white/10 bg-white/5 rounded-l-xl group-focus-within:border-taxi-yellow group-focus-within:text-taxi-yellow">
-            +91
+          <span className="flex items-center justify-center px-4 text-xs font-bold text-gray-500 transition-colors border border-r-0 border-white/5 bg-white/5 rounded-l-xl group-focus-within:border-taxi-yellow/30 group-focus-within:text-taxi-yellow">
+            🇮🇳 +91
           </span>
           <input
             type="tel"
@@ -57,10 +57,10 @@ const ContactInputs = ({ name, phone, setName, setPhone }) => {
             onChange={handlePhoneChange}
             required
             pattern="[0-9]{10}"
-            className="w-full py-3.5 pl-4 pr-12 text-white placeholder-gray-600 transition-all bg-black/50 border border-white/10 rounded-r-xl focus:outline-none focus:border-taxi-yellow focus:ring-1 focus:ring-taxi-yellow/50"
+            className="w-full py-3.5 pl-4 pr-11 text-xs font-bold text-white placeholder-gray-600 transition-all bg-white/5 border border-white/5 rounded-r-xl focus:outline-none focus:border-taxi-yellow/30 focus:bg-black/50 shadow-inner"
           />
           <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-            <Phone className="w-5 h-5 text-gray-500 transition-colors group-focus-within:text-taxi-yellow" />
+            <Phone className="w-4 h-4 text-gray-500 transition-colors group-focus-within:text-taxi-yellow" />
           </div>
         </div>
       </div>

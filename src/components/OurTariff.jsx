@@ -26,7 +26,7 @@ export default function Tariff() {
   };
 
   const boxStyle =
-    "p-6 bg-black/60 border border-white/10 rounded-3xl backdrop-blur-md transition-all duration-300 hover:bg-black/80 hover:border-taxi-yellow/40 hover:shadow-[0_0_20px_rgba(255,193,7,0.15)] group";
+    "p-6 bg-white/5 border border-white/5 rounded-3xl backdrop-blur-md transition-all duration-300 hover:bg-black/40 hover:border-taxi-yellow/25 hover:shadow-[0_0_25px_rgba(255,193,7,0.1)] group shadow-lg";
 
   return (
     <section className="relative z-10 px-4 py-16 text-white bg-transparent sm:py-20">
@@ -35,7 +35,7 @@ export default function Tariff() {
         {/* META DESCRIPTION – HIGH INTENT */}
         <meta
           name="description"
-          content="Check Pranav Drop Taxi tariff details with transparent per km pricing. Sedan starts from ₹13/km, SUV and Innova available for one-way and round-trip outstation travel from Chennai across Tamil Nadu, Bangalore, and South India. No hidden charges."
+          content="Check Pranav Drop Taxi tariff details with transparent per km pricing. Sedan starts from ₹13/km, SUV and Innova available for one-way and outstation travel from Chennai across Tamil Nadu, Bangalore, and South India. No hidden charges."
         />
 
         {/* STRONG KEYWORDS */}
@@ -85,19 +85,19 @@ export default function Tariff() {
 
       <div className="max-w-6xl mx-auto">
         {/* Title */}
-        <h2 className="mb-6 text-3xl font-extrabold text-center text-white sm:text-5xl drop-shadow-lg">
+        <h2 className="mb-6 text-3xl font-extrabold text-center text-white sm:text-4xl uppercase tracking-wider drop-shadow-lg">
           Tariff <span className="text-taxi-yellow">Details</span>
         </h2>
 
         {/* Dynamic Description */}
-        <div className="flex flex-col items-center justify-center gap-2 mb-10 text-lg text-gray-300 sm:flex-row">
-          <p className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-taxi-yellow" />{" "}
+        <div className="flex flex-col items-center justify-center gap-2 mb-10 text-xs font-bold uppercase tracking-widest text-gray-500 sm:flex-row">
+          <p className="flex items-center gap-1.5">
+            <CheckCircle className="w-3.5 h-3.5 text-taxi-yellow" />{" "}
             {descriptions[tab][0]}
           </p>
-          <span className="hidden w-1.5 h-1.5 rounded-full bg-gray-600 sm:block" />
-          <p className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-taxi-yellow" />{" "}
+          <span className="hidden w-1.5 h-1.5 rounded-full bg-gray-700 sm:block" />
+          <p className="flex items-center gap-1.5">
+            <CheckCircle className="w-3.5 h-3.5 text-taxi-yellow" />{" "}
             {descriptions[tab][1]}
           </p>
         </div>
@@ -107,10 +107,10 @@ export default function Tariff() {
           <button
             onClick={() => setTab("oneway")}
             aria-label="View One Way Taxi Rates"
-            className={`px-8 py-3 rounded-full text-sm font-bold tracking-wide transition-all duration-300 transform ${
+            className={`px-8 py-3 rounded-full text-xs font-extrabold uppercase tracking-widest transition-all duration-300 transform ${
               tab === "oneway"
-                ? "bg-taxi-yellow text-black scale-105 shadow-[0_0_20px_rgba(255,193,7,0.4)]"
-                : "bg-white/10 text-gray-300 hover:bg-white/20 border border-white/10"
+                ? "bg-taxi-yellow text-black scale-102 shadow-[0_0_20px_rgba(255,193,7,0.3)]"
+                : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5"
             }`}
           >
             One Way
@@ -119,10 +119,10 @@ export default function Tariff() {
           <button
             onClick={() => setTab("roundtrip")}
             aria-label="View Round Trip Taxi Rates"
-            className={`px-8 py-3 rounded-full text-sm font-bold tracking-wide transition-all duration-300 transform ${
+            className={`px-8 py-3 rounded-full text-xs font-extrabold uppercase tracking-widest transition-all duration-300 transform ${
               tab === "roundtrip"
-                ? "bg-taxi-yellow text-black scale-105 shadow-[0_0_20px_rgba(255,193,7,0.4)]"
-                : "bg-white/10 text-gray-300 hover:bg-white/20 border border-white/10"
+                ? "bg-taxi-yellow text-black scale-102 shadow-[0_0_20px_rgba(255,193,7,0.3)]"
+                : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5"
             }`}
           >
             Round Trip
@@ -135,7 +135,7 @@ export default function Tariff() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="mb-16 overflow-hidden border shadow-2xl bg-black/60 backdrop-blur-md rounded-3xl border-white/10"
+          className="mb-16 overflow-hidden border border-white/5 shadow-2xl bg-white/5 backdrop-blur-md rounded-3xl"
         >
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-gray-300 border-separate border-spacing-0">
@@ -146,13 +146,13 @@ export default function Tariff() {
                 <tr className="bg-white/5">
                   <th
                     scope="col"
-                    className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow"
+                    className="p-5 text-xs font-extrabold tracking-widest uppercase border-b border-white/5 text-taxi-yellow"
                   >
                     Vehicle
                   </th>
                   <th
                     scope="col"
-                    className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow"
+                    className="p-5 text-xs font-extrabold tracking-widest uppercase border-b border-white/5 text-taxi-yellow"
                   >
                     <div className="flex items-center gap-2">
                       {tab === "oneway" ? (
@@ -165,13 +165,13 @@ export default function Tariff() {
                   </th>
                   <th
                     scope="col"
-                    className="p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow"
+                    className="p-5 text-xs font-extrabold tracking-widest uppercase border-b border-white/5 text-taxi-yellow"
                   >
                     Driver Bata
                   </th>
                   <th
                     scope="col"
-                    className="w-48 p-5 font-bold tracking-wider uppercase border-b border-white/10 text-taxi-yellow"
+                    className="w-48 p-5 text-xs font-extrabold tracking-widest uppercase border-b border-white/5 text-taxi-yellow"
                   >
                     Note
                   </th>
@@ -181,33 +181,33 @@ export default function Tariff() {
               <tbody>
                 {tariff.map((item, idx) => (
                   <tr key={idx} className="transition-colors hover:bg-white/5">
-                    <td className="flex items-center gap-3 p-5 font-bold text-white border-b border-white/10">
-                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-taxi-yellow/10 text-taxi-yellow">
+                    <td className="flex items-center gap-3.5 p-5 font-bold text-white border-b border-white/5">
+                      <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-taxi-yellow/10 text-taxi-yellow shadow-inner">
                         <Car className="w-5 h-5" />
                       </div>
                       {item.type}
                     </td>
 
-                    <td className="p-5 font-mono text-lg font-bold text-white border-b border-white/10">
+                    <td className="p-5 font-mono text-base font-extrabold text-white border-b border-white/5">
                       ₹{tab === "oneway" ? item.oneway : item.roundtrip}
-                      <span className="text-sm font-normal text-gray-500">
+                      <span className="text-xs font-normal text-gray-500">
                         /km
                       </span>
                     </td>
 
-                    <td className="p-5 border-b border-white/10">
-                      <span className="px-3 py-1 text-xs font-bold text-black rounded-full bg-taxi-yellow shadow-[0_0_10px_rgba(255,193,7,0.3)]">
+                    <td className="p-5 border-b border-white/5">
+                      <span className="px-3.5 py-1 text-[10px] font-extrabold text-black rounded bg-taxi-yellow shadow-[0_0_10px_rgba(255,193,7,0.2)]">
                         ₹400
                       </span>
                     </td>
 
-                    <td className="p-5 border-b border-white/10">
+                    <td className="p-5 border-b border-white/5">
                       {tab === "oneway" ? (
-                        <span className="inline-flex items-center px-2.5 py-1 text-[10px] font-bold tracking-wide text-blue-300 uppercase border border-blue-500/30 rounded bg-blue-500/10">
+                        <span className="inline-flex items-center px-2.5 py-1 text-[9px] font-extrabold tracking-widest text-blue-300 uppercase border border-blue-500/20 rounded bg-blue-500/10">
                           One Way Toll Extra
                         </span>
                       ) : (
-                        <span className="inline-flex items-center px-2.5 py-1 text-[10px] font-bold tracking-wide text-green-300 uppercase border border-green-500/30 rounded bg-green-500/10">
+                        <span className="inline-flex items-center px-2.5 py-1 text-[9px] font-extrabold tracking-widest text-green-300 uppercase border border-green-500/20 rounded bg-green-500/10">
                           Up & Down Toll Extra
                         </span>
                       )}

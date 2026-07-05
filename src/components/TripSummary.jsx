@@ -63,14 +63,14 @@ const TripSummary = ({
       animate="visible"
       variants={fadeInUp}
       transition={{ duration: 0.4 }}
-      className="max-w-4xl mx-auto mt-8 overflow-hidden border shadow-2xl bg-black/60 backdrop-blur-md rounded-3xl border-white/10"
+      className="max-w-4xl mx-auto mt-8 overflow-hidden border shadow-2xl bg-black/60 backdrop-blur-md rounded-3xl border-white/5"
     >
       {/* Header Bar */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-white/5">
-        <h3 className="text-lg font-extrabold text-white">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/5">
+        <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">
           Trip <span className="text-taxi-yellow">Summary</span>
         </h3>
-        <span className="px-3 py-1 text-[10px] font-bold text-black uppercase tracking-wider bg-taxi-yellow rounded-full shadow-[0_0_10px_rgba(255,193,7,0.4)]">
+        <span className="px-2.5 py-1 text-[9px] font-bold text-black uppercase tracking-wider bg-taxi-yellow rounded-full shadow-[0_0_10px_rgba(255,193,7,0.3)]">
           Instant Estimate
         </span>
       </div>
@@ -110,14 +110,14 @@ const TripSummary = ({
             subtext="(Traffic dependent)"
           />
 
-          <div className="flex items-start gap-3 p-4 transition-colors border shadow-lg border-taxi-yellow/30 bg-taxi-yellow/5 rounded-2xl">
-            <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-full bg-taxi-yellow text-black shadow-[0_0_10px_rgba(255,193,7,0.3)]">
-                <BadgeIndianRupee className="w-5 h-5" />
+          <div className="flex items-start gap-3.5 p-4 transition-colors border shadow-lg border-taxi-yellow/20 bg-taxi-yellow/5 rounded-2xl">
+            <div className="flex items-center justify-center flex-shrink-0 w-9 h-9 rounded-xl bg-taxi-yellow text-black shadow-[0_0_10px_rgba(255,193,7,0.25)]">
+                <BadgeIndianRupee className="w-4 h-4" />
             </div>
             <div className="space-y-1">
-                <p className="text-xs font-bold tracking-wider uppercase text-taxi-yellow">Est. Cost</p>
-                <p className="text-lg font-extrabold text-white">{formatRupees(cost)}</p>
-                <p className="text-[10px] text-gray-400 font-medium">(Base Fare)</p>
+                <p className="text-[9px] font-bold tracking-widest uppercase text-taxi-yellow">Est. Cost</p>
+                <p className="text-base font-extrabold text-white leading-none">{formatRupees(cost)}</p>
+                <p className="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-1">(Base Fare)</p>
             </div>
           </div>
 
@@ -127,22 +127,22 @@ const TripSummary = ({
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             
             {/* Driver Bata */}
-            <div className="flex items-center gap-3 p-4 border border-white/10 rounded-2xl bg-white/5">
-                <div className="p-2 rounded-full bg-white/10 text-taxi-yellow">
+            <div className="flex items-center gap-3.5 p-4 border border-white/5 rounded-2xl bg-white/5">
+                <div className="p-2 rounded-xl bg-white/5 border border-white/5 text-taxi-yellow shadow-inner">
                     <UserCheck className="w-4 h-4" />
                 </div>
-                <div>
-                    <p className="text-xs font-bold text-gray-400 uppercase">Driver Bata</p>
-                    <p className="text-sm font-bold text-white">₹400 <span className="text-xs font-normal text-gray-500">/ day (Extra)</span></p>
+                <div className="space-y-0.5">
+                    <p className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Driver Bata</p>
+                    <p className="text-xs font-bold text-white">₹400 <span className="text-[10px] font-normal text-gray-500">/ day (Extra)</span></p>
                 </div>
             </div>
 
             {/* Important Info */}
-            <div className="col-span-1 p-4 border sm:col-span-2 border-white/10 rounded-2xl bg-white/5">
-                <h4 className="flex items-center gap-2 mb-2 text-xs font-bold tracking-wider uppercase text-taxi-yellow">
-                    <Info className="w-3 h-3" /> Important Information
+            <div className="col-span-1 p-4 border sm:col-span-2 border-white/5 rounded-2xl bg-white/5">
+                <h4 className="flex items-center gap-2 mb-2.5 text-[9px] font-bold tracking-widest uppercase text-taxi-yellow">
+                    <Info className="w-3.5 h-3.5" /> Important Information
                 </h4>
-                <ul className="space-y-1 text-xs text-gray-400 list-disc list-inside">
+                <ul className="space-y-1.5 text-[10px] text-gray-400 font-medium list-disc list-inside leading-relaxed">
                     <li>Rates are based on approximate distance & duration.</li>
                     <li>Final fare may change depending on actual distance.</li>
                     <li>Night charges (if applicable) are added separately.</li>
@@ -151,10 +151,10 @@ const TripSummary = ({
         </div>
 
         {/* Footer Note */}
-        <div className="flex items-start gap-2 p-3 text-xs text-red-300 border border-red-500/20 bg-red-500/10 rounded-xl">
+        <div className="flex items-start gap-2.5 p-3.5 text-[10px] text-red-300 border border-red-500/10 bg-red-950/10 rounded-xl">
             <AlertCircle className="flex-shrink-0 w-4 h-4 mt-0.5" />
-            <p>
-                <span className="font-bold">Note:</span> Toll, Parking, Permit & Hill Charges are <span className="underline decoration-red-400/50">not included</span> in this estimate and must be paid by the customer.
+            <p className="leading-relaxed">
+                <span className="font-bold uppercase tracking-wider">Note:</span> Toll, Parking, Permit & Hill Charges are <span className="underline decoration-red-400/50 font-bold">not included</span> in this estimate and must be paid by the customer.
             </p>
         </div>
       </div>

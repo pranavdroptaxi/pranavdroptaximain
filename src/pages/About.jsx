@@ -7,15 +7,13 @@ import {
   MountainSnow,
   Crown,
   ChevronUp,
-  Home,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
 
 /* ================================
    SEO ONLY – NO SCHEMA
-================================ */
+ ================================ */
 const AboutSEO = () => (
   <Helmet>
     <title>
@@ -65,21 +63,21 @@ const AboutSEO = () => (
 
 /* ================================
    Animation Variants (FIXED)
-================================ */
+ ================================ */
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.12 },
+    transition: { staggerChildren: 0.1 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 15 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5 },
+    transition: { duration: 0.4 },
   },
 };
 
@@ -88,51 +86,40 @@ export default function AboutUs() {
 
   useEffect(() => {
     const handleScroll = () => setShowTopButton(window.scrollY > 300);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className="relative min-h-screen text-white bg-black">
+    <div className="relative min-h-screen text-white bg-transparent">
       <AboutSEO />
 
-      {/* Background */}
+      {/* Background (Optimized WebP) */}
       <div className="fixed inset-0 z-0">
         <div
-          className="absolute inset-0 bg-center bg-no-repeat bg-cover"
-          style={{ backgroundImage: "url('/images/taxi.jpg')" }}
+          className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-40 blur-[1px]"
+          style={{ backgroundImage: "url('/taxi.webp')" }}
         />
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
-
-      {/* Header */}
-      <div className="relative z-10 flex items-center justify-between px-6 py-6 mx-auto max-w-7xl">
-        <div className="flex items-center gap-3">
-          <img src="/favicon.ico" alt="Logo" className="w-10 h-10" />
-          <span className="text-xl font-bold">Pranav Drop Taxi</span>
-        </div>
-
-        <Link
-          to="/"
-          className="flex items-center gap-2 px-5 py-2 text-sm font-bold text-black rounded-full bg-taxi-yellow hover:bg-white"
-        >
-          <Home className="w-4 h-4" /> Home
-        </Link>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black" />
+        <div className="absolute inset-0 bg-radial-mesh opacity-40 pointer-events-none" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 px-4 py-12 mx-auto max-w-7xl">
+      <div className="relative z-10 px-4 py-16 mx-auto max-w-7xl sm:py-24">
         {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.6 }}
           className="mb-16 text-center"
         >
-          <h1 className="mb-6 text-4xl font-extrabold md:text-6xl">
+          <span className="inline-block px-3.5 py-1 mb-5 text-[10px] font-extrabold tracking-widest text-black uppercase rounded-full bg-taxi-yellow shadow-[0_0_15px_rgba(255,193,7,0.25)]">
+            Our Journey
+          </span>
+          <h1 className="mb-6 text-3xl font-extrabold uppercase tracking-wider md:text-5xl">
             About <span className="text-taxi-yellow">Pranav Drop Taxi</span>
           </h1>
-          <p className="max-w-3xl mx-auto text-lg text-gray-300">
+          <p className="max-w-2xl mx-auto text-sm text-gray-400 leading-relaxed">
             We provide safe, reliable, and affordable one-way and outstation taxi
             services from Chennai across Tamil Nadu, Bangalore, Kerala, and South
             India.
@@ -149,32 +136,32 @@ export default function AboutUs() {
         >
           {[
             {
-              icon: <Car />,
+              icon: <Car className="w-6 h-6" />,
               title: "Comfortable Rides",
               desc: "Clean, well-maintained vehicles for long journeys.",
             },
             {
-              icon: <CheckCircle />,
+              icon: <CheckCircle className="w-6 h-6" />,
               title: "Verified Drivers",
               desc: "Experienced and background-verified drivers.",
             },
             {
-              icon: <Gauge />,
+              icon: <Gauge className="w-6 h-6" />,
               title: "On-Time Pickup",
               desc: "Punctual service every time you book.",
             },
             {
-              icon: <PhoneCall />,
+              icon: <PhoneCall className="w-6 h-6" />,
               title: "24/7 Support",
               desc: "Available anytime for bookings and assistance.",
             },
             {
-              icon: <MountainSnow />,
+              icon: <MountainSnow className="w-6 h-6" />,
               title: "Outstation Specialists",
               desc: "Perfect for hills and long-distance travel.",
             },
             {
-              icon: <Crown />,
+              icon: <Crown className="w-6 h-6" />,
               title: "Premium Experience",
               desc: "Comfort-focused travel for families and business.",
             },
@@ -182,13 +169,13 @@ export default function AboutUs() {
             <motion.div
               key={idx}
               variants={itemVariants}
-              className="p-8 border bg-black/60 rounded-2xl border-white/10"
+              className="p-8 border border-white/5 bg-white/5 backdrop-blur-md rounded-3xl hover:border-taxi-yellow/25 transition-all duration-300 hover:bg-black/40 hover:shadow-xl"
             >
-              <div className="flex items-center justify-center mb-4 text-black rounded-full w-14 h-14 bg-taxi-yellow">
+              <div className="flex items-center justify-center mb-6 text-black rounded-2xl w-13 h-13 bg-taxi-yellow shadow-[0_0_15px_rgba(255,193,7,0.2)]">
                 {item.icon}
               </div>
-              <h3 className="mb-2 text-xl font-bold">{item.title}</h3>
-              <p className="text-gray-300">{item.desc}</p>
+              <h3 className="mb-3 text-lg font-bold uppercase tracking-wider text-white">{item.title}</h3>
+              <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -198,9 +185,9 @@ export default function AboutUs() {
       {showTopButton && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed z-50 p-3 text-black rounded-full bottom-6 right-6 bg-taxi-yellow"
+          className="fixed z-50 p-3.5 text-black rounded-full bottom-6 right-6 bg-taxi-yellow hover:bg-white active:scale-95 transition-all"
         >
-          <ChevronUp />
+          <ChevronUp className="w-6 h-6" />
         </button>
       )}
     </div>

@@ -28,7 +28,7 @@ const LocationInputs = ({
         const wrapper = document.createElement("div");
         // Using focus-within to highlight the box when the inner google input is clicked
         wrapper.className =
-          "w-full px-2 py-1 text-white transition-all duration-300 border bg-black/50 border-white/10 rounded-xl focus-within:border-taxi-yellow focus-within:ring-1 focus-within:ring-taxi-yellow/50";
+          "w-full px-3 py-1.5 text-white transition-all duration-300 border bg-white/5 border-white/5 rounded-xl focus-within:border-taxi-yellow/30 focus-within:bg-black/50 shadow-inner focus-within:shadow-[0_0_15px_rgba(255,193,7,0.1)]";
 
         const input = new google.maps.places.PlaceAutocompleteElement({
           includedRegionCodes: ["IN"],
@@ -86,8 +86,8 @@ const LocationInputs = ({
       
       {/* Pickup Box */}
       <div className="space-y-2">
-        <label className="flex items-center gap-2 ml-1 text-xs font-bold tracking-wider text-gray-400 uppercase">
-          <MapPin className="w-3 h-3 text-taxi-yellow" /> Pickup Location
+        <label className="flex items-center gap-2 ml-1 text-[10px] font-bold tracking-widest text-gray-500 uppercase">
+          <MapPin className="w-3.5 h-3.5 text-taxi-yellow" /> Pickup Location
         </label>
 
         <div
@@ -99,7 +99,7 @@ const LocationInputs = ({
         />
 
         {pickupError && (
-          <p className="ml-1 text-xs font-medium text-red-400 animate-pulse">
+          <p className="ml-1 text-[10px] font-bold tracking-wide text-red-500 animate-pulse">
             * {pickupError}
           </p>
         )}
@@ -107,8 +107,8 @@ const LocationInputs = ({
 
       {/* Drop Box */}
       <div className="space-y-2">
-        <label className="flex items-center gap-2 ml-1 text-xs font-bold tracking-wider text-gray-400 uppercase">
-          <Navigation className="w-3 h-3 text-taxi-yellow" /> Drop Location
+        <label className="flex items-center gap-2 ml-1 text-[10px] font-bold tracking-widest text-gray-500 uppercase">
+          <Navigation className="w-3.5 h-3.5 text-taxi-yellow" /> Drop Location
         </label>
 
         <div
@@ -119,7 +119,7 @@ const LocationInputs = ({
         />
 
         {dropError && (
-          <p className="ml-1 text-xs font-medium text-red-400 animate-pulse">
+          <p className="ml-1 text-[10px] font-bold tracking-wide text-red-500 animate-pulse">
             * {dropError}
           </p>
         )}
