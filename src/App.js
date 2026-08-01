@@ -15,6 +15,11 @@ import Contact from './pages/Contact';
 import LoginPage from './pages/LoginPage';
 import TermsAndConditions from './pages/TermsAndConditions';
 
+import RouteDetailPage from './pages/routes/RouteDetailPage';
+import AirportPage from './pages/airports/AirportPage';
+import BlogList from './pages/blog/BlogList';
+import BlogPost from './pages/blog/BlogPost';
+
 import { AuthProvider } from './utils/AuthContext';
 import ScrollToTop from './components/ScrollToTop';
 import { Toaster } from "react-hot-toast";
@@ -51,18 +56,34 @@ function App() {
 
         <LayoutWrapper>
           <Routes>
-
-            {/* Home is now open */}
+            {/* Home */}
             <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
 
             {/* Main Pages */}
-            <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/my-bookings" element={<MyBookings />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
 
+            {/* Blog Pages */}
+            <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/:postSlug" element={<BlogPost />} />
+
+            {/* Airport SEO Pages */}
+            <Route path="/chennai-airport-taxi" element={<AirportPage />} />
+            <Route path="/bangalore-airport-taxi" element={<AirportPage />} />
+            <Route path="/coimbatore-airport-taxi" element={<AirportPage />} />
+            <Route path="/madurai-airport-taxi" element={<AirportPage />} />
+
+            {/* Route SEO Pages */}
+            <Route path="/chennai-to-bangalore-taxi" element={<RouteDetailPage />} />
+            <Route path="/chennai-to-trichy-taxi" element={<RouteDetailPage />} />
+            <Route path="/chennai-to-coimbatore-taxi" element={<RouteDetailPage />} />
+            <Route path="/chennai-to-madurai-taxi" element={<RouteDetailPage />} />
+            <Route path="/chennai-to-pondicherry-taxi" element={<RouteDetailPage />} />
+            <Route path="/:routeSlug" element={<RouteDetailPage />} />
           </Routes>
         </LayoutWrapper>
 
@@ -72,3 +93,4 @@ function App() {
 }
 
 export default App;
+

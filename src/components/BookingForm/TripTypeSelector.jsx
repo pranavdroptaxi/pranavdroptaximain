@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 
 const TripTypeSelector = ({ tripType, setTripType }) => {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       
       {/* Segmented Toggle Switch */}
-      <div className="relative flex p-1 rounded-full shadow-inner bg-black/60 border border-white/5 backdrop-blur-md">
+      <div className="relative flex p-1 rounded-full bg-black/80 border border-white/10 shadow-lg max-w-xs w-full mx-auto">
         {['oneway', 'roundtrip'].map((type) => {
           const isActive = tripType === type;
           return (
@@ -15,17 +15,17 @@ const TripTypeSelector = ({ tripType, setTripType }) => {
               key={type}
               type="button"
               onClick={() => setTripType(type)}
-              className="relative flex-1 flex items-center justify-center gap-2 py-3 text-xs font-bold tracking-widest uppercase rounded-full transition-all duration-300 z-10 text-center"
+              className="relative flex-1 flex items-center justify-center gap-2 py-2.5 text-xs font-extrabold tracking-widest uppercase rounded-full transition-all duration-300 z-10 text-center"
             >
               {type === 'oneway' ? (
                 <>
-                  <ArrowRight className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-gray-500'}`} />
-                  <span className={isActive ? 'text-black' : 'text-gray-400'}>One Way</span>
+                  <ArrowRight className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-gray-400'}`} />
+                  <span className={isActive ? 'text-black font-black' : 'text-gray-300'}>One Way</span>
                 </>
               ) : (
                 <>
-                  <Repeat className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-gray-500'}`} />
-                  <span className={isActive ? 'text-black' : 'text-gray-400'}>Round Trip</span>
+                  <Repeat className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-gray-400'}`} />
+                  <span className={isActive ? 'text-black font-black' : 'text-gray-300'}>Round Trip</span>
                 </>
               )}
 
@@ -42,10 +42,10 @@ const TripTypeSelector = ({ tripType, setTripType }) => {
       </div>
 
       {/* Availability Note */}
-      <div className="flex items-start gap-3 p-4 border border-red-500/20 bg-red-950/15 rounded-2xl">
-        <MapPin className="flex-shrink-0 w-4 h-4 mt-0.5 text-red-500" />
-        <p className="text-[10px] font-bold uppercase tracking-wider leading-relaxed text-red-200/80">
-          <span className="text-red-400">Service Area:</span> Pickup & drop services exclusively within <span className="text-white">Tamil Nadu, Kerala, Andhra Pradesh, and Karnataka</span>.
+      <div className="flex items-center gap-3 p-3.5 border border-red-500/30 bg-red-950/20 rounded-2xl max-w-md w-full mx-auto">
+        <MapPin className="flex-shrink-0 w-4 h-4 text-red-500" />
+        <p className="text-[10px] font-bold uppercase tracking-wider leading-relaxed text-red-200">
+          <span className="text-red-400">Service Area:</span> Pickup & drop services exclusively within <span className="text-white font-extrabold">Tamil Nadu, Kerala, Andhra Pradesh, and Karnataka</span>.
         </p>
       </div>
 

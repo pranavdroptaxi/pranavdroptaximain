@@ -1,7 +1,23 @@
 /* global google */
-import React, { useEffect } from "react";
-import { MapPin, Navigation } from "lucide-react";
+import React, { useEffect, useState, useRef } from "react";
+import { MapPin, Navigation, Sparkles } from "lucide-react";
 import loadGoogleMapsAPI from "../../utils/loadGoogleMapsAPI";
+
+export const popularCities = [
+  { name: "Chennai", address: "Chennai, Tamil Nadu, India", lat: 13.0827, lng: 80.2707 },
+  { name: "Bangalore", address: "Bengaluru, Karnataka, India", lat: 12.9716, lng: 77.5946 },
+  { name: "Pondicherry", address: "Puducherry, India", lat: 11.9416, lng: 79.8083 },
+  { name: "Trichy", address: "Tiruchirappalli, Tamil Nadu, India", lat: 10.7905, lng: 78.7047 },
+  { name: "Coimbatore", address: "Coimbatore, Tamil Nadu, India", lat: 11.0168, lng: 76.9558 },
+  { name: "Madurai", address: "Madurai, Tamil Nadu, India", lat: 9.9252, lng: 78.1198 },
+  { name: "Salem", address: "Salem, Tamil Nadu, India", lat: 11.6643, lng: 78.146 },
+  { name: "Vellore", address: "Vellore, Tamil Nadu, India", lat: 12.9165, lng: 79.1325 },
+  { name: "Tirunelveli", address: "Tirunelveli, Tamil Nadu, India", lat: 8.7139, lng: 77.7567 },
+  { name: "Hosur", address: "Hosur, Tamil Nadu, India", lat: 12.7409, lng: 77.8253 },
+  { name: "Erode", address: "Erode, Tamil Nadu, India", lat: 11.341, lng: 77.7172 },
+  { name: "Chennai Airport", address: "Chennai International Airport (MAA), Chennai", lat: 12.9941, lng: 80.1709 },
+  { name: "Bangalore Airport", address: "Kempegowda International Airport (BLR), Bengaluru", lat: 13.1986, lng: 77.7066 },
+];
 
 const LocationInputs = ({
   onSourcePlaceSelect,
@@ -9,28 +25,58 @@ const LocationInputs = ({
   pickupError,
   dropError,
 }) => {
+  const [googleLoaded, setGoogleLoaded] = useState(false);
+  const [pickupText, setPickupText] = useState("");
+  const [dropText, setDropText] = useState("");
+  const [showPickupDropdown, setShowPickupDropdown] = useState(false);
+  const [showDropDropdown, setShowDropDropdown] = useState(false);
+
+  const pickupContainerRef = useRef(null);
+  const dropContainerRef = useRef(null);
+
   useEffect(() => {
     let cancelled = false;
 
-    loadGoogleMapsAPI().then(async () => {
-      if (cancelled || !window.google?.maps?.importLibrary) return;
+    loadGoogleMapsAPI()
+      .then(async () => {
+        if (cancelled || !window.google?.maps?.importLibrary) return;
 
-      await google.maps.importLibrary("places");
+        try {
+          await google.maps.importLibrary("places");
+          if (cancelled) return;
+          setGoogleLoaded(true);
+        } catch (err) {
+          console.warn("Google Places library load error, using native fallback:", err);
+          setGoogleLoaded(false);
+        }
+      })
+      .catch((err) => {
+        console.warn("Google Maps API script error, using native fallback:", err);
+        setGoogleLoaded(false);
+      });
 
-      // Initialize Google Autocomplete inside wrapper
-      const initAutocomplete = (elementId, onSelect) => {
-        const container = document.getElementById(elementId);
-        if (!container) return;
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
-        container.innerHTML = "";
+  // Initialize Google Autocomplete into isolated DOM refs
+  useEffect(() => {
+    if (!googleLoaded) return;
 
-        // Wrapper with Glossy Dark Theme Styling
-        const wrapper = document.createElement("div");
-        // Using focus-within to highlight the box when the inner google input is clicked
-        wrapper.className =
-          "w-full px-3 py-1.5 text-white transition-all duration-300 border bg-white/5 border-white/5 rounded-xl focus-within:border-taxi-yellow/30 focus-within:bg-black/50 shadow-inner focus-within:shadow-[0_0_15px_rgba(255,193,7,0.1)]";
+    const setupAutocomplete = (containerRef, onSelect, setText) => {
+      const container = containerRef.current;
+      if (!container) return;
 
-        const input = new google.maps.places.PlaceAutocompleteElement({
+      container.innerHTML = "";
+
+      const wrapper = document.createElement("div");
+      wrapper.className =
+        "w-full px-3 py-1 text-white transition-all duration-300 border bg-white/5 border-white/5 rounded-xl focus-within:border-taxi-yellow/30 focus-within:bg-black/50 shadow-inner";
+
+      let input;
+      try {
+        input = new google.maps.places.PlaceAutocompleteElement({
           includedRegionCodes: ["IN"],
           locationRestriction: {
             north: 20.0,
@@ -40,16 +86,13 @@ const LocationInputs = ({
           },
         });
 
-        // Attempt to style the internal web component via inline style (best effort)
-        // This helps it blend into the dark background
         input.style.backgroundColor = "transparent";
         input.style.width = "100%";
-        input.style.color = "white"; 
+        input.style.color = "white";
 
         wrapper.appendChild(input);
         container.appendChild(wrapper);
 
-        // When user selects a place:
         input.addEventListener("gmp-select", async ({ placePrediction }) => {
           const place = placePrediction.toPlace();
           await place.fetchFields({
@@ -67,36 +110,125 @@ const LocationInputs = ({
 
           if (typeof onSelect === "function") {
             onSelect(data);
+            setText(place.displayName || place.formattedAddress);
           }
         });
-      };
-
-      // Initialize both fields
-      initAutocomplete("pickup-input", onSourcePlaceSelect);
-      initAutocomplete("drop-input", onDestinationPlaceSelect);
-    });
-
-    return () => {
-      cancelled = true;
+      } catch (e) {
+        console.warn("Error creating PlaceAutocompleteElement:", e);
+      }
     };
-  }, [onSourcePlaceSelect, onDestinationPlaceSelect]);
+
+    setupAutocomplete(pickupContainerRef, onSourcePlaceSelect, setPickupText);
+    setupAutocomplete(dropContainerRef, onDestinationPlaceSelect, setDropText);
+  }, [googleLoaded, onSourcePlaceSelect, onDestinationPlaceSelect]);
+
+  const handleManualSelect = (city, isPickup) => {
+    const data = {
+      displayName: city.name,
+      address: city.address,
+      location: { lat: city.lat, lng: city.lng },
+    };
+    if (isPickup) {
+      setPickupText(city.name);
+      setShowPickupDropdown(false);
+      onSourcePlaceSelect(data);
+    } else {
+      setDropText(city.name);
+      setShowDropDropdown(false);
+      onDestinationPlaceSelect(data);
+    }
+  };
+
+  const filteredPickupCities = popularCities.filter((c) =>
+    c.name.toLowerCase().includes(pickupText.toLowerCase())
+  );
+
+  const filteredDropCities = popularCities.filter((c) =>
+    c.name.toLowerCase().includes(dropText.toLowerCase())
+  );
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-      
       {/* Pickup Box */}
-      <div className="space-y-2">
-        <label className="flex items-center gap-2 ml-1 text-[10px] font-bold tracking-widest text-gray-500 uppercase">
-          <MapPin className="w-3.5 h-3.5 text-taxi-yellow" /> Pickup Location
+      <div className="space-y-2 relative">
+        <label className="flex items-center justify-between ml-1 text-[10px] font-bold tracking-widest text-gray-400 uppercase">
+          <span className="flex items-center gap-2">
+            <MapPin className="w-3.5 h-3.5 text-taxi-yellow" /> Pickup Location
+          </span>
+          {pickupText && (
+            <span className="text-taxi-yellow font-extrabold truncate max-w-[150px]">
+              {pickupText}
+            </span>
+          )}
         </label>
 
-        <div
-          id="pickup-input"
-          // If error, we add a red ring around the container
-          className={`rounded-xl transition-all ${
-            pickupError ? "ring-1 ring-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]" : ""
-          }`}
-        />
+        {googleLoaded ? (
+          <div
+            ref={pickupContainerRef}
+            className={`rounded-xl transition-all ${
+              pickupError ? "ring-1 ring-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]" : ""
+            }`}
+          />
+        ) : (
+          <div className="relative">
+            <input
+              type="text"
+              value={pickupText}
+              onFocus={() => setShowPickupDropdown(true)}
+              onChange={(e) => {
+                setPickupText(e.target.value);
+                setShowPickupDropdown(true);
+                // Try matching exact city name
+                const matched = popularCities.find(
+                  (c) => c.name.toLowerCase() === e.target.value.trim().toLowerCase()
+                );
+                if (matched) handleManualSelect(matched, true);
+              }}
+              placeholder="Select or type pickup city e.g. Chennai"
+              className={`w-full px-4 py-3 text-sm text-white border rounded-xl bg-white/5 border-white/10 focus:border-taxi-yellow focus:outline-none transition-all ${
+                pickupError ? "border-red-500" : ""
+              }`}
+            />
+
+            {/* Dropdown Suggestions */}
+            {showPickupDropdown && filteredPickupCities.length > 0 && (
+              <div className="absolute left-0 right-0 top-full mt-1.5 z-50 bg-black/95 border border-white/15 rounded-2xl shadow-2xl overflow-hidden max-h-48 overflow-y-auto backdrop-blur-xl">
+                {filteredPickupCities.map((city) => (
+                  <button
+                    key={city.name}
+                    type="button"
+                    onClick={() => handleManualSelect(city, true)}
+                    className="w-full px-4 py-2.5 text-left text-xs font-bold text-gray-200 hover:bg-taxi-yellow hover:text-black transition-colors flex items-center justify-between"
+                  >
+                    <span>{city.name}</span>
+                    <span className="text-[9px] opacity-70 truncate max-w-[160px]">{city.address}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Quick Choice Chips */}
+        <div className="flex flex-wrap gap-1.5 pt-1">
+          <span className="text-[9px] text-gray-500 font-bold uppercase flex items-center gap-1 self-center mr-1">
+            <Sparkles className="w-2.5 h-2.5 text-taxi-yellow" /> Quick:
+          </span>
+          {popularCities.slice(0, 4).map((c) => (
+            <button
+              key={`p-${c.name}`}
+              type="button"
+              onClick={() => handleManualSelect(c, true)}
+              className={`px-2.5 py-1 text-[9px] font-bold rounded-lg border transition-all ${
+                pickupText.toLowerCase().includes(c.name.toLowerCase())
+                  ? "bg-taxi-yellow text-black border-taxi-yellow shadow-sm"
+                  : "bg-white/5 border-white/10 text-gray-300 hover:border-taxi-yellow/40 hover:bg-white/10"
+              }`}
+            >
+              {c.name}
+            </button>
+          ))}
+        </div>
 
         {pickupError && (
           <p className="ml-1 text-[10px] font-bold tracking-wide text-red-500 animate-pulse">
@@ -106,17 +238,84 @@ const LocationInputs = ({
       </div>
 
       {/* Drop Box */}
-      <div className="space-y-2">
-        <label className="flex items-center gap-2 ml-1 text-[10px] font-bold tracking-widest text-gray-500 uppercase">
-          <Navigation className="w-3.5 h-3.5 text-taxi-yellow" /> Drop Location
+      <div className="space-y-2 relative">
+        <label className="flex items-center justify-between ml-1 text-[10px] font-bold tracking-widest text-gray-400 uppercase">
+          <span className="flex items-center gap-2">
+            <Navigation className="w-3.5 h-3.5 text-taxi-yellow" /> Drop Location
+          </span>
+          {dropText && (
+            <span className="text-taxi-yellow font-extrabold truncate max-w-[150px]">
+              {dropText}
+            </span>
+          )}
         </label>
 
-        <div
-          id="drop-input"
-          className={`rounded-xl transition-all ${
-            dropError ? "ring-1 ring-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]" : ""
-          }`}
-        />
+        {googleLoaded ? (
+          <div
+            ref={dropContainerRef}
+            className={`rounded-xl transition-all ${
+              dropError ? "ring-1 ring-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]" : ""
+            }`}
+          />
+        ) : (
+          <div className="relative">
+            <input
+              type="text"
+              value={dropText}
+              onFocus={() => setShowDropDropdown(true)}
+              onChange={(e) => {
+                setDropText(e.target.value);
+                setShowDropDropdown(true);
+                const matched = popularCities.find(
+                  (c) => c.name.toLowerCase() === e.target.value.trim().toLowerCase()
+                );
+                if (matched) handleManualSelect(matched, false);
+              }}
+              placeholder="Select or type drop city e.g. Bangalore"
+              className={`w-full px-4 py-3 text-sm text-white border rounded-xl bg-white/5 border-white/10 focus:border-taxi-yellow focus:outline-none transition-all ${
+                dropError ? "border-red-500" : ""
+              }`}
+            />
+
+            {/* Dropdown Suggestions */}
+            {showDropDropdown && filteredDropCities.length > 0 && (
+              <div className="absolute left-0 right-0 top-full mt-1.5 z-50 bg-black/95 border border-white/15 rounded-2xl shadow-2xl overflow-hidden max-h-48 overflow-y-auto backdrop-blur-xl">
+                {filteredDropCities.map((city) => (
+                  <button
+                    key={city.name}
+                    type="button"
+                    onClick={() => handleManualSelect(city, false)}
+                    className="w-full px-4 py-2.5 text-left text-xs font-bold text-gray-200 hover:bg-taxi-yellow hover:text-black transition-colors flex items-center justify-between"
+                  >
+                    <span>{city.name}</span>
+                    <span className="text-[9px] opacity-70 truncate max-w-[160px]">{city.address}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Quick Choice Chips */}
+        <div className="flex flex-wrap gap-1.5 pt-1">
+          <span className="text-[9px] text-gray-500 font-bold uppercase flex items-center gap-1 self-center mr-1">
+            <Sparkles className="w-2.5 h-2.5 text-taxi-yellow" /> Quick:
+          </span>
+          {popularCities.slice(1, 5).map((c) => (
+            <button
+              key={`d-${c.name}`}
+              type="button"
+              onClick={() => handleManualSelect(c, false)}
+              className={`px-2.5 py-1 text-[9px] font-bold rounded-lg border transition-all ${
+                dropText.toLowerCase().includes(c.name.toLowerCase())
+                  ? "bg-taxi-yellow text-black border-taxi-yellow shadow-sm"
+                  : "bg-white/5 border-white/10 text-gray-300 hover:border-taxi-yellow/40 hover:bg-white/10"
+              }`}
+            >
+              {c.name}
+            </button>
+          ))}
+        </div>
 
         {dropError && (
           <p className="ml-1 text-[10px] font-bold tracking-wide text-red-500 animate-pulse">
@@ -129,3 +328,4 @@ const LocationInputs = ({
 };
 
 export default LocationInputs;
+

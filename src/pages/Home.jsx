@@ -3,31 +3,36 @@ import { motion, AnimatePresence } from "framer-motion";
 import BookingForm from "../components/BookingForm";
 import OurFleet from "../components/OurFleet";
 import OurTariff from "../components/OurTariff";
+import PopularRoutes from "../components/PopularRoutes";
+import VehicleComparisonTable from "../components/VehicleComparisonTable";
+import TrustBar from "../components/TrustBar";
+import ServiceCoverageMap from "../components/ServiceCoverageMap";
+import FAQSection from "../components/FAQSection";
+import FloatingBottomBar from "../components/FloatingBottomBar";
+import LiveChat from "../components/LiveChat";
+import PWAInstallPrompt from "../components/PWAInstallPrompt";
 import { Helmet } from "react-helmet";
 import { FaWhatsapp } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import {
   Car,
-  ClipboardList,
   PhoneCall,
   CheckCircle,
   Quote,
   ArrowLeft,
   ArrowRight,
-  ChevronUp,
-  MapPin,
-  Clock,
-  ShieldCheck,
+  BookOpen,
 } from "lucide-react";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../utils/firebase";
+import { blogPostsData } from "./blog/BlogList";
 
 function Home() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
-  const [showTopButton, setShowTopButton] = useState(false);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -49,12 +54,6 @@ function Home() {
     fetchReviews();
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => setShowTopButton(window.scrollY > 300);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const handlePrev = () => {
     if (currentIndex > 0) {
       setDirection(-1);
@@ -72,14 +71,14 @@ function Home() {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
 
   return (
-    <div className="relative min-h-screen text-gray-300 bg-black selection:bg-taxi-yellow selection:text-black">
+    <div className="relative min-h-screen text-gray-300 bg-black selection:bg-taxi-yellow selection:text-black pb-16 md:pb-0">
       <Helmet defer={false}>
         <title>
-          Pranav Drop Taxi – Cheapest One Way & Outstation Taxi in Chennai
+          Pranav Drop Taxi – South India's Trusted One-Way Taxi Service
         </title>
         <meta
           name="description"
-          content="Pranav Drop Taxi offers the cheapest one-way and outstation taxi services in Chennai with 24/7 airport pickups, safe professional drivers, clean cabs, transparent pricing, and reliable Chennai to Bangalore, Coimbatore, Trichy & Pondicherry drop taxi services."
+          content="South India's trusted one-way taxi service. Pay only for the distance you travel across Tamil Nadu, Bangalore, Pondicherry, Kerala & Andhra Pradesh. 24/7 doorstep pickup."
         />
         <meta
           name="keywords"
@@ -88,39 +87,11 @@ function Home() {
         <meta name="robots" content="index, follow" />
         <meta name="author" content="Pranav Drop Taxi" />
         <link rel="canonical" href="https://pranavdroptaxi.com/" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://firestore.googleapis.com" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Pranav Drop Taxi" />
-        <meta property="og:url" content="https://pranavdroptaxi.com/" />
-        <meta
-          property="og:title"
-          content="Pranav Drop Taxi – Cheapest One Way & Outstation Taxi in Chennai"
-        />
-        <meta
-          property="og:description"
-          content="Book affordable one-way drop taxi and outstation cabs from Chennai. Safe drivers, transparent pricing, 24/7 availability."
-        />
-        <meta
-          property="og:image"
-          content="https://pranavdroptaxi.com/taxi.jpg"
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Pranav Drop Taxi – Cheapest One Way & Outstation Taxi in Chennai"
-        />
-        <meta
-          name="twitter:description"
-          content="Affordable outstation and one-way drop taxi services from Chennai with professional drivers."
-        />
-        <meta
-          name="twitter:image"
-          content="https://pranavdroptaxi.com/taxi.jpg"
-        />
       </Helmet>
 
-      {/* --- BACKGROUND LAYER (Optimized to WebP for fast load) --- */}
+      <PWAInstallPrompt />
+
+      {/* --- BACKGROUND LAYER --- */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         <div
           className="absolute inset-0 scale-105 bg-center bg-no-repeat bg-cover opacity-40 blur-[1px]"
@@ -134,40 +105,40 @@ function Home() {
 
       <main className="relative z-10">
         {/* HERO SECTION */}
-        <header className="flex flex-col items-center justify-center min-h-[92vh] px-4 text-center">
+        <header className="flex flex-col items-center justify-center min-h-[92vh] px-4 text-center pt-24 sm:pt-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="w-full max-w-4xl p-8 border border-white/10 shadow-2xl bg-black/60 backdrop-blur-xl rounded-3xl sm:p-12"
+            className="w-full max-w-4xl p-4 sm:p-6"
           >
-            <span className="inline-block px-3.5 py-1 mb-5 text-[10px] font-extrabold tracking-widest text-black uppercase rounded-full bg-taxi-yellow shadow-[0_0_15px_rgba(255,193,7,0.25)]">
+            <span className="inline-block px-3.5 py-1 mb-5 text-[10px] font-black tracking-widest text-black uppercase rounded-full bg-taxi-yellow shadow-[0_0_15px_rgba(255,193,7,0.3)]">
               Pranav Drop Taxi
             </span>
-            <h1 className="mb-6 text-4xl font-extrabold text-white sm:text-7xl tracking-tight leading-tight">
-              Reliable <span className="gradient-text-yellow">One Way</span> Drop
-              Taxi
+            <h1 className="mb-4 text-3xl font-black text-white sm:text-6xl tracking-tight leading-tight uppercase">
+              South India's <span className="gradient-text-yellow">Trusted</span> One-Way Taxi Service
             </h1>
-            <p className="max-w-2xl mx-auto mb-10 text-base font-medium leading-relaxed text-gray-400 sm:text-lg">
-              Safe, affordable, and professional outstation travel. We
-              specialize in intercity drops across Tamil Nadu with transparent
-              pricing.
+            <p className="max-w-2xl mx-auto mb-8 text-base font-extrabold leading-relaxed text-taxi-yellow sm:text-xl uppercase tracking-wider">
+              Pay Only for the Distance You Travel
+            </p>
+            <p className="max-w-2xl mx-auto mb-10 text-xs font-medium text-gray-400 sm:text-sm">
+              No return charges. Transparent per kilometer billing. 24/7 doorstep pickup across Tamil Nadu, Bangalore, Pondicherry, Kerala & Andhra Pradesh.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
+              <a
+                href="#booking"
+                className="flex items-center gap-2 px-8 py-3.5 text-xs font-black uppercase tracking-wider text-black transition-all rounded-full bg-taxi-yellow hover:bg-white hover:scale-105 shadow-[0_0_25px_rgba(255,193,7,0.3)]"
+              >
+                <Car className="w-4 h-4" /> Book Ride Now
+              </a>
+
               <a
                 href="tel:+919884949171"
                 aria-label="Call Pranav Drop Taxi"
                 className="flex items-center gap-2 px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition-all border border-white/10 rounded-full bg-white/5 hover:bg-white hover:text-black hover:scale-102"
               >
-                <PhoneCall className="w-4 h-4 text-taxi-yellow" /> Call Now
-              </a>
-
-              <a
-                href="#booking"
-                className="flex items-center gap-2 px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-black transition-all rounded-full bg-taxi-yellow hover:bg-white hover:scale-102 shadow-[0_0_20px_rgba(255,193,7,0.25)]"
-              >
-                Book Your Ride
+                <PhoneCall className="w-4 h-4 text-taxi-yellow" /> Call +91 98849 49171
               </a>
 
               <a
@@ -180,79 +151,80 @@ function Home() {
                 <FaWhatsapp className="w-4 h-4 text-green-500" /> WhatsApp
               </a>
             </div>
-
-            {/* Trust Bar Strip */}
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-12 pt-8 border-t border-white/5 text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-              <div className="flex items-center gap-2">
-                <span className="text-taxi-yellow">5000+</span> Trips Completed
-              </div>
-              <span className="hidden sm:block opacity-20">|</span>
-              <div className="flex items-center gap-2">
-                <span className="text-taxi-yellow">4.8★</span> Rating
-              </div>
-              <span className="hidden sm:block opacity-20">|</span>
-              <div className="flex items-center gap-2">
-                <span className="text-taxi-yellow">24/7</span> Dispatch Available
-              </div>
-            </div>
           </motion.div>
         </header>
+
+        {/* TRUST BAR */}
+        <TrustBar />
 
         {/* BOOKING SECTION */}
         <section
           id="booking"
           aria-label="Book a Taxi"
-          className="px-4 py-12 -mt-20 sm:py-20"
+          className="px-4 py-12 sm:py-20"
         >
-          <div className="max-w-5xl p-6 mx-auto border border-white/5 shadow-2xl bg-black/85 backdrop-blur-xl rounded-3xl sm:p-10">
-            <h2 className="mb-8 text-2xl font-extrabold text-center text-white sm:text-3xl uppercase tracking-wider">
-              Instant <span className="text-taxi-yellow">Online Booking</span>
+          <div className="max-w-5xl p-6 mx-auto border border-white/10 shadow-2xl bg-black/90 backdrop-blur-2xl rounded-3xl sm:p-10">
+            <h2 className="mb-8 text-2xl font-black text-center text-white sm:text-3xl uppercase tracking-wider">
+              Instant <span className="text-taxi-yellow">Fare Calculator & Booking</span>
             </h2>
             <BookingForm />
           </div>
         </section>
 
-        {/* SERVICES / HOW IT WORKS */}
-        <section className="px-4 py-20 bg-transparent" id="how-it-works">
-          <div className="max-w-6xl mx-auto text-center">
-            <h2 className="mb-4 text-3xl font-extrabold text-white sm:text-4xl uppercase tracking-wider">
-              How to Book Your Taxi
-            </h2>
-            <p className="mb-16 text-xs font-bold uppercase tracking-widest text-gray-500">
-              Simple three-step process for a stress-free journey.
-            </p>
-            <div className="grid gap-8 sm:grid-cols-3 relative">
-              {[
-                {
-                  Icon: MapPin,
-                  title: "Set Route",
-                  desc: "Select pickup and drop location within Tamil Nadu or Pondicherry.",
-                },
-                {
-                  Icon: Car,
-                  title: "Choose Vehicle",
-                  desc: "Choose from Hatchback, Sedan, or SUV based on your comfort.",
-                },
-                {
-                  Icon: CheckCircle,
-                  title: "Enjoy Trip",
-                  desc: "Our professional driver arrives on time for a safe journey.",
-                },
-              ].map(({ Icon, title, desc }, idx) => (
-                <div
-                  key={idx}
-                  className="p-8 border border-white/5 bg-white/5 backdrop-blur-md rounded-3xl relative transition-all duration-300 hover:border-taxi-yellow/20 hover:bg-white/10 group shadow-lg"
+        {/* POPULAR ROUTES SECTION */}
+        <PopularRoutes />
+
+        {/* VEHICLE COMPARISON MATRIX */}
+        <VehicleComparisonTable />
+
+        {/* SERVICE COVERAGE MAP */}
+        <ServiceCoverageMap />
+
+        {/* FAQ SECTION */}
+        <FAQSection />
+
+        {/* BLOG HIGHLIGHTS SECTION */}
+        <section className="px-4 py-20 bg-transparent">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+              <div>
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 mb-3 text-[10px] font-extrabold tracking-widest text-black uppercase rounded-full bg-taxi-yellow">
+                  <BookOpen className="w-3 h-3" /> Latest Articles
+                </span>
+                <h2 className="text-3xl font-extrabold text-white sm:text-4xl uppercase tracking-wider">
+                  Outstation <span className="text-taxi-yellow">Travel Guides</span>
+                </h2>
+              </div>
+              <Link
+                to="/blog"
+                className="mt-4 md:mt-0 text-xs font-black text-taxi-yellow uppercase tracking-widest hover:text-white transition-colors flex items-center gap-1"
+              >
+                View All Articles <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {blogPostsData.map((post) => (
+                <Link
+                  key={post.id}
+                  to={`/blog/${post.slug}`}
+                  className="p-6 border border-white/5 bg-white/5 rounded-3xl backdrop-blur-md hover:border-taxi-yellow/40 hover:bg-white/10 transition-all flex flex-col justify-between group"
                 >
-                  <span className="absolute top-4 right-6 font-mono text-5xl font-black text-white/5 group-hover:text-taxi-yellow/10 transition-colors">
-                    0{idx + 1}
-                  </span>
-                  
-                  <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-black rounded-2xl bg-taxi-yellow shadow-[0_0_15px_rgba(255,193,7,0.2)]">
-                    <Icon className="w-8 h-8" />
+                  <div>
+                    <span className="px-2.5 py-0.5 text-[8px] font-black text-black bg-taxi-yellow rounded uppercase">
+                      {post.category}
+                    </span>
+                    <h3 className="text-sm font-extrabold text-white uppercase tracking-wider mt-3 mb-2 group-hover:text-taxi-yellow transition-colors line-clamp-2">
+                      {post.title}
+                    </h3>
+                    <p className="text-[11px] text-gray-400 line-clamp-3">
+                      {post.excerpt}
+                    </p>
                   </div>
-                  <h3 className="mb-3 text-lg font-bold text-white uppercase tracking-wider">{title}</h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">{desc}</p>
-                </div>
+                  <span className="mt-4 text-[10px] font-bold text-taxi-yellow flex items-center gap-1 uppercase">
+                    Read More <ArrowRight className="w-3 h-3" />
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
@@ -264,45 +236,6 @@ function Home() {
         </section>
         <section id="fleet" className="py-12 border-t border-white/5 bg-transparent">
           <OurFleet />
-        </section>
-
-        {/* WHY CHOOSE US */}
-        <section className="px-4 py-20">
-          <div className="max-w-6xl mx-auto text-center">
-            <h2 className="mb-16 text-3xl font-extrabold text-white sm:text-4xl uppercase tracking-wider">
-              Why Choose <span className="text-taxi-yellow">Pranav?</span>
-            </h2>
-            <div className="grid gap-8 sm:grid-cols-3">
-              {[
-                {
-                  Icon: ShieldCheck,
-                  title: "Verified Drivers",
-                  desc: "Safe and background-checked professional drivers.",
-                },
-                {
-                  Icon: Clock,
-                  title: "24/7 Availability",
-                  desc: "Mid-night airport drops or early morning intercity travel.",
-                },
-                {
-                  Icon: ClipboardList,
-                  title: "Transparent Bill",
-                  desc: "No hidden charges. Toll and parking are as per actuals.",
-                },
-              ].map(({ Icon, title, desc }, idx) => (
-                <div
-                  key={idx}
-                  className="p-8 transition-all duration-300 border bg-white/5 border-white/5 rounded-3xl hover:border-taxi-yellow/30 hover:bg-white/10 hover:shadow-xl text-center"
-                >
-                  <div className="flex items-center justify-center w-14 h-14 mx-auto mb-6 rounded-2xl bg-taxi-yellow/5 border border-taxi-yellow/15 text-taxi-yellow shadow-inner">
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="mb-3 text-lg font-bold text-white uppercase tracking-wider">{title}</h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">{desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
         </section>
 
         {/* REVIEWS */}
@@ -347,7 +280,6 @@ function Home() {
                         >
                           <Quote className="w-8 h-8 mb-6 text-taxi-yellow/20" />
                           
-                          {/* Premium Stars Display */}
                           <div className="flex items-center gap-1 mb-4 text-taxi-yellow">
                             {[...Array(5)].map((_, i) => (
                               <svg key={i} className="w-4 h-4 fill-current animate-pulse-glow" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
@@ -389,36 +321,12 @@ function Home() {
         </section>
       </main>
 
-      {/* FLOATING ACTION BUTTONS */}
-      <div className="fixed z-[999] bottom-6 right-6 flex flex-col items-end gap-3.5">
-        <motion.a
-          href="https://wa.me/919884949171"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Chat on WhatsApp"
-          whileHover={{ scale: 1.05 }}
-          className="flex items-center justify-center text-white bg-green-500 rounded-full shadow-2xl w-13 h-13 hover:bg-green-600 shadow-green-500/20"
-        >
-          <FaWhatsapp className="w-7 h-7" />
-        </motion.a>
-
-        <AnimatePresence>
-          {showTopButton && (
-            <motion.button
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              aria-label="Scroll to top"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="flex items-center justify-center text-black rounded-full shadow-2xl bg-taxi-yellow w-13 h-13 hover:bg-white"
-            >
-              <ChevronUp className="w-6 h-6" />
-            </motion.button>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* FLOATING ACTION BUTTONS & WIDGETS */}
+      <LiveChat />
+      <FloatingBottomBar />
     </div>
   );
 }
 
 export default Home;
+

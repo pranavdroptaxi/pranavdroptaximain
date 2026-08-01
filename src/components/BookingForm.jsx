@@ -190,21 +190,25 @@ const BookingForm = () => {
         className="space-y-10 text-white"
       >
         {/* Step Indicator */}
-        <div className="flex items-center justify-between max-w-sm mx-auto mb-10 text-[9px] font-extrabold uppercase tracking-widest text-gray-500">
-          <div className="flex items-center gap-1.5 text-taxi-yellow">
-            <span className="flex items-center justify-center w-4 h-4 rounded-full border border-taxi-yellow bg-taxi-yellow/15 text-[8px]">1</span> Route & Time
+        <div className="flex items-center justify-between max-w-md mx-auto mb-10 text-[10px] font-extrabold uppercase tracking-widest text-gray-500 bg-white/5 p-3 rounded-2xl border border-white/5 backdrop-blur-md">
+          <div className={`flex items-center gap-1.5 transition-colors ${(sourcePlace && destinationPlace) ? 'text-taxi-yellow font-extrabold' : 'text-gray-300'}`}>
+            <span className={`flex items-center justify-center w-5 h-5 rounded-full border text-[9px] ${(sourcePlace && destinationPlace) ? 'border-taxi-yellow bg-taxi-yellow text-black' : 'border-white/20 bg-white/10'}`}>1</span> Route
           </div>
-          <div className="w-8 h-px bg-white/5" />
-          <div className={`flex items-center gap-1.5 transition-colors ${vehicleType ? 'text-taxi-yellow' : 'text-gray-600'}`}>
-            <span className={`flex items-center justify-center w-4 h-4 rounded-full border text-[8px] ${vehicleType ? 'border-taxi-yellow bg-taxi-yellow/15' : 'border-white/5'}`}>2</span> Vehicle
+          <div className={`w-6 h-px transition-colors ${(sourcePlace && destinationPlace) ? 'bg-taxi-yellow/50' : 'bg-white/10'}`} />
+          <div className={`flex items-center gap-1.5 transition-colors ${vehicleType ? 'text-taxi-yellow font-extrabold' : (sourcePlace && destinationPlace) ? 'text-gray-300' : 'text-gray-600'}`}>
+            <span className={`flex items-center justify-center w-5 h-5 rounded-full border text-[9px] ${vehicleType ? 'border-taxi-yellow bg-taxi-yellow text-black' : 'border-white/20 bg-white/10'}`}>2</span> Vehicle
           </div>
-          <div className="w-8 h-px bg-white/5" />
-          <div className={`flex items-center gap-1.5 transition-colors ${(name && phone) ? 'text-taxi-yellow' : 'text-gray-600'}`}>
-            <span className={`flex items-center justify-center w-4 h-4 rounded-full border text-[8px] ${(name && phone) ? 'border-taxi-yellow bg-taxi-yellow/15' : 'border-white/5'}`}>3</span> Confirm
+          <div className={`w-6 h-px transition-colors ${vehicleType ? 'bg-taxi-yellow/50' : 'bg-white/10'}`} />
+          <div className={`flex items-center gap-1.5 transition-colors ${(name && phone && date) ? 'text-taxi-yellow font-extrabold' : vehicleType ? 'text-gray-300' : 'text-gray-600'}`}>
+            <span className={`flex items-center justify-center w-5 h-5 rounded-full border text-[9px] ${(name && phone && date) ? 'border-taxi-yellow bg-taxi-yellow text-black' : 'border-white/20 bg-white/10'}`}>3</span> Details
+          </div>
+          <div className={`w-6 h-px transition-colors ${(name && phone && date) ? 'bg-taxi-yellow/50' : 'bg-white/10'}`} />
+          <div className="flex items-center gap-1.5 text-gray-600">
+            <span className="flex items-center justify-center w-5 h-5 rounded-full border border-white/10 text-[9px] bg-white/5">4</span> Confirm
           </div>
         </div>
 
-        <div className="p-1 rounded-full bg-white/5 border border-white/5 shadow-inner max-w-xs mx-auto">
+        <div className="max-w-md mx-auto">
           <TripTypeSelector tripType={tripType} setTripType={setTripType} />
         </div>
 
@@ -229,6 +233,7 @@ const BookingForm = () => {
             tripType={tripType}
             vehicleType={vehicleType}
             setVehicleType={setVehicleType}
+            distance={distance}
           />
         </div>
 
