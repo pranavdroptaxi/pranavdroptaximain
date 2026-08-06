@@ -1,6 +1,5 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import { ArrowLeft, ShieldCheck, CheckCircle2 } from "lucide-react";
 import BookingForm from "../../components/BookingForm";
 import FAQSection from "../../components/FAQSection";
@@ -8,6 +7,7 @@ import VehicleComparisonTable from "../../components/VehicleComparisonTable";
 import { popularRoutesList } from "../../components/PopularRoutes";
 import LiveChat from "../../components/LiveChat";
 import FloatingBottomBar from "../../components/FloatingBottomBar";
+import SEOHead from "../../components/SEOHead";
 
 export const routeDetailsData = {
   "chennai-to-bangalore-taxi": {
@@ -86,6 +86,81 @@ export const routeDetailsData = {
       "Quick 3.5 hour weekend gateway transport",
     ],
   },
+  "chennai-to-salem-taxi": {
+    title: "Chennai to Salem One-Way Drop Taxi",
+    metaTitle: "Chennai to Salem Drop Taxi - Fare from ₹4,199 | Pranav Drop Taxi",
+    metaDesc: "Book Chennai to Salem outstation drop taxi starting at ₹4,199. 340 KM distance via NH44. Professional outstation cab service.",
+    from: "Chennai",
+    to: "Salem",
+    distance: "340 KM",
+    time: "5.5 Hours",
+    minFare: 4199,
+    highlights: [
+      "Fast travel via Chennai - Bengaluru Highway & Salem Expressway",
+      "Comfortable drops to Salem junction, New Bus Stand & Yercaud foothills",
+      "Clean AC Sedans & SUVs with experienced drivers",
+    ],
+  },
+  "chennai-to-vellore-taxi": {
+    title: "Chennai to Vellore One-Way Drop Taxi",
+    metaTitle: "Chennai to Vellore Taxi - Fare from ₹1,899 | Pranav Drop Taxi",
+    metaDesc: "Fast & affordable Chennai to Vellore drop taxi starting at ₹1,899. 138 KM distance. Instant pickup for CMC Hospital visits.",
+    from: "Chennai",
+    to: "Vellore",
+    distance: "138 KM",
+    time: "2.5 Hours",
+    minFare: 1899,
+    highlights: [
+      "Specialized CMC Hospital patient pickup & drop service",
+      "Quick 2.5 hour travel via Chennai-Bengaluru highway",
+      "Zero waiting delay for early morning hospital appointments",
+    ],
+  },
+  "madurai-to-chennai-taxi": {
+    title: "Madurai to Chennai One-Way Drop Taxi",
+    metaTitle: "Madurai to Chennai Drop Taxi - Fare from ₹5,199 | Pranav Drop Taxi",
+    metaDesc: "Book Madurai to Chennai one-way cab starting at ₹5,199. 460 KM distance, doorstep pickup across Madurai to Chennai city or MAA Airport.",
+    from: "Madurai",
+    to: "Chennai",
+    distance: "460 KM",
+    time: "7.5 Hours",
+    minFare: 5199,
+    highlights: [
+      "Direct drop to Chennai MAA Airport, Koyambedu, or Central station",
+      "Experienced highway night-driving chauffeurs",
+      "Transparent bill without return kilometer charges",
+    ],
+  },
+  "coimbatore-to-chennai-taxi": {
+    title: "Coimbatore to Chennai One-Way Drop Taxi",
+    metaTitle: "Coimbatore to Chennai Drop Taxi - Fare from ₹5,499 | Pranav Drop Taxi",
+    metaDesc: "Book Coimbatore to Chennai drop taxi for ₹5,499. Distance 505 KM, 8.5 hours. Reliable one-way AC cabs available 24/7.",
+    from: "Coimbatore",
+    to: "Chennai",
+    distance: "505 KM",
+    time: "8.5 Hours",
+    minFare: 5499,
+    highlights: [
+      "Pickups from Gandhipuram, Peelamedu, Saravanampatti & CJB Airport",
+      "Doorstep drop across all areas of Chennai",
+      "No surge charges or hidden return fees",
+    ],
+  },
+  "bangalore-to-chennai-taxi": {
+    title: "Bangalore to Chennai One-Way Drop Taxi",
+    metaTitle: "Bangalore to Chennai Taxi - Fare from ₹4,799 | Pranav Drop Taxi",
+    metaDesc: "Book Bangalore to Chennai one way drop cab starting at ₹4,799. 346 KM distance, 6.5 hours via Hosur-Krishnagiri highway.",
+    from: "Bangalore",
+    to: "Chennai",
+    distance: "346 KM",
+    time: "6.5 Hours",
+    minFare: 4799,
+    highlights: [
+      "Pickup from Indiranagar, Koramangala, Whitefield, Electronic City or BLR Airport",
+      "Safe driving via NH44 with comfortable refreshment stops",
+      "Clean sanitized Sedan, SUV & Innova Crysta cabs",
+    ],
+  },
 };
 
 export default function RouteDetailPage() {
@@ -114,17 +189,21 @@ export default function RouteDetailPage() {
 
   return (
     <div className="relative min-h-screen text-gray-300 bg-black selection:bg-taxi-yellow selection:text-black">
-      <Helmet>
-        <title>{routeInfo.metaTitle}</title>
-        <meta name="description" content={routeInfo.metaDesc} />
-        <link rel="canonical" href={`https://pranavdroptaxi.com/${rawSlug}`} />
-      </Helmet>
+      <SEOHead
+        title={routeInfo.metaTitle}
+        description={routeInfo.metaDesc}
+        canonicalUrl={`https://pranavdroptaxi.com/${rawSlug}`}
+        breadcrumbs={[
+          { name: "Routes", item: "https://pranavdroptaxi.com/#routes" },
+          { name: routeInfo.title, item: `https://pranavdroptaxi.com/${rawSlug}` }
+        ]}
+      />
 
       {/* BACKGROUND LAYER */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         <div
           className="absolute inset-0 scale-105 bg-center bg-no-repeat bg-cover opacity-40 blur-[1px]"
-          style={{ backgroundImage: "url('/taxi.webp')" }}
+          style={{ backgroundImage: "url('/images/hero_highway_taxi.png')" }}
           role="img"
           aria-label="Pranav Drop Taxi background"
         />

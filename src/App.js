@@ -24,7 +24,6 @@ import { AuthProvider } from './utils/AuthContext';
 import ScrollToTop from './components/ScrollToTop';
 import { Toaster } from "react-hot-toast";
 
-
 // Layout Controller
 const LayoutWrapper = ({ children }) => {
   const { pathname } = useLocation();
@@ -77,12 +76,17 @@ function App() {
             <Route path="/coimbatore-airport-taxi" element={<AirportPage />} />
             <Route path="/madurai-airport-taxi" element={<AirportPage />} />
 
-            {/* Route SEO Pages */}
+            {/* Location-Specific Route SEO Pages */}
             <Route path="/chennai-to-bangalore-taxi" element={<RouteDetailPage />} />
             <Route path="/chennai-to-trichy-taxi" element={<RouteDetailPage />} />
             <Route path="/chennai-to-coimbatore-taxi" element={<RouteDetailPage />} />
             <Route path="/chennai-to-madurai-taxi" element={<RouteDetailPage />} />
             <Route path="/chennai-to-pondicherry-taxi" element={<RouteDetailPage />} />
+            <Route path="/chennai-to-salem-taxi" element={<RouteDetailPage />} />
+            <Route path="/chennai-to-vellore-taxi" element={<RouteDetailPage />} />
+            <Route path="/madurai-to-chennai-taxi" element={<RouteDetailPage />} />
+            <Route path="/coimbatore-to-chennai-taxi" element={<RouteDetailPage />} />
+            <Route path="/bangalore-to-chennai-taxi" element={<RouteDetailPage />} />
             <Route path="/:routeSlug" element={<RouteDetailPage />} />
           </Routes>
         </LayoutWrapper>
@@ -93,4 +97,3 @@ function App() {
 }
 
 export default App;
-

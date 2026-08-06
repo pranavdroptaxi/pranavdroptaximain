@@ -1,12 +1,12 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import { ArrowLeft, Plane, ShieldCheck, CheckCircle2, PhoneCall } from "lucide-react";
 import BookingForm from "../../components/BookingForm";
 import FAQSection from "../../components/FAQSection";
 import VehicleComparisonTable from "../../components/VehicleComparisonTable";
 import LiveChat from "../../components/LiveChat";
 import FloatingBottomBar from "../../components/FloatingBottomBar";
+import SEOHead from "../../components/SEOHead";
 
 export const airportData = {
   "chennai-airport-taxi": {
@@ -66,6 +66,7 @@ export const airportData = {
 
 export default function AirportPage() {
   const { airportSlug } = useParams();
+  const rawSlug = airportSlug || "airport";
   const info = airportData[airportSlug] || {
     name: "Airport Taxi Service",
     title: "24/7 Airport Pickup & Drop Taxi Service",
@@ -82,17 +83,22 @@ export default function AirportPage() {
 
   return (
     <div className="relative min-h-screen text-gray-300 bg-black selection:bg-taxi-yellow selection:text-black">
-      <Helmet>
-        <title>{info.metaTitle}</title>
-        <meta name="description" content={info.metaDesc} />
-        <link rel="canonical" href={`https://pranavdroptaxi.com/${airportSlug}`} />
-      </Helmet>
+      <SEOHead
+        title={info.metaTitle}
+        description={info.metaDesc}
+        canonicalUrl={`https://pranavdroptaxi.com/${rawSlug}`}
+        imageUrl="https://pranavdroptaxi.com/images/hero_airport_pickup.png"
+        breadcrumbs={[
+          { name: "Airports", item: "https://pranavdroptaxi.com/#airports" },
+          { name: info.name, item: `https://pranavdroptaxi.com/${rawSlug}` }
+        ]}
+      />
 
       {/* BACKGROUND LAYER */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         <div
           className="absolute inset-0 scale-105 bg-center bg-no-repeat bg-cover opacity-40 blur-[1px]"
-          style={{ backgroundImage: "url('/taxi.webp')" }}
+          style={{ backgroundImage: "url('/images/hero_airport_pickup.png')" }}
           role="img"
           aria-label="Pranav Drop Taxi background"
         />

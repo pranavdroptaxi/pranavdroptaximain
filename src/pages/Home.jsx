@@ -11,7 +11,8 @@ import FAQSection from "../components/FAQSection";
 import FloatingBottomBar from "../components/FloatingBottomBar";
 import LiveChat from "../components/LiveChat";
 import PWAInstallPrompt from "../components/PWAInstallPrompt";
-import { Helmet } from "react-helmet";
+import WhyChooseUs from "../components/WhyChooseUs";
+import SEOHead from "../components/SEOHead";
 import { FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -23,16 +24,71 @@ import {
   ArrowLeft,
   ArrowRight,
   BookOpen,
+  Sparkles,
+  Plane,
+  Users,
+  Compass,
+  MapPin,
 } from "lucide-react";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import { blogPostsData } from "./blog/BlogList";
 
-function Home() {
+export default function Home() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+
+  // Hero visual tab state
+  const [activeHeroTab, setActiveHeroTab] = useState(0);
+
+  const heroVisuals = [
+    {
+      id: "highway",
+      label: "Highway Cabs",
+      tagline: "Express Tamil Nadu Highways",
+      badge: "Smooth Intercity Rides",
+      desc: "Travel stress-free across Tamil Nadu expressways in clean, high-performance Sedans & SUVs.",
+      image: "/images/hero_highway_taxi.png",
+      icon: Compass,
+    },
+    {
+      id: "family",
+      label: "Family Trips",
+      tagline: "Comfortable Outstation Journeys",
+      badge: "Spacious & Air-Conditioned",
+      desc: "Enjoy quiet, safe travel with spacious seating, clean interiors, and experienced family-friendly drivers.",
+      image: "/images/hero_family_travel.png",
+      icon: Users,
+    },
+    {
+      id: "airport",
+      label: "Airport Pickup",
+      tagline: "24/7 Gate & Terminal Pickup",
+      badge: "Zero Flight Delay Fees",
+      desc: "Direct transfers to MAA Chennai, BLR Bangalore, CJB Coimbatore & IXM Madurai airports.",
+      image: "/images/hero_airport_pickup.png",
+      icon: Plane,
+    },
+    {
+      id: "drone",
+      label: "TN Expressways",
+      tagline: "Scenic South India Routes",
+      badge: "No Return Km Charges",
+      desc: "Connecting 100+ South Indian cities with transparent per-kilometer distance billing.",
+      image: "/images/hero_drone_highway.png",
+      icon: MapPin,
+    },
+  ];
+
+  // Auto rotate hero visuals every 6 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveHeroTab((prev) => (prev + 1) % heroVisuals.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [heroVisuals.length]);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -71,127 +127,251 @@ function Home() {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
 
   return (
-    <div className="relative min-h-screen text-gray-300 bg-black selection:bg-taxi-yellow selection:text-black pb-16 md:pb-0">
-      <Helmet defer={false}>
-        <title>
-          Pranav Drop Taxi – South India's Trusted One-Way Taxi Service
-        </title>
-        <meta
-          name="description"
-          content="South India's trusted one-way taxi service. Pay only for the distance you travel across Tamil Nadu, Bangalore, Pondicherry, Kerala & Andhra Pradesh. 24/7 doorstep pickup."
-        />
-        <meta
-          name="keywords"
-          content="drop taxi chennai, one way taxi chennai, outstation taxi chennai, airport taxi chennai, chennai to bangalore drop taxi, chennai to pondicherry taxi, cheapest drop taxi tamil nadu, one way cab chennai, intercity taxi chennai, outstation cabs tamil nadu, pranav drop taxi, chennai airport taxi service"
-        />
-        <meta name="robots" content="index, follow" />
-        <meta name="author" content="Pranav Drop Taxi" />
-        <link rel="canonical" href="https://pranavdroptaxi.com/" />
-      </Helmet>
+    <div className="relative min-h-screen text-gray-300 bg-black selection:bg-taxi-yellow selection:text-black pb-16 md:pb-0 overflow-x-hidden">
+      {/* Comprehensive SEO Head */}
+      <SEOHead
+        title="Pranav Drop Taxi – South India's Trusted One-Way Taxi Service"
+        description="South India's trusted one-way taxi service. Pay only for the distance you travel across Tamil Nadu, Bangalore, Pondicherry, Kerala & Andhra Pradesh. 24/7 doorstep pickup."
+        canonicalUrl="https://pranavdroptaxi.com/"
+        imageUrl="https://pranavdroptaxi.com/images/hero_highway_taxi.png"
+      />
 
       <PWAInstallPrompt />
 
       {/* --- BACKGROUND LAYER --- */}
-      <div className="fixed inset-0 z-0 overflow-hidden">
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div
-          className="absolute inset-0 scale-105 bg-center bg-no-repeat bg-cover opacity-40 blur-[1px]"
-          style={{ backgroundImage: "url('/taxi.webp')" }}
+          className="absolute inset-0 scale-105 bg-center bg-no-repeat bg-cover opacity-25 blur-[2px] transition-all duration-1000"
+          style={{ backgroundImage: `url('${heroVisuals[activeHeroTab].image}')` }}
           role="img"
-          aria-label="Pranav Drop Taxi background"
+          aria-label="Pranav Drop Taxi dynamic background"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black" />
-        <div className="absolute inset-0 bg-radial-mesh opacity-40 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/75 to-black" />
+        <div className="absolute inset-0 bg-radial-mesh opacity-40" />
       </div>
 
       <main className="relative z-10">
-        {/* HERO SECTION */}
-        <header className="flex flex-col items-center justify-center min-h-[92vh] px-4 text-center pt-24 sm:pt-16">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="w-full max-w-4xl p-4 sm:p-6"
-          >
-            <span className="inline-block px-3.5 py-1 mb-5 text-[10px] font-black tracking-widest text-black uppercase rounded-full bg-taxi-yellow shadow-[0_0_15px_rgba(255,193,7,0.3)]">
-              Pranav Drop Taxi
-            </span>
-            <h1 className="mb-4 text-3xl font-black text-white sm:text-6xl tracking-tight leading-tight uppercase">
-              South India's <span className="gradient-text-yellow">Trusted</span> One-Way Taxi Service
-            </h1>
-            <p className="max-w-2xl mx-auto mb-8 text-base font-extrabold leading-relaxed text-taxi-yellow sm:text-xl uppercase tracking-wider">
-              Pay Only for the Distance You Travel
-            </p>
-            <p className="max-w-2xl mx-auto mb-10 text-xs font-medium text-gray-400 sm:text-sm">
-              No return charges. Transparent per kilometer billing. 24/7 doorstep pickup across Tamil Nadu, Bangalore, Pondicherry, Kerala & Andhra Pradesh.
-            </p>
+        {/* =========================================================================
+            1. HERO SECTION (ENHANCED VISUALS & ROTATING SHOWCASE)
+           ========================================================================= */}
+        <header className="relative min-h-[95vh] pt-28 pb-16 px-4 sm:px-6 lg:px-8 flex flex-col justify-center max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Left Hero Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-6 text-left"
+            >
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 mb-6 text-[10px] font-black tracking-widest text-black uppercase rounded-full bg-taxi-yellow shadow-[0_0_20px_rgba(255,193,7,0.3)]">
+                <Sparkles className="w-3.5 h-3.5" /> South India's #1 One-Way Taxi
+              </div>
 
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href="#booking"
-                className="flex items-center gap-2 px-8 py-3.5 text-xs font-black uppercase tracking-wider text-black transition-all rounded-full bg-taxi-yellow hover:bg-white hover:scale-105 shadow-[0_0_25px_rgba(255,193,7,0.3)]"
-              >
-                <Car className="w-4 h-4" /> Book Ride Now
-              </a>
+              <h1 className="mb-6 text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1] uppercase">
+                Travel South India <br />
+                <span className="gradient-text-yellow">Without Return</span> Fees
+              </h1>
 
-              <a
-                href="tel:+919884949171"
-                aria-label="Call Pranav Drop Taxi"
-                className="flex items-center gap-2 px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition-all border border-white/10 rounded-full bg-white/5 hover:bg-white hover:text-black hover:scale-102"
-              >
-                <PhoneCall className="w-4 h-4 text-taxi-yellow" /> Call +91 98849 49171
-              </a>
+              <p className="mb-6 text-lg sm:text-xl font-extrabold text-taxi-yellow uppercase tracking-wider">
+                Pay Only For The One-Way Distance Traveled
+              </p>
 
-              <a
-                href="https://wa.me/919884949171"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Message us on WhatsApp"
-                className="flex items-center gap-2 px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition-all border border-green-500/20 bg-green-600/10 rounded-full hover:bg-green-600 hover:scale-102"
-              >
-                <FaWhatsapp className="w-4 h-4 text-green-500" /> WhatsApp
-              </a>
-            </div>
-          </motion.div>
+              <p className="mb-8 text-sm font-medium text-gray-300 leading-relaxed max-w-xl">
+                Transparent per-kilometer billing with zero return charges. Enjoy 24/7 doorstep pickup across Tamil Nadu, Bangalore, Pondicherry, Kerala & Andhra Pradesh.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-4 mb-10">
+                <a
+                  href="#booking"
+                  className="flex items-center gap-2 px-8 py-4 text-xs font-black uppercase tracking-wider text-black transition-all rounded-full bg-taxi-yellow hover:bg-white hover:scale-105 shadow-[0_0_25px_rgba(255,193,7,0.4)]"
+                >
+                  <Car className="w-4 h-4" /> Book Ride Now
+                </a>
+
+                <a
+                  href="tel:+919884949171"
+                  aria-label="Call Pranav Drop Taxi"
+                  className="flex items-center gap-2 px-7 py-4 text-xs font-bold uppercase tracking-wider text-white transition-all border border-white/15 rounded-full bg-white/5 hover:bg-white hover:text-black hover:scale-102 backdrop-blur-md"
+                >
+                  <PhoneCall className="w-4 h-4 text-taxi-yellow" /> Call +91 98849 49171
+                </a>
+
+                <a
+                  href="https://wa.me/919884949171"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Message us on WhatsApp"
+                  className="flex items-center gap-2 px-7 py-4 text-xs font-bold uppercase tracking-wider text-white transition-all border border-green-500/30 bg-green-600/15 rounded-full hover:bg-green-600 hover:scale-102 backdrop-blur-md"
+                >
+                  <FaWhatsapp className="w-4 h-4 text-green-400" /> WhatsApp
+                </a>
+              </div>
+
+              {/* Metric Highlights */}
+              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 text-left">
+                <div>
+                  <span className="text-xl sm:text-2xl font-black text-white block">100%</span>
+                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">One-Way Billing</span>
+                </div>
+                <div>
+                  <span className="text-xl sm:text-2xl font-black text-taxi-yellow block">24/7</span>
+                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Doorstep Pickup</span>
+                </div>
+                <div>
+                  <span className="text-xl sm:text-2xl font-black text-white block">50,000+</span>
+                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Happy Trips</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right Hero Interactive Visual Showcase */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="lg:col-span-6 relative"
+            >
+              {/* Tab Selectors */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                {heroVisuals.map((vis, idx) => {
+                  const Icon = vis.icon;
+                  const isActive = activeHeroTab === idx;
+                  return (
+                    <button
+                      key={vis.id}
+                      onClick={() => setActiveHeroTab(idx)}
+                      className={`flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-xl transition-all ${
+                        isActive
+                          ? "bg-taxi-yellow text-black font-black shadow-lg shadow-taxi-yellow/20 scale-105"
+                          : "bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10 hover:text-white"
+                      }`}
+                    >
+                      <Icon className="w-3.5 h-3.5" />
+                      {vis.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Image Frame Card */}
+              <div className="relative rounded-3xl overflow-hidden border border-white/15 bg-neutral-900/90 shadow-2xl backdrop-blur-2xl group">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeHeroTab}
+                    initial={{ opacity: 0, scale: 1.05 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.5 }}
+                    className="relative aspect-[16/10] overflow-hidden"
+                  >
+                    <img
+                      src={heroVisuals[activeHeroTab].image}
+                      alt={heroVisuals[activeHeroTab].tagline}
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    />
+
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+
+                    {/* Floating Badge */}
+                    <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-[10px] font-black uppercase tracking-wider text-taxi-yellow flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-taxi-yellow animate-ping" />
+                      {heroVisuals[activeHeroTab].badge}
+                    </div>
+
+                    {/* Bottom Card Text Overlay */}
+                    <div className="absolute bottom-0 inset-x-0 p-6 text-left">
+                      <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wider mb-1">
+                        {heroVisuals[activeHeroTab].tagline}
+                      </h3>
+                      <p className="text-xs text-gray-300 font-medium leading-relaxed max-w-lg">
+                        {heroVisuals[activeHeroTab].desc}
+                      </p>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          </div>
         </header>
 
         {/* TRUST BAR */}
-        <TrustBar />
+        <section className="bg-neutral-950 border-y border-white/10">
+          <TrustBar />
+        </section>
 
-        {/* BOOKING SECTION */}
+        {/* =========================================================================
+            2. BOOKING SECTION
+           ========================================================================= */}
         <section
           id="booking"
           aria-label="Book a Taxi"
-          className="px-4 py-12 sm:py-20"
+          className="px-4 py-24 sm:py-32 bg-gradient-to-b from-black via-neutral-950 to-black relative"
         >
-          <div className="max-w-5xl p-6 mx-auto border border-white/10 shadow-2xl bg-black/90 backdrop-blur-2xl rounded-3xl sm:p-10">
-            <h2 className="mb-8 text-2xl font-black text-center text-white sm:text-3xl uppercase tracking-wider">
-              Instant <span className="text-taxi-yellow">Fare Calculator & Booking</span>
-            </h2>
+          <div className="max-w-5xl p-6 sm:p-12 mx-auto border border-white/10 shadow-2xl bg-black/90 backdrop-blur-2xl rounded-3xl relative overflow-hidden">
+            <div className="absolute -top-24 -right-24 w-72 h-72 bg-taxi-yellow/10 rounded-full blur-3xl pointer-events-none" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-10"
+            >
+              <span className="inline-block px-3.5 py-1 mb-3 text-[10px] font-black tracking-widest text-black uppercase rounded-full bg-taxi-yellow">
+                Instant Fare Estimation
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight">
+                Calculate Fare & <span className="text-taxi-yellow">Book Ride</span>
+              </h2>
+            </motion.div>
             <BookingForm />
           </div>
         </section>
 
-        {/* POPULAR ROUTES SECTION */}
-        <PopularRoutes />
+        {/* =========================================================================
+            4. WHY CHOOSE US SECTION
+           ========================================================================= */}
+        <WhyChooseUs />
 
-        {/* VEHICLE COMPARISON MATRIX */}
-        <VehicleComparisonTable />
+        {/* =========================================================================
+            POPULAR ROUTES SECTION
+           ========================================================================= */}
+        <section className="px-4 py-24 sm:py-32 bg-black border-t border-white/5">
+          <PopularRoutes />
+        </section>
 
-        {/* SERVICE COVERAGE MAP */}
-        <ServiceCoverageMap />
+        {/* =========================================================================
+            VEHICLE COMPARISON MATRIX
+           ========================================================================= */}
+        <section className="px-4 py-24 sm:py-32 bg-neutral-950 border-t border-white/10">
+          <VehicleComparisonTable />
+        </section>
 
-        {/* FAQ SECTION */}
-        <FAQSection />
+        {/* =========================================================================
+            SERVICE COVERAGE MAP
+           ========================================================================= */}
+        <section className="px-4 py-24 sm:py-32 bg-gradient-to-b from-neutral-950 via-black to-neutral-950 border-t border-white/5">
+          <ServiceCoverageMap />
+        </section>
 
-        {/* BLOG HIGHLIGHTS SECTION */}
-        <section className="px-4 py-20 bg-transparent">
+        {/* =========================================================================
+            FAQ SECTION
+           ========================================================================= */}
+        <section className="px-4 py-24 sm:py-32 bg-black border-t border-white/10">
+          <FAQSection />
+        </section>
+
+        {/* =========================================================================
+            BLOG HIGHLIGHTS SECTION
+           ========================================================================= */}
+        <section className="px-4 py-24 sm:py-32 bg-neutral-950 border-t border-white/10">
           <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-14">
               <div>
                 <span className="inline-flex items-center gap-1.5 px-3.5 py-1 mb-3 text-[10px] font-extrabold tracking-widest text-black uppercase rounded-full bg-taxi-yellow">
                   <BookOpen className="w-3 h-3" /> Latest Articles
                 </span>
-                <h2 className="text-3xl font-extrabold text-white sm:text-4xl uppercase tracking-wider">
+                <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight">
                   Outstation <span className="text-taxi-yellow">Travel Guides</span>
                 </h2>
               </div>
@@ -208,7 +388,7 @@ function Home() {
                 <Link
                   key={post.id}
                   to={`/blog/${post.slug}`}
-                  className="p-6 border border-white/5 bg-white/5 rounded-3xl backdrop-blur-md hover:border-taxi-yellow/40 hover:bg-white/10 transition-all flex flex-col justify-between group"
+                  className="p-6 border border-white/10 bg-white/5 rounded-3xl backdrop-blur-md hover:border-taxi-yellow/40 hover:bg-white/10 transition-all flex flex-col justify-between group"
                 >
                   <div>
                     <span className="px-2.5 py-0.5 text-[8px] font-black text-black bg-taxi-yellow rounded uppercase">
@@ -230,20 +410,22 @@ function Home() {
           </div>
         </section>
 
-        {/* DYNAMIC COMPONENTS */}
-        <section id="tariff" className="py-12 border-t border-white/5 bg-transparent">
+        {/* DYNAMIC TARIFF & FLEET COMPONENTS */}
+        <section id="tariff" className="py-24 sm:py-32 border-t border-white/5 bg-black">
           <OurTariff />
         </section>
-        <section id="fleet" className="py-12 border-t border-white/5 bg-transparent">
+        <section id="fleet" className="py-24 sm:py-32 border-t border-white/5 bg-neutral-950">
           <OurFleet />
         </section>
 
-        {/* REVIEWS */}
+        {/* =========================================================================
+            3. CUSTOMER REVIEWS (PRESERVED UNCHANGED)
+           ========================================================================= */}
         <section
-          className="px-4 py-24 border-t border-white/5 bg-transparent"
+          className="px-4 py-24 sm:py-32 border-t border-white/10 bg-black"
           aria-label="Customer Reviews"
         >
-          <h2 className="mb-16 text-3xl font-extrabold text-center text-white sm:text-4xl uppercase tracking-wider">
+          <h2 className="mb-16 text-3xl sm:text-5xl font-black text-center text-white uppercase tracking-tight">
             What Our Customers Say
           </h2>
 
@@ -276,7 +458,7 @@ function Home() {
                       .map((review, idx) => (
                         <div
                           key={idx}
-                          className="flex flex-col w-full max-w-md p-8 border border-white/5 bg-white/5 rounded-3xl backdrop-blur-md relative"
+                          className="flex flex-col w-full max-w-md p-8 border border-white/10 bg-white/5 rounded-3xl backdrop-blur-md relative"
                         >
                           <Quote className="w-8 h-8 mb-6 text-taxi-yellow/20" />
                           
@@ -321,12 +503,9 @@ function Home() {
         </section>
       </main>
 
-      {/* FLOATING ACTION BUTTONS & WIDGETS */}
+      {/* FLOATING ACTION BUTTONS & WIDGETS (PRESERVED UNCHANGED) */}
       <LiveChat />
       <FloatingBottomBar />
     </div>
   );
 }
-
-export default Home;
-
