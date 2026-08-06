@@ -13,7 +13,6 @@ import MyBookings from './pages/MyBookings';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import LoginPage from './pages/LoginPage';
-import TermsAndConditions from './pages/TermsAndConditions';
 
 import RouteDetailPage from './pages/routes/RouteDetailPage';
 import AirportPage from './pages/airports/AirportPage';
@@ -64,7 +63,6 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/my-bookings" element={<MyBookings />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
 
             {/* Blog Pages */}
             <Route path="/blog" element={<BlogList />} />
