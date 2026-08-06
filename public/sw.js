@@ -1,7 +1,6 @@
-const CACHE_NAME = 'pranav-drop-taxi-v1';
+const CACHE_NAME = 'pranav-drop-taxi-v2';
 const urlsToCache = [
   '/',
-  '/index.html',
   '/manifest.json',
   '/taxi.webp',
   '/logo192.png',
@@ -34,9 +33,25 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+
+  // Network-first strategy for HTML navigation requests so index.html always gets new JS/CSS hashes
+  if (event.request.mode === 'navigate' || event.request.headers.get('accept')?.includes('text/html')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
+          return response;
+        })
+        .catch(() => caches.match('/index.html'))
+    );
+    return;
+  }
+
+  // Cache-first fallback to network for assets
   event.respondWith(
     caches.match(event.request).then((response) => {
-      return response || fetch(event.request).catch(() => caches.match('/'));
+      return response || fetch(event.request);
     })
   );
 });
