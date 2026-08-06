@@ -85,6 +85,11 @@ function App() {
             <Route path="/madurai-to-chennai-taxi" element={<RouteDetailPage />} />
             <Route path="/coimbatore-to-chennai-taxi" element={<RouteDetailPage />} />
             <Route path="/bangalore-to-chennai-taxi" element={<RouteDetailPage />} />
+            <Route path="/one-way-taxi-chennai" element={<RouteDetailPage />} />
+            <Route path="/chennai-drop-taxi" element={<RouteDetailPage />} />
+            <Route path="/pondicherry-taxi" element={<RouteDetailPage />} />
+            <Route path="/tirupati-taxi" element={<RouteDetailPage />} />
+            <Route path="/coimbatore-taxi" element={<RouteDetailPage />} />
             <Route path="/:routeSlug" element={<RouteDetailPage />} />
           </Routes>
         </LayoutWrapper>

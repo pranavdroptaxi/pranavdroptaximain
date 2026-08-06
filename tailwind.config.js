@@ -6,11 +6,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Custom Brand Palette
-        'taxi-yellow': '#FFC107', // Signature Amber/Yellow
-        'taxi-black': '#000000',  // Pure Black (Sidebar/Main BG)
-        'taxi-dark': '#0A0A0A',   // Redesigned: Sleeker dark card background
-        'taxi-gray': '#1C1C1C',   // Redesigned: Premium borders & surfaces
+        // Suggested Brand Palette
+        'taxi-yellow': '#F4B400', // Accent Taxi Yellow
+        'brand-blue': '#0F4C81',  // Primary Deep Blue
+        'brand-green': '#2E7D32', // Success Green
+        'brand-dark': '#1E293B',  // Dark Slate
+        'brand-bg': '#F8FAFC',    // Light Slate Background
+        'taxi-black': '#000000',  // Pure Black
+        'taxi-dark': '#0A0A0A',   // Dark surface
+        'taxi-gray': '#1C1C1C',   // Border/surface
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

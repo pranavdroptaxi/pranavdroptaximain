@@ -13,6 +13,7 @@ import LiveChat from "../components/LiveChat";
 import PWAInstallPrompt from "../components/PWAInstallPrompt";
 import WhyChooseUs from "../components/WhyChooseUs";
 import SEOHead from "../components/SEOHead";
+import AnimatedCounter from "../components/AnimatedCounter";
 import { FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -163,18 +164,27 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="lg:col-span-6 text-left"
             >
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 mb-6 text-[10px] font-black tracking-widest text-black uppercase rounded-full bg-taxi-yellow shadow-[0_0_20px_rgba(255,193,7,0.3)]">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 mb-6 text-[10px] font-black tracking-widest text-black uppercase rounded-full bg-taxi-yellow shadow-[0_0_20px_rgba(244,180,0,0.3)]">
                 <Sparkles className="w-3.5 h-3.5" /> South India's #1 One-Way Taxi
               </div>
 
               <h1 className="mb-6 text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1] uppercase">
-                Travel South India <br />
-                <span className="gradient-text-yellow">Without Return</span> Fees
+                One Way Taxi <br />
+                <span className="gradient-text-yellow">Across South India</span>
               </h1>
 
-              <p className="mb-6 text-lg sm:text-xl font-extrabold text-taxi-yellow uppercase tracking-wider">
-                Pay Only For The One-Way Distance Traveled
-              </p>
+              {/* Stronger Typography Hierarchy Pills */}
+              <div className="flex flex-wrap gap-2.5 mb-6">
+                <span className="px-4 py-1.5 text-xs sm:text-sm font-black uppercase tracking-wider rounded-xl bg-[#0F4C81]/50 text-sky-100 border border-[#0F4C81] backdrop-blur-md shadow-md flex items-center gap-1.5">
+                  <CheckCircle className="w-4 h-4 text-taxi-yellow" /> Safe.
+                </span>
+                <span className="px-4 py-1.5 text-xs sm:text-sm font-black uppercase tracking-wider rounded-xl bg-[#2E7D32]/50 text-emerald-100 border border-[#2E7D32] backdrop-blur-md shadow-md flex items-center gap-1.5">
+                  <CheckCircle className="w-4 h-4 text-taxi-yellow" /> Affordable.
+                </span>
+                <span className="px-4 py-1.5 text-xs sm:text-sm font-black uppercase tracking-wider rounded-xl bg-white/10 text-white border border-white/20 backdrop-blur-md shadow-md flex items-center gap-1.5">
+                  <CheckCircle className="w-4 h-4 text-taxi-yellow" /> Always On Time.
+                </span>
+              </div>
 
               <p className="mb-8 text-sm font-medium text-gray-300 leading-relaxed max-w-xl">
                 Transparent per-kilometer billing with zero return charges. Enjoy 24/7 doorstep pickup across Tamil Nadu, Bangalore, Pondicherry, Kerala & Andhra Pradesh.
@@ -211,7 +221,9 @@ export default function Home() {
               {/* Metric Highlights */}
               <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 text-left">
                 <div>
-                  <span className="text-xl sm:text-2xl font-black text-white block">100%</span>
+                  <span className="text-xl sm:text-2xl font-black text-white block">
+                    <AnimatedCounter value="100%" />
+                  </span>
                   <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">One-Way Billing</span>
                 </div>
                 <div>
@@ -219,7 +231,9 @@ export default function Home() {
                   <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Doorstep Pickup</span>
                 </div>
                 <div>
-                  <span className="text-xl sm:text-2xl font-black text-white block">500+</span>
+                  <span className="text-xl sm:text-2xl font-black text-white block">
+                    <AnimatedCounter value="500+" />
+                  </span>
                   <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Happy Trips</span>
                 </div>
               </div>
@@ -353,12 +367,6 @@ export default function Home() {
           <ServiceCoverageMap />
         </section>
 
-        {/* =========================================================================
-            FAQ SECTION
-           ========================================================================= */}
-        <section className="px-4 py-24 sm:py-32 bg-black border-t border-white/10">
-          <FAQSection />
-        </section>
 
         {/* =========================================================================
             BLOG HIGHLIGHTS SECTION
@@ -499,6 +507,13 @@ export default function Home() {
               </button>
             </div>
           )}
+        </section>
+
+        {/* =========================================================================
+            FAQ SECTION (PLACED AT THE LAST POSITION)
+           ========================================================================= */}
+        <section className="px-4 py-24 sm:py-32 border-t border-white/10 bg-neutral-950">
+          <FAQSection />
         </section>
       </main>
 

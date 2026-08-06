@@ -134,7 +134,7 @@ export default function WhyChooseUs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
-                className={`group relative p-6 sm:p-8 rounded-3xl bg-neutral-900/80 border border-white/10 ${item.borderHover} backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50 flex flex-col justify-between overflow-hidden`}
+                className={`group relative p-6 sm:p-8 rounded-3xl bg-[#1E293B]/70 border border-[#0F4C81]/30 ${item.borderHover} backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50 flex flex-col justify-between overflow-hidden`}
               >
                 {/* Subtle Card Glow */}
                 <div

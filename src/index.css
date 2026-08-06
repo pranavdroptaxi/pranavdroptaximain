@@ -7,6 +7,9 @@
 
 /* --- Global Styles --- */
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply antialiased text-gray-200 bg-black;
     font-family: 'Inter', sans-serif;
@@ -96,7 +99,11 @@
   }
 
   .gradient-text-yellow {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-taxi-yellow via-yellow-500 to-amber-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#F4B400] via-yellow-400 to-amber-500;
+  }
+
+  .gradient-text-blue {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-200 to-[#0F4C81];
   }
 
   .shimmer-bg {

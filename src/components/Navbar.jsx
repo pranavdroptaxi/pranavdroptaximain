@@ -165,7 +165,7 @@ const Navbar = () => {
             <img
               src="/header.png"
               alt="Pranav Drop Taxi"
-              className="object-contain h-16 transition-transform duration-300 md:h-22 group-hover:scale-102"
+              className="object-contain h-16 sm:h-18 md:h-22 lg:h-24 transition-transform duration-300 group-hover:scale-105 drop-shadow-md"
             />
           </Link>
 

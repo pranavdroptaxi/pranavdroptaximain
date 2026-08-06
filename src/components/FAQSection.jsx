@@ -1,47 +1,37 @@
 import React, { useState } from "react";
-import { ChevronDown, HelpCircle, ShieldCheck } from "lucide-react";
+import { ChevronDown, HelpCircle } from "lucide-react";
 import { Helmet } from "react-helmet";
 
 export const faqList = [
   {
-    question: "Is toll included in the fare?",
+    question: "Is toll included?",
     answer:
-      "No, toll gate fees, state permits, and parking charges are not included in the base km rate. They are payable directly as per actual receipts incurred during your trip.",
+      "No, toll gate fees, state permits, and parking charges are not included in the base per-kilometer fare. Tolls are paid directly as per actual receipts incurred during your trip.",
   },
   {
-    question: "Is GST extra on taxi bookings?",
+    question: "Can I cancel?",
     answer:
-      "GST is charged as per government norms if official tax invoices are requested. Standard transparent billing applies to all drop trips without hidden fees.",
+      "Yes! You can cancel your cab booking completely free of charge up to 3 days before the scheduled pickup time with zero cancellation penalty.",
   },
   {
-    question: "Can I cancel my ride booking?",
+    question: "Do you provide airport pickup?",
     answer:
-      "Yes! You can cancel your booking completely free of charge up to 2 hours before the scheduled pickup time. No cancellation penalty is levied.",
+      "Yes! We provide dedicated 24/7 airport pickup and drop services across Chennai International Airport (MAA), Bangalore Airport (BLR), Coimbatore Airport (CJB), and Madurai Airport (IXM) with zero flight delay penalties.",
   },
   {
-    question: "Are there any hidden night charges?",
+    question: "Is night travel available?",
     answer:
-      "No, Pranav Drop Taxi has no hidden night charges. Standard per kilometer rates apply round the clock. Only the standard driver bata of ₹400 applies for night duty.",
+      "Yes! Our drop taxi service operates 24 hours a day, 7 days a week. We have experienced outstation drivers for safe night highway driving across South India.",
   },
   {
     question: "What is Driver Bata and how is it calculated?",
     answer:
-      "Driver Bata is ₹400 for single drop trips and ₹400 per calendar day (12 AM to 12 AM) for round trips. It compensates the driver for outstation meals and lodging expenses.",
+      "Driver Bata is a fixed ₹400 charge for single-way drop trips (₹400/day for round trips) to cover outstation driver meals and duty allowances.",
   },
   {
-    question: "Do you offer 24/7 Airport pickup and drop?",
+    question: "Are there any hidden charges?",
     answer:
-      "Yes, we provide 24/7 dedicated airport drop and pickup services across Chennai International Airport (MAA), Kempegowda Airport Bangalore (BLR), Coimbatore Airport (CJB), and Madurai Airport (IXM).",
-  },
-  {
-    question: "Is the taxi pet friendly?",
-    answer:
-      "Yes, pets are welcome in our cabs! Please ensure your pet is kept inside a proper carrier or on a clean blanket for comfort and hygiene.",
-  },
-  {
-    question: "Is a child safety seat available?",
-    answer:
-      "Child seats can be arranged upon request when booking in advance. Please specify child seat requirements in the notes during booking.",
+      "None at all! We strictly charge one-way distance + driver bata. There are zero return kilometer charges.",
   },
 ];
 
@@ -67,74 +57,60 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="px-4 py-20 bg-transparent" id="faq">
+    <section className="relative z-10 max-w-4xl mx-auto px-4 py-12 text-white">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-14">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 mb-3 text-[10px] font-extrabold tracking-widest text-black uppercase rounded-full bg-taxi-yellow">
-            <HelpCircle className="w-3 h-3" /> Clear & Transparent
-          </span>
-          <h2 className="text-3xl font-extrabold text-white sm:text-4xl uppercase tracking-wider">
-            Frequently Asked <span className="text-taxi-yellow">Questions</span>
-          </h2>
-          <p className="mt-3 text-xs font-bold uppercase tracking-widest text-gray-400">
-            Got questions? We have clear answers.
-          </p>
-        </div>
+      <div className="text-center mb-12">
+        <span className="inline-flex items-center gap-1.5 px-3.5 py-1 mb-3 text-[10px] font-black tracking-widest text-black uppercase rounded-full bg-taxi-yellow shadow-[0_0_20px_rgba(244,180,0,0.3)]">
+          <HelpCircle className="w-3.5 h-3.5" /> Frequently Asked Questions
+        </span>
+        <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white mb-3">
+          Have <span className="gradient-text-yellow">Questions?</span> We Have Answers
+        </h2>
+        <p className="text-xs sm:text-sm text-gray-400 font-medium max-w-xl mx-auto">
+          Everything you need to know about Pranav Drop Taxi booking, fares, safety, and policies.
+        </p>
+      </div>
 
-        <div className="space-y-4">
-          {faqList.map((faq, idx) => {
-            const isOpen = openIndex === idx;
-            return (
-              <div
-                key={idx}
-                className="border border-white/5 bg-white/5 rounded-2xl backdrop-blur-md overflow-hidden transition-all duration-300 hover:border-taxi-yellow/20"
+      <div className="space-y-4">
+        {faqList.map((item, idx) => {
+          const isOpen = openIndex === idx;
+          return (
+            <div
+              key={idx}
+              className={`rounded-2xl border transition-all duration-300 ${
+                isOpen
+                  ? "bg-[#1E293B] border-[#0F4C81] shadow-xl shadow-black/50"
+                  : "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/10"
+              }`}
+            >
+              <button
+                type="button"
+                onClick={() => toggleFAQ(idx)}
+                className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer"
               >
-                <button
-                  type="button"
-                  onClick={() => toggleFAQ(idx)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4 focus:outline-none"
+                <span className="text-sm sm:text-base font-extrabold text-white uppercase tracking-wider">
+                  {item.question}
+                </span>
+                <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
+                    isOpen ? "bg-taxi-yellow text-black rotate-180" : "bg-white/10 text-gray-300"
+                  }`}
                 >
-                  <span className="text-base font-extrabold text-white">
-                    {faq.question}
-                  </span>
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center bg-white/5 transition-transform duration-300 ${
-                      isOpen ? "rotate-180 bg-taxi-yellow text-black" : "text-gray-400"
-                    }`}
-                  >
-                    <ChevronDown className="w-4 h-4" />
-                  </div>
-                </button>
+                  <ChevronDown className="w-4 h-4" />
+                </div>
+              </button>
 
-                {isOpen && (
-                  <div className="px-6 pb-6 pt-2 text-sm text-gray-300 leading-relaxed border-t border-white/5">
-                    {faq.answer}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="mt-12 p-6 rounded-3xl bg-white/5 border border-white/5 text-center flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3 text-left">
-            <ShieldCheck className="w-8 h-8 text-taxi-yellow shrink-0" />
-            <div>
-              <h4 className="text-sm font-extrabold text-white uppercase">Have more questions?</h4>
-              <p className="text-xs text-gray-400">Our customer desk is available 24 hours a day.</p>
+              {isOpen && (
+                <div className="px-5 pb-6 sm:px-6 pt-0 text-xs sm:text-sm leading-relaxed text-gray-300 font-normal border-t border-white/5 mt-2">
+                  <p className="pt-4">{item.answer}</p>
+                </div>
+              )}
             </div>
-          </div>
-          <a
-            href="tel:+919884949171"
-            className="px-6 py-3 text-xs font-black text-black bg-taxi-yellow rounded-xl uppercase tracking-wider hover:bg-white transition-all shadow-[0_0_15px_rgba(255,193,7,0.2)] whitespace-nowrap"
-          >
-            Call Support Now
-          </a>
-        </div>
+          );
+        })}
       </div>
     </section>
   );
