@@ -94,7 +94,8 @@ export default function VehicleComparisonTable() {
                 </div>
                 <button
                   onClick={scrollToBooking}
-                  className="px-4 py-2 text-[10px] font-black text-black uppercase tracking-wider bg-taxi-yellow rounded-xl active:scale-95 shadow-md"
+                  aria-label={`Select ${v.type} for booking`}
+                  className="px-4 py-2 text-[10px] font-black text-black uppercase tracking-wider bg-taxi-yellow rounded-xl active:scale-95 shadow-md cursor-pointer"
                 >
                   Select
                 </button>
@@ -102,20 +103,20 @@ export default function VehicleComparisonTable() {
 
               <div className="grid grid-cols-2 gap-3 pt-3 border-t border-white/10 text-xs">
                 <div>
-                  <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest block">One Way Rate</span>
+                  <span className="text-[9px] font-bold text-gray-300 uppercase tracking-widest block">One Way Rate</span>
                   <span className="text-base font-black text-white font-mono">{v.oneway}</span>
                 </div>
                 <div>
-                  <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest block">Round Trip Rate</span>
+                  <span className="text-[9px] font-bold text-gray-300 uppercase tracking-widest block">Round Trip Rate</span>
                   <span className="text-base font-black text-taxi-yellow font-mono">{v.roundtrip}</span>
                 </div>
                 <div>
-                  <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest block">Capacity</span>
+                  <span className="text-[9px] font-bold text-gray-300 uppercase tracking-widest block">Capacity</span>
                   <span className="text-xs font-bold text-gray-200">{v.seats} Seats | {v.bags} Bags</span>
                 </div>
                 <div>
-                  <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest block">Min Billing</span>
-                  <span className="text-xs font-bold text-gray-400">{v.minKm}</span>
+                  <span className="text-[9px] font-bold text-gray-300 uppercase tracking-widest block">Min Billing</span>
+                  <span className="text-xs font-bold text-gray-300">{v.minKm}</span>
                 </div>
               </div>
             </div>
@@ -190,6 +191,7 @@ export default function VehicleComparisonTable() {
                     <td className="p-5 text-right">
                       <button
                         onClick={scrollToBooking}
+                        aria-label={`Select ${v.type} for booking`}
                         className="px-4 py-2 text-[10px] font-extrabold text-black uppercase tracking-wider bg-taxi-yellow rounded-xl hover:bg-white transition-all transform active:scale-95 shadow-[0_0_15px_rgba(255,193,7,0.2)] cursor-pointer"
                       >
                         Select

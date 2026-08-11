@@ -51,7 +51,8 @@ export default function Home() {
       tagline: "Express Tamil Nadu Highways",
       badge: "Smooth Intercity Rides",
       desc: "Travel stress-free across Tamil Nadu expressways in clean, high-performance Sedans & SUVs.",
-      image: "/images/hero_highway_taxi.png",
+      image: "/images/hero_highway_taxi.webp",
+      fallbackImage: "/images/hero_highway_taxi.png",
       icon: Compass,
     },
     {
@@ -60,7 +61,8 @@ export default function Home() {
       tagline: "Comfortable Outstation Journeys",
       badge: "Spacious & Air-Conditioned",
       desc: "Enjoy quiet, safe travel with spacious seating, clean interiors, and experienced family-friendly drivers.",
-      image: "/images/hero_family_travel.png",
+      image: "/images/hero_family_travel.webp",
+      fallbackImage: "/images/hero_family_travel.png",
       icon: Users,
     },
     {
@@ -69,7 +71,8 @@ export default function Home() {
       tagline: "24/7 Gate & Terminal Pickup",
       badge: "Zero Flight Delay Fees",
       desc: "Direct transfers to MAA Chennai, BLR Bangalore, CJB Coimbatore & IXM Madurai airports.",
-      image: "/images/hero_airport_pickup.png",
+      image: "/images/hero_airport_pickup.webp",
+      fallbackImage: "/images/hero_airport_pickup.png",
       icon: Plane,
     },
     {
@@ -78,7 +81,8 @@ export default function Home() {
       tagline: "Scenic South India Routes",
       badge: "No Return Km Charges",
       desc: "Connecting 100+ South Indian cities with transparent per-kilometer distance billing.",
-      image: "/images/hero_drone_highway.png",
+      image: "/images/hero_drone_highway.webp",
+      fallbackImage: "/images/hero_drone_highway.png",
       icon: MapPin,
     },
   ];
@@ -255,9 +259,10 @@ export default function Home() {
                     <button
                       key={vis.id}
                       onClick={() => setActiveHeroTab(idx)}
+                      aria-label={`Showcase ${vis.label}`}
                       className={`flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-xl transition-all ${isActive
                           ? "bg-taxi-yellow text-black font-black shadow-lg shadow-taxi-yellow/20 scale-105"
-                          : "bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10 hover:text-white"
+                          : "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10 hover:text-white"
                         }`}
                     >
                       <Icon className="w-3.5 h-3.5" />
@@ -280,7 +285,11 @@ export default function Home() {
                   >
                     <img
                       src={heroVisuals[activeHeroTab].image}
+                      onError={(e) => { e.currentTarget.src = heroVisuals[activeHeroTab].fallbackImage; }}
                       alt={heroVisuals[activeHeroTab].tagline}
+                      width="600"
+                      height="375"
+                      fetchPriority="high"
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                     />
 
@@ -295,9 +304,9 @@ export default function Home() {
 
                     {/* Bottom Card Text Overlay */}
                     <div className="absolute bottom-0 inset-x-0 p-6 text-left">
-                      <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wider mb-1">
+                      <p className="text-xl sm:text-2xl font-black text-white uppercase tracking-wider mb-1">
                         {heroVisuals[activeHeroTab].tagline}
-                      </h3>
+                      </p>
                       <p className="text-xs text-gray-300 font-medium leading-relaxed max-w-lg">
                         {heroVisuals[activeHeroTab].desc}
                       </p>

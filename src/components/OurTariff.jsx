@@ -90,12 +90,12 @@ export default function Tariff() {
         </h2>
 
         {/* Dynamic Description */}
-        <div className="flex flex-col items-center justify-center gap-2 mb-10 text-xs font-bold uppercase tracking-widest text-gray-500 sm:flex-row">
+        <div className="flex flex-col items-center justify-center gap-2 mb-10 text-xs font-bold uppercase tracking-widest text-gray-300 sm:flex-row">
           <p className="flex items-center gap-1.5">
             <CheckCircle className="w-3.5 h-3.5 text-taxi-yellow" />{" "}
             {descriptions[tab][0]}
           </p>
-          <span className="hidden w-1.5 h-1.5 rounded-full bg-gray-700 sm:block" />
+          <span className="hidden w-1.5 h-1.5 rounded-full bg-gray-600 sm:block" />
           <p className="flex items-center gap-1.5">
             <CheckCircle className="w-3.5 h-3.5 text-taxi-yellow" />{" "}
             {descriptions[tab][1]}
@@ -110,7 +110,7 @@ export default function Tariff() {
             className={`px-8 py-3 rounded-full text-xs font-extrabold uppercase tracking-widest transition-all duration-300 transform ${
               tab === "oneway"
                 ? "bg-taxi-yellow text-black scale-102 shadow-[0_0_20px_rgba(255,193,7,0.3)]"
-                : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5"
+                : "bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white border border-white/5"
             }`}
           >
             One Way
@@ -122,7 +122,7 @@ export default function Tariff() {
             className={`px-8 py-3 rounded-full text-xs font-extrabold uppercase tracking-widest transition-all duration-300 transform ${
               tab === "roundtrip"
                 ? "bg-taxi-yellow text-black scale-102 shadow-[0_0_20px_rgba(255,193,7,0.3)]"
-                : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5"
+                : "bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white border border-white/5"
             }`}
           >
             Round Trip
@@ -190,7 +190,7 @@ export default function Tariff() {
 
                     <td className="p-5 font-mono text-base font-extrabold text-white border-b border-white/5">
                       ₹{tab === "oneway" ? item.oneway : item.roundtrip}
-                      <span className="text-xs font-normal text-gray-500">
+                      <span className="text-xs font-medium text-gray-300">
                         /km
                       </span>
                     </td>
@@ -228,13 +228,13 @@ export default function Tariff() {
           className="grid grid-cols-1 gap-6 md:grid-cols-2"
         >
           <div className={boxStyle}>
-            <h4 className="flex items-center gap-3 mb-4 text-lg font-bold text-white">
+            <h3 className="flex items-center gap-3 mb-4 text-lg font-bold text-white">
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-taxi-yellow text-black shadow-[0_0_15px_rgba(255,193,7,0.4)]">
                 <Route className="w-5 h-5" />
               </div>
               Drop Trip Terms
-            </h4>
-            <ul className="pl-2 space-y-3 text-sm text-gray-400">
+            </h3>
+            <ul className="pl-2 space-y-3 text-sm text-gray-300">
               <li className="flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
                 Driver Bata: ₹400
@@ -255,13 +255,13 @@ export default function Tariff() {
           </div>
 
           <div className={boxStyle}>
-            <h4 className="flex items-center gap-3 mb-4 text-lg font-bold text-white">
+            <h3 className="flex items-center gap-3 mb-4 text-lg font-bold text-white">
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-taxi-yellow text-black shadow-[0_0_15px_rgba(255,193,7,0.4)]">
                 <Repeat className="w-5 h-5" />
               </div>
               Round Trip Terms
-            </h4>
-            <ul className="pl-2 space-y-3 text-sm text-gray-400">
+            </h3>
+            <ul className="pl-2 space-y-3 text-sm text-gray-300">
               <li className="flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
                 Driver Bata: ₹400 per day
@@ -282,13 +282,13 @@ export default function Tariff() {
           </div>
 
           <div className={boxStyle}>
-            <h4 className="flex items-center gap-3 mb-4 text-lg font-bold text-white">
+            <h3 className="flex items-center gap-3 mb-4 text-lg font-bold text-white">
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-taxi-yellow text-black shadow-[0_0_15px_rgba(255,193,7,0.4)]">
                 <Car className="w-5 h-5" />
               </div>
               Extra Charges
-            </h4>
-            <ul className="pl-2 space-y-3 text-sm text-gray-400">
+            </h3>
+            <ul className="pl-2 space-y-3 text-sm text-gray-300">
               <li className="flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
                 Toll fees (as applicable)
@@ -305,13 +305,13 @@ export default function Tariff() {
           </div>
 
           <div className={boxStyle}>
-            <h4 className="flex items-center gap-3 mb-4 text-lg font-bold text-white">
+            <h3 className="flex items-center gap-3 mb-4 text-lg font-bold text-white">
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-taxi-yellow text-black shadow-[0_0_15px_rgba(255,193,7,0.4)]">
                 <Info className="w-5 h-5" />
               </div>
               Important Notes
-            </h4>
-            <ul className="pl-2 space-y-3 text-sm text-gray-400">
+            </h3>
+            <ul className="pl-2 space-y-3 text-sm text-gray-300">
               <li className="flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-taxi-yellow shrink-0"></span>{" "}
                 1 day = 1 calendar day (12 AM to 12 AM)

@@ -333,19 +333,19 @@ export default function RouteDetailPage() {
             {/* Quick Metrics Bar */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 bg-black/60 rounded-2xl border border-white/10">
               <div>
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block">Distance</span>
+                <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest block">Distance</span>
                 <span className="text-xl font-black text-white font-mono">{routeInfo.distance}</span>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block">Est. Time</span>
+                <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest block">Est. Time</span>
                 <span className="text-xl font-black text-white font-mono">{routeInfo.time}</span>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block">Starting Fare</span>
+                <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest block">Starting Fare</span>
                 <span className="text-xl font-black text-taxi-yellow font-mono">₹{routeInfo.minFare.toLocaleString()}</span>
               </div>
               <div>
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block">Driver Bata</span>
+                <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest block">Driver Bata</span>
                 <span className="text-xl font-black text-green-400 font-mono">₹400</span>
               </div>
             </div>

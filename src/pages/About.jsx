@@ -185,6 +185,7 @@ export default function AboutUs() {
       {showTopButton && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Scroll to top"
           className="fixed z-50 p-3.5 text-black rounded-full bottom-6 right-6 bg-taxi-yellow hover:bg-white active:scale-95 transition-all"
         >
           <ChevronUp className="w-6 h-6" />

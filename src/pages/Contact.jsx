@@ -98,9 +98,9 @@ export default function Contact() {
           <span className="inline-block px-3.5 py-1 mb-5 text-[10px] font-extrabold tracking-widest text-black uppercase rounded-full bg-taxi-yellow shadow-[0_0_15px_rgba(255,193,7,0.25)]">
             Get in Touch
           </span>
-          <h2 className="text-3xl font-extrabold uppercase tracking-wider text-white md:text-5xl">
+          <h1 className="text-3xl font-extrabold uppercase tracking-wider text-white md:text-5xl">
             Contact <span className="text-taxi-yellow">Pranav Drop Taxi</span>
-          </h2>
+          </h1>
         </motion.div>
 
         {/* Content Grid */}
@@ -112,9 +112,9 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
             className="p-8 border border-white/5 bg-white/5 backdrop-blur-md rounded-3xl"
           >
-            <h3 className="mb-8 text-xl font-extrabold text-white uppercase tracking-wider">
+            <h2 className="mb-8 text-xl font-extrabold text-white uppercase tracking-wider">
               Contact Information
-            </h3>
+            </h2>
 
             <div className="space-y-6">
               <div className="flex gap-4">
@@ -122,7 +122,7 @@ export default function Contact() {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div className="space-y-1">
-                  <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Address</p>
+                  <p className="text-[10px] font-bold text-gray-300 uppercase tracking-widest">Address</p>
                   <p className="text-sm font-bold text-white leading-relaxed">
                     MGR Nagar, Nehru Street,
                     <br />
@@ -136,7 +136,7 @@ export default function Contact() {
                   <Phone className="w-5 h-5" />
                 </div>
                 <div className="space-y-1">
-                  <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Phone</p>
+                  <p className="text-[10px] font-bold text-gray-300 uppercase tracking-widest">Phone</p>
                   <a href="tel:+919884949171" className="text-sm font-bold text-white hover:text-taxi-yellow transition-colors">
                     +91 9884949171
                   </a>
@@ -148,7 +148,7 @@ export default function Contact() {
                   <Mail className="w-5 h-5" />
                 </div>
                 <div className="space-y-1">
-                  <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Email</p>
+                  <p className="text-[10px] font-bold text-gray-300 uppercase tracking-widest">Email</p>
                   <a
                     href="mailto:droptaxipranav@gmail.com"
                     className="text-sm font-bold text-white hover:text-taxi-yellow transition-colors"
@@ -192,6 +192,7 @@ export default function Contact() {
       {showTopBtn && (
         <button
           onClick={scrollToTop}
+          aria-label="Scroll to top"
           className="fixed z-50 p-3.5 text-black rounded-full bottom-6 right-6 bg-taxi-yellow hover:bg-white active:scale-95 transition-all"
         >
           <ChevronUp className="w-6 h-6" />

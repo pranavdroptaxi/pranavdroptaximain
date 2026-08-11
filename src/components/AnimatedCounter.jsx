@@ -31,11 +31,11 @@ export default function AnimatedCounter({ value, suffix = "", duration = 2000 })
   }, [isInView, numericValue, duration]);
 
   if (isNaN(numericValue) || numericValue === 0) {
-    return <span ref={ref}>{value}</span>;
+    return <span ref={ref} className="font-mono tabular-nums inline-block">{value}</span>;
   }
 
   return (
-    <span ref={ref} className="font-mono">
+    <span ref={ref} className="font-mono tabular-nums inline-block min-w-[3ch]">
       {count.toLocaleString()}
       {suffix || value.replace(/[0-9,]/g, "")}
     </span>

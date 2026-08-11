@@ -15,6 +15,8 @@ const TripTypeSelector = ({ tripType, setTripType }) => {
               key={type}
               type="button"
               onClick={() => setTripType(type)}
+              aria-label={type === 'oneway' ? 'Select One Way Trip' : 'Select Round Trip'}
+              aria-pressed={isActive}
               className="relative flex-1 flex items-center justify-center gap-2 py-2.5 text-xs font-extrabold tracking-widest uppercase rounded-full transition-all duration-300 z-10 text-center"
             >
               {type === 'oneway' ? (

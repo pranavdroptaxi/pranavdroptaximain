@@ -158,8 +158,11 @@ export default function OurFleet() {
           >
             <div className="flex items-center justify-center p-4 mb-6 rounded-2xl bg-white/5 shadow-inner">
               <img
-                src={car.img}
+                src={car.img.replace('.png', '.webp')}
+                onError={(e) => { e.currentTarget.src = car.img; }}
                 alt={`${car.name} taxi`}
+                width="280"
+                height="128"
                 className="object-contain w-full h-32 transition-transform duration-300 hover:scale-105"
                 loading="lazy"
               />
@@ -169,14 +172,14 @@ export default function OurFleet() {
               {car.name}
             </h3>
 
-            <div className="flex items-center justify-center gap-6 mb-6 text-xs font-bold uppercase tracking-wider text-gray-500">
+            <div className="flex items-center justify-center gap-6 mb-6 text-xs font-bold uppercase tracking-wider text-gray-300">
               <span>{car.passengers} Passengers</span>
               <span>{car.bags} Bags</span>
             </div>
 
             <div className="mb-6 space-y-2.5">
               {car.features.map((item, i) => (
-                <div key={i} className="flex items-center gap-2 text-xs font-medium text-gray-400">
+                <div key={i} className="flex items-center gap-2 text-xs font-medium text-gray-300">
                   <item.icon className="w-4 h-4 text-taxi-yellow" />
                   {item.text}
                 </div>
@@ -185,16 +188,17 @@ export default function OurFleet() {
 
             <div className="pt-6 mt-auto border-t border-white/5">
               <div className="flex justify-between mb-2 text-xs font-bold uppercase tracking-wider">
-                <span className="text-gray-500">One Way</span>
+                <span className="text-gray-300">One Way</span>
                 <span className="font-extrabold text-white">₹{car.pricing.oneway}/km</span>
               </div>
               <div className="flex justify-between mb-6 text-xs font-bold uppercase tracking-wider">
-                <span className="text-gray-500">Round Trip</span>
+                <span className="text-gray-300">Round Trip</span>
                 <span className="font-extrabold text-white">₹{car.pricing.roundtrip}/km</span>
               </div>
 
               <a
                 href="tel:+918778143908"
+                aria-label={`Call to book ${car.name} taxi`}
                 className="flex items-center justify-center w-full gap-2 py-3.5 text-xs font-extrabold uppercase tracking-widest text-black transition-all rounded-xl bg-taxi-yellow hover:bg-white active:scale-[0.98]"
               >
                 <PhoneCall className="w-3.5 h-3.5" /> Book Now

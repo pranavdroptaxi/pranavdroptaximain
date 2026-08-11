@@ -215,7 +215,7 @@ const MyBookings = () => {
       <div className="relative z-10 max-w-4xl px-4 py-8 mx-auto sm:px-6">
         
         <div className="mb-12 text-center">
-          <h2 className="text-2xl font-extrabold uppercase tracking-wider text-white">Your <span className="text-taxi-yellow">Bookings</span></h2>
+          <h1 className="text-2xl font-extrabold uppercase tracking-wider text-white">Your <span className="text-taxi-yellow">Bookings</span></h1>
           <div className="w-12 h-1 mx-auto mt-2 rounded bg-taxi-yellow shadow-[0_0_10px_#FFC107]"></div>
         </div>
 
@@ -231,7 +231,7 @@ const MyBookings = () => {
           </div>
         ) : bookings.length === 0 ? (
           <div className="p-12 text-center border border-white/5 shadow-2xl bg-white/5 backdrop-blur-md rounded-3xl">
-             <p className="text-sm font-bold text-gray-500 uppercase tracking-wider">No bookings found.</p>
+             <p className="text-sm font-bold text-gray-300 uppercase tracking-wider">No bookings found.</p>
              <Link to="/" className="inline-block mt-4 text-xs font-bold uppercase tracking-widest text-taxi-yellow hover:underline">Book your first ride now →</Link>
           </div>
         ) : (
@@ -297,7 +297,7 @@ const MyBookings = () => {
                         <span className="flex items-center justify-center w-5 h-5 text-[10px] font-bold text-black rounded-lg bg-taxi-yellow">
                           {index + 1}
                         </span>
-                        <h3 className="font-mono text-xs font-bold text-gray-500 uppercase tracking-widest">ID: {bookingId || id.slice(0,8)}</h3>
+                        <span className="font-mono text-xs font-bold text-gray-300 uppercase tracking-widest">ID: {bookingId || id.slice(0,8)}</span>
                         
                         {/* Status Tag */}
                         {getStatusTag(status)}
@@ -311,6 +311,7 @@ const MyBookings = () => {
                             }}
                             className="flex items-center gap-1 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-black transition-all bg-green-500 rounded hover:bg-green-400"
                             title="Download Invoice"
+                            aria-label={`Download Invoice for Booking ${bookingId || id.slice(0,8)}`}
                           >
                             <FileText className="w-3 h-3" /> Invoice
                           </button>
@@ -323,7 +324,7 @@ const MyBookings = () => {
                          <span>{destination?.displayName || "N/A"}</span>
                       </div>
                       
-                      <p className="flex items-center gap-2 mt-2 text-[9px] font-bold uppercase tracking-widest text-gray-600">
+                      <p className="flex items-center gap-2 mt-2 text-[9px] font-bold uppercase tracking-widest text-gray-300">
                         <Calendar className="w-3 h-3 text-taxi-yellow" />
                         Trip: {formatDate(date)} {isRound && `— ${formatDate(returnDate)}`}
                       </p>
@@ -335,7 +336,7 @@ const MyBookings = () => {
                          {!isCompleted && <span className="ml-1 text-[9px] font-bold uppercase tracking-widest text-yellow-500/70">(Est)</span>}
                        </p>
                        <div className="p-2 transition-colors rounded-xl bg-white/5 border border-white/5 hover:bg-white/10">
-                          {isExpanded ? <ChevronUp className="w-4 h-4 text-taxi-yellow"/> : <ChevronDown className="w-4 h-4 text-gray-500"/>}
+                          {isExpanded ? <ChevronUp className="w-4 h-4 text-taxi-yellow"/> : <ChevronDown className="w-4 h-4 text-gray-300"/>}
                        </div>
                     </div>
                   </div>
@@ -355,32 +356,32 @@ const MyBookings = () => {
                           <div className="grid grid-cols-1 gap-6 text-xs sm:grid-cols-2">
                              {/* Col 1: General Info */}
                              <div className="space-y-3 font-bold uppercase tracking-wider">
-                                <h4 className="mb-2 text-[10px] font-extrabold tracking-widest text-gray-500 uppercase border-b border-white/5 pb-1">Trip Details</h4>
-                                <div className="flex justify-between"><span className="text-gray-500">Booked On:</span> <span>{formatDate(createdAt)}</span></div>
-                                <div className="flex justify-between"><span className="text-gray-500">Type:</span> <span>{isRound ? "Round Trip" : "One Way"}</span></div>
-                                <div className="flex justify-between"><span className="text-gray-500">Vehicle:</span> <span>{vehicleLabelMap[vehicleType]}</span></div>
+                                <h3 className="mb-2 text-[10px] font-extrabold tracking-widest text-gray-300 uppercase border-b border-white/5 pb-1">Trip Details</h3>
+                                <div className="flex justify-between"><span className="text-gray-300">Booked On:</span> <span>{formatDate(createdAt)}</span></div>
+                                <div className="flex justify-between"><span className="text-gray-300">Type:</span> <span>{isRound ? "Round Trip" : "One Way"}</span></div>
+                                <div className="flex justify-between"><span className="text-gray-300">Vehicle:</span> <span>{vehicleLabelMap[vehicleType]}</span></div>
                                 <div className="flex justify-between">
-                                    <span className="text-gray-500">Distance:</span> 
+                                    <span className="text-gray-300">Distance:</span> 
                                     <span>{distance || '-'} km {!isCompleted && <span className="text-[9px] font-bold text-yellow-500/70">(Est)</span>}</span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="text-gray-500">Duration:</span> 
+                                    <span className="text-gray-300">Duration:</span> 
                                     <span>{formatDuration(duration)} {!isCompleted && <span className="text-[9px] font-bold text-yellow-500/70">(Est)</span>}</span>
                                 </div>
                              </div>
 
                              {/* Col 2: Cost Breakdown */}
                              <div className="space-y-3 font-bold uppercase tracking-wider">
-                                <h4 className="mb-2 text-[10px] font-extrabold tracking-widest text-gray-500 uppercase border-b border-white/5 pb-1">Fare Breakdown</h4>
-                                <div className="flex justify-between"><span className="text-gray-500">Base Fare:</span> <span>₹{base}</span></div>
+                                <h3 className="mb-2 text-[10px] font-extrabold tracking-widest text-gray-300 uppercase border-b border-white/5 pb-1">Fare Breakdown</h3>
+                                <div className="flex justify-between"><span className="text-gray-300">Base Fare:</span> <span>₹{base}</span></div>
                                 <div className="flex justify-between">
-                                    <span className="text-gray-500">Driver Bata:</span> 
-                                    <span className="text-[10px] text-gray-400">₹400 × {days} days = <span className="text-xs text-white">₹{bata}</span></span>
+                                    <span className="text-gray-300">Driver Bata:</span> 
+                                    <span className="text-[10px] text-gray-300">₹400 × {days} days = <span className="text-xs text-white">₹{bata}</span></span>
                                 </div>
-                                {toll > 0 && <div className="flex justify-between"><span className="text-gray-500">Toll:</span> <span>₹{toll}</span></div>}
-                                {parking > 0 && <div className="flex justify-between"><span className="text-gray-500">Parking:</span> <span>₹{parking}</span></div>}
-                                {hill > 0 && <div className="flex justify-between"><span className="text-gray-500">Hill Charges:</span> <span>₹{hill}</span></div>}
-                                {permit > 0 && <div className="flex justify-between"><span className="text-gray-500">Permit:</span> <span>₹{permit}</span></div>}
+                                {toll > 0 && <div className="flex justify-between"><span className="text-gray-300">Toll:</span> <span>₹{toll}</span></div>}
+                                {parking > 0 && <div className="flex justify-between"><span className="text-gray-300">Parking:</span> <span>₹{parking}</span></div>}
+                                {hill > 0 && <div className="flex justify-between"><span className="text-gray-300">Hill Charges:</span> <span>₹{hill}</span></div>}
+                                {permit > 0 && <div className="flex justify-between"><span className="text-gray-300">Permit:</span> <span>₹{permit}</span></div>}
                                 <div className="flex justify-between pt-2.5 font-extrabold border-t border-white/5 text-taxi-yellow">
                                    <span>Total:</span> <span>₹{total}</span>
                                 </div>
@@ -395,21 +396,24 @@ const MyBookings = () => {
                                     <div className="flex items-center gap-1.5 mb-2 text-[10px] font-bold tracking-widest text-taxi-yellow uppercase">
                                        <Star className="w-3.5 h-3.5 fill-current animate-pulse-glow" /> Your Review
                                     </div>
-                                    <p className="text-xs italic text-gray-400">"{review}"</p>
+                                    <p className="text-xs italic text-gray-300">"{review}"</p>
                                  </div>
                                ) : (
                                  <div className="space-y-3">
-                                    <label className="block text-[10px] font-bold tracking-widest text-taxi-yellow uppercase">Rate Your Experience</label>
+                                    <label htmlFor={`review-input-${id}`} className="block text-[10px] font-bold tracking-widest text-taxi-yellow uppercase">Rate Your Experience</label>
                                     <textarea
+                                      id={`review-input-${id}`}
+                                      name="review"
+                                      aria-label="Rate your experience feedback"
                                       rows={2}
                                       value={tempReview}
                                       placeholder="Write your feedback here..."
                                       onChange={(e) => setBookings(prev => prev.map(b => b.id === id ? { ...b, tempReview: e.target.value } : b))}
-                                      className="w-full p-3 text-xs text-white placeholder-gray-600 bg-black/50 border border-white/5 rounded-xl focus:border-taxi-yellow/30 focus:outline-none"
+                                      className="w-full p-3 text-xs text-white placeholder-gray-400 bg-black/50 border border-white/5 rounded-xl focus:border-taxi-yellow/30 focus:outline-none"
                                     />
                                     <button
                                       onClick={() => handleReviewSubmit(id, tempReview)}
-                                      className="px-4 py-2.5 text-[9px] font-extrabold uppercase tracking-widest text-black transition-all rounded-lg bg-taxi-yellow hover:bg-white active:scale-95"
+                                      className="px-4 py-2.5 text-[9px] font-extrabold uppercase tracking-widest text-black transition-all rounded-lg bg-taxi-yellow hover:bg-white active:scale-95 cursor-pointer"
                                     >
                                       Submit Review
                                     </button>

@@ -65,7 +65,17 @@ const VehicleSelector = ({ vehicleType, setVehicleType, tripType, distance }) =>
           return (
             <div
               key={v.type}
+              role="button"
+              tabIndex={0}
+              aria-label={`Select ${v.label} for ${tripLabel}`}
+              aria-pressed={isSelected}
               onClick={() => setVehicleType(v.type)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setVehicleType(v.type);
+                }
+              }}
               className={`
                 relative flex flex-col items-center justify-between p-4 cursor-pointer transition-all duration-300 rounded-2xl border group
                 ${isSelected 
@@ -84,8 +94,11 @@ const VehicleSelector = ({ vehicleType, setVehicleType, tripType, distance }) =>
               {/* Image */}
               <div className="flex items-center justify-center w-full h-14 mb-2">
                 <img
-                  src={v.image}
+                  src={v.image.replace('.png', '.webp')}
+                  onError={(e) => { e.currentTarget.src = v.image; }}
                   alt={v.label}
+                  width="120"
+                  height="56"
                   className={`object-contain w-full h-full transition-transform duration-500 ${isSelected ? 'scale-105' : 'group-hover:scale-102'}`}
                   loading="lazy"
                 />
@@ -111,13 +124,13 @@ const VehicleSelector = ({ vehicleType, setVehicleType, tripType, distance }) =>
                   )}
                   
                   {/* Trip Type Label */}
-                  <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider mt-1">
+                  <span className="text-[9px] font-bold text-gray-300 uppercase tracking-wider mt-1">
                     {tripLabel} (₹{rate}/km)
                   </span>
                   
                   {/* Min KM */}
-                  <div className="flex items-center gap-1 text-[9px] font-bold text-gray-500 uppercase tracking-widest mt-0.5">
-                    <Gauge className="w-3 h-3" /> Min {minKm}km
+                  <div className="flex items-center gap-1 text-[9px] font-bold text-gray-300 uppercase tracking-widest mt-0.5">
+                    <Gauge className="w-3 h-3 text-taxi-yellow" /> Min {minKm}km
                   </div>
                 </div>
               </div>

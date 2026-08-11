@@ -129,6 +129,7 @@ export default function PopularRoutes() {
                 <div className="flex items-center gap-2">
                   <Link
                     to={`/${route.slug}`}
+                    aria-label={`View details and fares for ${route.from} to ${route.to} Taxi`}
                     className="px-3.5 py-2 text-[10px] font-bold text-gray-300 uppercase tracking-wider border border-white/10 rounded-xl hover:text-white hover:bg-white/10 transition-colors"
                   >
                     Details
@@ -136,7 +137,8 @@ export default function PopularRoutes() {
 
                   <button
                     onClick={() => handleQuickBook(route)}
-                    className="px-4 py-2 text-[10px] font-extrabold text-black uppercase tracking-wider bg-taxi-yellow rounded-xl hover:bg-white transition-all transform active:scale-95 shadow-[0_0_15px_rgba(255,193,7,0.2)]"
+                    aria-label={`Book taxi ride from ${route.from} to ${route.to}`}
+                    className="px-4 py-2 text-[10px] font-extrabold text-black uppercase tracking-wider bg-taxi-yellow rounded-xl hover:bg-white transition-all transform active:scale-95 shadow-[0_0_15px_rgba(255,193,7,0.2)] cursor-pointer"
                   >
                     Book
                   </button>

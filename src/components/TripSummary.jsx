@@ -51,7 +51,7 @@ const TripSummary = ({
       <div className="space-y-1">
         <p className="text-xs font-bold tracking-wider text-gray-400 uppercase">{label}</p>
         <p className="text-sm font-bold text-white capitalize">{value}</p>
-        {subtext && <p className="text-[10px] text-gray-500 font-medium">{subtext}</p>}
+        {subtext && <p className="text-[10px] text-gray-300 font-medium">{subtext}</p>}
       </div>
     </div>
   );
@@ -117,7 +117,7 @@ const TripSummary = ({
             <div className="space-y-1">
                 <p className="text-[9px] font-bold tracking-widest uppercase text-taxi-yellow">Est. Cost</p>
                 <p className="text-base font-extrabold text-white leading-none">{formatRupees(cost)}</p>
-                <p className="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-1">(Base Fare)</p>
+                <p className="text-[8px] text-gray-300 font-bold uppercase tracking-wider mt-1">(Base Fare)</p>
             </div>
           </div>
 
@@ -132,16 +132,16 @@ const TripSummary = ({
                     <UserCheck className="w-4 h-4" />
                 </div>
                 <div className="space-y-0.5">
-                    <p className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Driver Bata</p>
-                    <p className="text-xs font-bold text-white">₹400 <span className="text-[10px] font-normal text-gray-500">/ day (Extra)</span></p>
+                    <p className="text-[9px] font-bold text-gray-300 uppercase tracking-wider">Driver Bata</p>
+                    <p className="text-xs font-bold text-white">₹400 <span className="text-[10px] font-medium text-gray-300">/ day (Extra)</span></p>
                 </div>
             </div>
 
             {/* Important Info */}
             <div className="col-span-1 p-4 border sm:col-span-2 border-white/5 rounded-2xl bg-white/5">
-                <h4 className="flex items-center gap-2 mb-2.5 text-[9px] font-bold tracking-widest uppercase text-taxi-yellow">
+                <p className="flex items-center gap-2 mb-2.5 text-[9px] font-bold tracking-widest uppercase text-taxi-yellow">
                     <Info className="w-3.5 h-3.5" /> Important Information
-                </h4>
+                </p>
                 <ul className="space-y-1.5 text-[10px] text-gray-400 font-medium list-disc list-inside leading-relaxed">
                     <li>Rates are based on approximate distance & duration.</li>
                     <li>Final fare may change depending on actual distance.</li>

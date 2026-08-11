@@ -9,22 +9,24 @@ const DateTimePicker = ({ tripType, date, returnDate, setDate, setReturnDate }) 
       
       {/* Pickup Date */}
       <div className="space-y-2">
-        <label className="ml-1 text-[10px] font-bold tracking-widest text-gray-500 uppercase">
+        <label htmlFor="pickup-date" className="ml-1 text-[10px] font-bold tracking-widest text-gray-300 uppercase">
           Pickup Date
         </label>
         <div className="relative group">
           <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-            <Calendar className="w-4 h-4 text-gray-500 transition-colors group-focus-within:text-taxi-yellow" />
+            <Calendar className="w-4 h-4 text-gray-400 transition-colors group-focus-within:text-taxi-yellow" />
           </div>
           <input
             id="pickup-date"
+            name="pickup-date"
+            aria-label="Pickup Date"
             type="date"
             min={today}
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
             style={{ colorScheme: 'dark' }} 
-            className="w-full py-3.5 pl-11 pr-4 text-xs font-bold text-white bg-white/5 border border-white/5 rounded-xl focus:outline-none focus:border-taxi-yellow/30 focus:bg-black/50 transition-all cursor-pointer placeholder-gray-600 shadow-inner"
+            className="w-full py-3.5 pl-11 pr-4 text-xs font-bold text-white bg-white/5 border border-white/5 rounded-xl focus:outline-none focus:border-taxi-yellow/30 focus:bg-black/50 transition-all cursor-pointer placeholder-gray-400 shadow-inner"
           />
         </div>
       </div>
@@ -32,22 +34,24 @@ const DateTimePicker = ({ tripType, date, returnDate, setDate, setReturnDate }) 
       {/* Return Date – only for round trip */}
       {tripType === 'roundtrip' && (
         <div className="space-y-2">
-          <label className="ml-1 text-[10px] font-bold tracking-widest text-gray-500 uppercase">
+          <label htmlFor="return-date" className="ml-1 text-[10px] font-bold tracking-widest text-gray-300 uppercase">
             Return Date
           </label>
           <div className="relative group">
             <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-              <Calendar className="w-4 h-4 text-gray-500 transition-colors group-focus-within:text-taxi-yellow" />
+              <Calendar className="w-4 h-4 text-gray-400 transition-colors group-focus-within:text-taxi-yellow" />
             </div>
             <input
               id="return-date"
+              name="return-date"
+              aria-label="Return Date"
               type="date"
               min={date || today}
               value={returnDate}
               onChange={(e) => setReturnDate(e.target.value)}
               required
               style={{ colorScheme: 'dark' }}
-              className="w-full py-3.5 pl-11 pr-4 text-xs font-bold text-white bg-white/5 border border-white/5 rounded-xl focus:outline-none focus:border-taxi-yellow/30 focus:bg-black/50 transition-all cursor-pointer placeholder-gray-600 shadow-inner"
+              className="w-full py-3.5 pl-11 pr-4 text-xs font-bold text-white bg-white/5 border border-white/5 rounded-xl focus:outline-none focus:border-taxi-yellow/30 focus:bg-black/50 transition-all cursor-pointer placeholder-gray-400 shadow-inner"
             />
           </div>
         </div>

@@ -63,10 +63,36 @@ export default function LiveChat() {
 
   return (
     <>
-      {/* UNIFIED FLOATING ACTION STACK */}
+      {/* UNIFIED FLOATING ACTION STACK - Stable layout preventing layout shift */}
       <div className="fixed bottom-6 right-4 sm:right-6 z-40 flex flex-col items-end gap-3 pointer-events-none">
-        <div className="flex flex-col items-end gap-3 pointer-events-auto">
-          {/* Scroll To Top Button */}
+        <div className="flex flex-col-reverse items-end gap-3 pointer-events-auto">
+          {/* Live Chat Button (Anchored at base) */}
+          {!isOpen && (
+            <button
+              onClick={() => setIsOpen(true)}
+              aria-label="Open Live Chat Support"
+              className="flex items-center gap-2.5 px-4 py-2.5 bg-taxi-yellow text-black font-black text-xs uppercase tracking-wider rounded-full shadow-[0_0_20px_rgba(255,193,7,0.3)] hover:bg-white transition-all transform hover:scale-105 cursor-pointer"
+            >
+              <div className="relative">
+                <MessageSquare className="w-4 h-4" />
+                <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full border border-black animate-ping" />
+              </div>
+              <span>Chat with us</span>
+            </button>
+          )}
+
+          {/* WhatsApp Button */}
+          <a
+            href="https://wa.me/919884949171"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat on WhatsApp"
+            className="flex items-center justify-center text-white bg-green-500 rounded-full shadow-xl w-11 h-11 hover:bg-green-600 shadow-green-500/20 transition-all transform hover:scale-105"
+          >
+            <FaWhatsapp className="w-6 h-6" />
+          </a>
+
+          {/* Scroll To Top Button (Pops upward without shifting base buttons) */}
           <AnimatePresence>
             {showTopButton && (
               <motion.button
@@ -81,31 +107,6 @@ export default function LiveChat() {
               </motion.button>
             )}
           </AnimatePresence>
-
-          {/* WhatsApp Button */}
-          <a
-            href="https://wa.me/919884949171"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Chat on WhatsApp"
-            className="flex items-center justify-center text-white bg-green-500 rounded-full shadow-xl w-11 h-11 hover:bg-green-600 shadow-green-500/20 transition-all transform hover:scale-105"
-          >
-            <FaWhatsapp className="w-6 h-6" />
-          </a>
-
-          {/* Live Chat Button */}
-          {!isOpen && (
-            <button
-              onClick={() => setIsOpen(true)}
-              className="flex items-center gap-2.5 px-4 py-2.5 bg-taxi-yellow text-black font-black text-xs uppercase tracking-wider rounded-full shadow-[0_0_20px_rgba(255,193,7,0.3)] hover:bg-white transition-all transform hover:scale-105 cursor-pointer"
-            >
-              <div className="relative">
-                <MessageSquare className="w-4 h-4" />
-                <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full border border-black animate-ping" />
-              </div>
-              <span>Chat with us</span>
-            </button>
-          )}
         </div>
       </div>
 
@@ -119,9 +120,9 @@ export default function LiveChat() {
                 <Bot className="w-6 h-6" />
               </div>
               <div>
-                <h4 className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1.5">
+                <h3 className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1.5">
                   Pranav Assistant <Sparkles className="w-3 h-3 text-taxi-yellow" />
-                </h4>
+                </h3>
                 <p className="text-[9px] text-green-400 font-extrabold uppercase tracking-widest flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" /> Online
                 </p>
@@ -130,7 +131,8 @@ export default function LiveChat() {
 
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 text-gray-400 hover:text-white rounded-full hover:bg-white/10 transition-colors"
+              aria-label="Close Live Chat Window"
+              className="p-2 text-gray-400 hover:text-white rounded-full hover:bg-white/10 transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>

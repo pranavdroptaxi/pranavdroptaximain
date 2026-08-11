@@ -1,6 +1,3 @@
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
-
 // 🔄 Same vehicle options used in VehicleSelector
 const vehicleOptions = [
   { type: "sedan", label: "Sedan (4+1)" },
@@ -16,7 +13,11 @@ const vehicleLabelMap = vehicleOptions.reduce((acc, v) => {
   return acc;
 }, {});
 
-export const generateInvoicePDF = (booking) => {
+export const generateInvoicePDF = async (booking) => {
+  // Dynamically load heavy PDF generation libraries on demand
+  const { default: jsPDF } = await import("jspdf");
+  const { default: autoTable } = await import("jspdf-autotable");
+
   const doc = new jsPDF();
 
   const toNum = (n) => (!isNaN(+n) ? +n : 0);

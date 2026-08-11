@@ -150,7 +150,7 @@ const Navbar = () => {
       </div>
 
       {/* Main Navbar */}
-      <nav className={`sticky top-0 z-50 w-full transition-all duration-300 border-b ${
+      <nav className={`sticky top-0 z-50 w-full transition-colors duration-300 border-b ${
         isScrolled 
           ? "bg-black/90 border-white/5 shadow-2xl backdrop-blur-xl py-1 md:py-2" 
           : "bg-black/40 border-white/10 backdrop-blur-md py-2 md:py-4"
@@ -160,11 +160,15 @@ const Navbar = () => {
           <Link 
             to="/" 
             onClick={handleHomeClick} 
+            aria-label="Pranav Drop Taxi Home"
             className="flex items-center gap-2 group relative z-10"
           >
             <img
-              src="/header.png"
+              src="/header.webp"
+              onError={(e) => { e.currentTarget.src = "/header.png"; }}
               alt="Pranav Drop Taxi"
+              width="160"
+              height="64"
               className="object-contain h-16 sm:h-18 md:h-22 lg:h-24 transition-transform duration-300 group-hover:scale-105 drop-shadow-md"
             />
           </Link>
@@ -206,11 +210,14 @@ const Navbar = () => {
               <div className="relative ml-4" ref={desktopDropdownRef}>
                 <button 
                     onClick={() => setDropdownOpen(!dropdownOpen)}
+                    aria-label="User Account Menu"
                     className="flex items-center gap-3.5 px-3.5 py-1.5 transition-all border border-white/10 rounded-full bg-white/5 hover:bg-white/10 hover:border-taxi-yellow/30 shadow-inner"
                 >
                     <img
                         src={user.photoURL || "https://www.gravatar.com/avatar/?d=mp&s=100"}
                         alt="Profile"
+                        width="28"
+                        height="28"
                         className="object-cover w-7 h-7 border border-taxi-yellow/30 rounded-full shadow-sm"
                     />
                     <span className="max-w-[100px] truncate text-xs font-bold text-gray-200 hidden xl:block">
@@ -229,7 +236,7 @@ const Navbar = () => {
                       className="absolute right-0 w-64 mt-3 overflow-hidden border shadow-2xl bg-[#0F0F0F]/95 border-white/10 rounded-2xl backdrop-blur-xl"
                     >
                       <div className="p-4 border-b border-white/5 bg-white/5">
-                        <p className="text-[10px] font-bold tracking-widest text-gray-500 uppercase">Signed in as</p>
+                        <p className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">Signed in as</p>
                         <p className="font-bold truncate text-taxi-yellow mt-0.5">
                           {user.displayName || "Guest User"}
                         </p>
@@ -271,11 +278,14 @@ const Navbar = () => {
                 <div className="relative" ref={mobileDropdownRef}>
                     <button 
                         onClick={() => setDropdownOpen(!dropdownOpen)}
+                        aria-label="User profile menu"
                         className="flex items-center justify-center w-8 h-8 border border-taxi-yellow/40 rounded-full focus:outline-none"
                     >
                         <img
                             src={user.photoURL || "https://www.gravatar.com/avatar/?d=mp&s=100"}
                             alt="Profile"
+                            width="32"
+                            height="32"
                             className="object-cover w-full h-full rounded-full"
                         />
                     </button>
@@ -303,13 +313,18 @@ const Navbar = () => {
                     </AnimatePresence>
                 </div>
              ) : (
-                 <Link to="/my-bookings" className="flex items-center justify-center w-8 h-8 transition border border-white/10 rounded-full bg-white/5 text-taxi-yellow active:scale-95 hover:border-taxi-yellow/30">
+                 <Link 
+                   to="/my-bookings" 
+                   aria-label="View My Bookings"
+                   className="flex items-center justify-center w-8 h-8 transition border border-white/10 rounded-full bg-white/5 text-taxi-yellow active:scale-95 hover:border-taxi-yellow/30"
+                 >
                      <FiUser className="w-4 h-4" />
                  </Link>
              )}
 
             <button 
                 onClick={() => setMenuOpen(!menuOpen)}
+                aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
                 className="p-2 text-gray-300 transition-colors border border-white/10 rounded-full hover:text-white hover:bg-white/5 focus:outline-none"
             >
               {menuOpen ? <FiX size={20} /> : <FiMenu size={20} />}

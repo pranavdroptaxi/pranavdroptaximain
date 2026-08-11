@@ -89,6 +89,8 @@ export default function FAQSection() {
               <button
                 type="button"
                 onClick={() => toggleFAQ(idx)}
+                aria-expanded={isOpen}
+                aria-label={`Toggle answer for: ${item.question}`}
                 className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer"
               >
                 <span className="text-sm sm:text-base font-extrabold text-white uppercase tracking-wider">

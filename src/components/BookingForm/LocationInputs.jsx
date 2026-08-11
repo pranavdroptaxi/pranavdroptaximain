@@ -151,7 +151,7 @@ const LocationInputs = ({
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       {/* Pickup Box */}
       <div className="space-y-2 relative">
-        <label className="flex items-center justify-between ml-1 text-[10px] font-bold tracking-widest text-gray-400 uppercase">
+        <label htmlFor="pickup-location" className="flex items-center justify-between ml-1 text-[10px] font-bold tracking-widest text-gray-300 uppercase">
           <span className="flex items-center gap-2">
             <MapPin className="w-3.5 h-3.5 text-taxi-yellow" /> Pickup Location
           </span>
@@ -172,6 +172,9 @@ const LocationInputs = ({
         ) : (
           <div className="relative">
             <input
+              id="pickup-location"
+              name="pickup-location"
+              aria-label="Pickup Location"
               type="text"
               value={pickupText}
               onFocus={() => setShowPickupDropdown(true)}
@@ -185,7 +188,7 @@ const LocationInputs = ({
                 if (matched) handleManualSelect(matched, true);
               }}
               placeholder="Select or type pickup city e.g. Chennai"
-              className={`w-full px-4 py-3 text-sm text-white border rounded-xl bg-white/5 border-white/10 focus:border-taxi-yellow focus:outline-none transition-all ${
+              className={`w-full px-4 py-3 text-sm text-white border rounded-xl bg-white/5 border-white/10 focus:border-taxi-yellow focus:outline-none transition-all placeholder-gray-400 ${
                 pickupError ? "border-red-500" : ""
               }`}
             />
@@ -211,7 +214,7 @@ const LocationInputs = ({
 
         {/* Quick Choice Chips */}
         <div className="flex flex-wrap gap-1.5 pt-1">
-          <span className="text-[9px] text-gray-500 font-bold uppercase flex items-center gap-1 self-center mr-1">
+          <span className="text-[9px] text-gray-300 font-bold uppercase flex items-center gap-1 self-center mr-1">
             <Sparkles className="w-2.5 h-2.5 text-taxi-yellow" /> Quick:
           </span>
           {popularCities.slice(0, 4).map((c) => (
@@ -239,7 +242,7 @@ const LocationInputs = ({
 
       {/* Drop Box */}
       <div className="space-y-2 relative">
-        <label className="flex items-center justify-between ml-1 text-[10px] font-bold tracking-widest text-gray-400 uppercase">
+        <label htmlFor="drop-location" className="flex items-center justify-between ml-1 text-[10px] font-bold tracking-widest text-gray-300 uppercase">
           <span className="flex items-center gap-2">
             <Navigation className="w-3.5 h-3.5 text-taxi-yellow" /> Drop Location
           </span>
@@ -260,6 +263,9 @@ const LocationInputs = ({
         ) : (
           <div className="relative">
             <input
+              id="drop-location"
+              name="drop-location"
+              aria-label="Drop Location"
               type="text"
               value={dropText}
               onFocus={() => setShowDropDropdown(true)}
@@ -272,7 +278,7 @@ const LocationInputs = ({
                 if (matched) handleManualSelect(matched, false);
               }}
               placeholder="Select or type drop city e.g. Bangalore"
-              className={`w-full px-4 py-3 text-sm text-white border rounded-xl bg-white/5 border-white/10 focus:border-taxi-yellow focus:outline-none transition-all ${
+              className={`w-full px-4 py-3 text-sm text-white border rounded-xl bg-white/5 border-white/10 focus:border-taxi-yellow focus:outline-none transition-all placeholder-gray-400 ${
                 dropError ? "border-red-500" : ""
               }`}
             />
@@ -298,7 +304,7 @@ const LocationInputs = ({
 
         {/* Quick Choice Chips */}
         <div className="flex flex-wrap gap-1.5 pt-1">
-          <span className="text-[9px] text-gray-500 font-bold uppercase flex items-center gap-1 self-center mr-1">
+          <span className="text-[9px] text-gray-300 font-bold uppercase flex items-center gap-1 self-center mr-1">
             <Sparkles className="w-2.5 h-2.5 text-taxi-yellow" /> Quick:
           </span>
           {popularCities.slice(1, 5).map((c) => (

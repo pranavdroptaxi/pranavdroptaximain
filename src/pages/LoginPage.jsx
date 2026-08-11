@@ -96,8 +96,8 @@ const LoginPage = () => {
 
           <div className="p-8 sm:p-10">
             <div className="mb-8 text-center">
-              <h2 className="text-2xl font-extrabold text-white uppercase tracking-wider">Welcome Back</h2>
-              <p className="mt-2 text-xs font-bold text-gray-500 uppercase tracking-wider">
+              <h1 className="text-2xl font-extrabold text-white uppercase tracking-wider">Welcome Back</h1>
+              <p className="mt-2 text-xs font-bold text-gray-300 uppercase tracking-wider">
                 Sign in to book your ride and manage trips.
               </p>
             </div>
